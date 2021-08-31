@@ -14,6 +14,8 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         View myKeyboardView = getLayoutInflater().inflate(R.layout.key_layout, null);
         Button btnA = myKeyboardView.findViewById(R.id.btnA);
         btnA.setOnClickListener(this);
+        Button button2 = myKeyboardView.findViewById(R.id.button2);
+        button2.setOnClickListener(this);
         //ADD ALL THE OTHER LISTENERS HERE FOR ALL THE KEYS
         return myKeyboardView;
     }
@@ -25,7 +27,8 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         InputConnection ic = getCurrentInputConnection();
         if (v instanceof Button) {
             String clickedKeyText = ((Button) v).getText().toString();
-            ic.commitText(clickedKeyText, 1);
+            //ic.commitText(clickedKeyText, 1);
+            ic.commitText("hiya", 1);
         }
     }
 }
