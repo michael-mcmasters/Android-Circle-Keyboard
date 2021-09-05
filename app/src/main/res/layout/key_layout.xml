@@ -11,29 +11,30 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:id="@+id/button0"
+            android:textSize="50sp"
+            android:background="@drawable/custombackground"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/button1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.993"
-            android:textSize="75sp" />
+            app:layout_constraintVertical_bias="0.881" />
 
     <Button
             android:text="O"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:id="@+id/button1"
+            android:textSize="50sp"
+            android:background="@drawable/custombackground"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button0"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.993"
-            android:textSize="75sp"
-            android:radius="10dp"
-            android:background="@drawable/custombackground"
-            />
+            app:layout_constraintStart_toEndOf="@+id/button0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.881" />
 
     <TextView
             android:text="TextView"
@@ -57,10 +58,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.892"
             tools:text="This is Text!"
-            android:layout_marginBottom="45dp"
-            app:layout_constraintBottom_toTopOf="@+id/button1"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="450dp"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintBottom_toTopOf="@+id/button1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
