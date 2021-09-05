@@ -27,28 +27,28 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         View myKeyboardView = getLayoutInflater().inflate(R.layout.key_layout, null);
 
         Button button0 = myKeyboardView.findViewById(R.id.button0);
-        button0.setOnClickListener(this);
-
         Button button1 = myKeyboardView.findViewById(R.id.button1);
+        button0.setOnClickListener(this);
         button1.setOnClickListener(this);
-
-        // On touch, get finger's current position, get dot rotation from center, that is the key being pressed.
 
         InputConnection ic = getCurrentInputConnection();
 
         View.OnTouchListener onTouchListenerCallback = (view, motion) -> {
-            motion.getOrientation();
-
-            // (0, 0) plus width and height halved to get center of button.
+                                          // (0, 0) plus width and height halved to get center of button.
             Vector2 buttonCenterPos = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
             Vector2 touchRelativePos = new Vector2(motion.getX(), motion.getY());
             double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchRelativePos.x, touchRelativePos.y - buttonCenterPos.y);
 
-            // Plan: If touch is > than x distance away, get angle and insert that character.
-
-//            if (touchDistFromCenter > -40 && touchDistFromCenter < 40) {
-//                ic.commitText("hiya", 1);
-//            }
+            // If touch is > than x distance away, get angle and insert that character.
+            if (touchDistFromCenter > 40) {
+                float angle = getAngle(buttonCenterPos, touchRelativePos);
+                if (angle > 80 && angle < 100) {
+                    ic.commitText("a", 1);
+                }
+                else if (angle > 260 && angle < 280) {
+                    ic.commitText("z", 1);
+                }
+            }
             Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
             //Log.d(TAG, "onCreateInputView: " + touchVector.x + " " + touchVector.y);
             //Log.d(TAG, "onCreateInputView: " + buttonCenterPos.x + " " + buttonCenterPos.y);
@@ -58,7 +58,6 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
 
             return true;
         };
-
         button0.setOnTouchListener(onTouchListenerCallback);
         button1.setOnTouchListener(onTouchListenerCallback);
         return myKeyboardView;
