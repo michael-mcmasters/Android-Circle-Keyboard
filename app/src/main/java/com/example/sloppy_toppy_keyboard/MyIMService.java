@@ -74,9 +74,9 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         return myKeyboardView;
     }
 
-    private float getAngle(Vector2 target, Vector2 other) {
-        float angle = (float) Math.toDegrees(Math.atan2(target.y - other.y, target.x - other.x));
-        if(angle < 0)
+    private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
+        float angle = (float) Math.toDegrees(Math.atan2(centerPoint.y - otherPoint.y, centerPoint.x - otherPoint.x));
+        if (angle < 0)
             angle += 360;
 
         return angle;
