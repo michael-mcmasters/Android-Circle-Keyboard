@@ -45,39 +45,44 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchRelativePos.x, touchRelativePos.y - buttonCenterPos.y);
 
             // If touch is > than x distance away, get angle and insert that character.
-            if (touchDistFromCenter > 40) {
+            if (touchDistFromCenter >= 75) {
                 float angle = getAngle(buttonCenterPos, touchRelativePos);
+                float range = 360 / 8;  // 8 letters
 
-                // Not all angles are checked so it may feel janky.
-                if (isInRange(angle, 0)) {
+                if (isInRange(angle, 0, range)) {
                     selectedLetter = "g";
                     text.setVisibility(View.VISIBLE);
                 }
-                else if (isInRange(angle, 45)) {
+                else if (isInRange(angle, 45, range)) {
                     selectedLetter = "h";
                 }
-                else if (isInRange(angle, 90)) {
+                else if (isInRange(angle, 90, range)) {
                     selectedLetter = "a";
                 }
-                else if (isInRange(angle, 135)) {
+                else if (isInRange(angle, 135, range)) {
                     selectedLetter = "b";
                 }
-                else if (isInRange(angle, 180)) {
+                else if (isInRange(angle, 180, range)) {
                     selectedLetter = "c";
                 }
-                else if (isInRange(angle, 225)) {
+                else if (isInRange(angle, 225, range)) {
                     selectedLetter = "d";
                 }
-                else if (isInRange(angle, 270)) {
+                else if (isInRange(angle, 270, range)) {
                     selectedLetter = "e";
                 }
-                else if (isInRange(angle, 315)) {
+                else if (isInRange(angle, 315, range)) {
                     selectedLetter = "f";
                 }
+
+                if (selectedLetter != "") {
+                    button1.setText(selectedLetter);
+                }
             }
-            else if (touchDistFromCenter < 30 && selectedLetter != "") {
+            else if (touchDistFromCenter < 75 && selectedLetter != "") {
                 inputConnection.commitText(selectedLetter, 1);
                 selectedLetter = "";
+                button1.setText("O");
             }
 
             Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
@@ -102,8 +107,10 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         return angle;
     }
 
-    private boolean isInRange(float angle, int range) {
-        if (angle > range - 10 && angle < range + 10)
+    // Returns true if actualAngle is withing range of angleToCheck.
+    // (Example: actualAngle is 83, angleToCheck is 90, and range is 5, then it returns true because 83 is less than 5 units away from 90.)
+    private boolean isInRange(float actualAngle, int angleToCheck, float range) {
+        if (actualAngle > angleToCheck - range && actualAngle < angleToCheck + range)
             return true;
         return false;
     }
