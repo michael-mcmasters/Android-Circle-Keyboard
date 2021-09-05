@@ -43,16 +43,28 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             if (touchDistFromCenter > 40) {
                 float angle = getAngle(buttonCenterPos, touchRelativePos);
                 if (isInRange(angle, 0)) {
-                    selectedLetter = "a";
+                    selectedLetter = "g";
+                }
+                else if (isInRange(angle, 45)) {
+                    selectedLetter = "h";
                 }
                 else if (isInRange(angle, 90)) {
+                    selectedLetter = "a";
+                }
+                else if (isInRange(angle, 135)) {
                     selectedLetter = "b";
                 }
                 else if (isInRange(angle, 180)) {
-                    selectedLetter = "y";
+                    selectedLetter = "c";
+                }
+                else if (isInRange(angle, 225)) {
+                    selectedLetter = "d";
                 }
                 else if (isInRange(angle, 270)) {
-                    selectedLetter = "z";
+                    selectedLetter = "e";
+                }
+                else if (isInRange(angle, 315)) {
+                    selectedLetter = "f";
                 }
             }
             else if (touchDistFromCenter < 30 && selectedLetter != "") {
