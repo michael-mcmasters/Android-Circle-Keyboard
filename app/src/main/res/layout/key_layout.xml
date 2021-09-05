@@ -7,7 +7,7 @@
         android:background="@drawable/customborder">
 
     <Button
-            android:text="Button0"
+            android:text="O"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:id="@+id/button0"
@@ -16,10 +16,11 @@
             app:layout_constraintEnd_toStartOf="@+id/button1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.825" />
+            app:layout_constraintVertical_bias="0.825"
+            android:textSize="75sp" />
 
     <Button
-            android:text="Button1"
+            android:text="O"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:id="@+id/button1"
@@ -28,6 +29,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.825" />
+            app:layout_constraintVertical_bias="0.825"
+            android:textSize="75sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
