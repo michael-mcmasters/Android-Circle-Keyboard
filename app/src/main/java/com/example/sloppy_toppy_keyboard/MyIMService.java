@@ -40,23 +40,19 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             //float position = motion.getX(0);
             //Log.d(TAG, "onCreateInputView: " + position);
 
-            Vector2 viewVector = new Vector2(view.getX(), view.getY());
+            //Vector2 viewCenterVector = new Vector2(view.getX() + (view.getWidth() * 0.5f), view.getY() + view.getHeight() * 0.5f);
+            Vector2 viewCenterVector = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
             Vector2 touchVector = new Vector2(motion.getX(), motion.getY());
 
-            double distance = Math.hypot(viewVector.x - touchVector.x, touchVector.y - viewVector.y);
+            double distance = Math.hypot(viewCenterVector.x - touchVector.x, touchVector.y - viewCenterVector.y);
 
             if (distance > -40 && distance < 40) {
                 ic.commitText("hiya", 1);
             }
-
-
-
-//            Math.hypot(x1 - x2, y1 - y2);
-//
-//            double distance = Math.sqrt(Math.pow(touchVector.x - viewVector.x), 2) + Math.pow(motion.getY(1) - motion.getY(0), 2));
-//
-//            double distance = Math.sqrt(Math.pow(motion.getX(1) - motion.getX(0), 2) + Math.pow(motion.getY(1) - motion.getY(0), 2));
             Log.d(TAG, "onCreateInputView: " + distance);
+            //Log.d(TAG, "onCreateInputView: " + touchVector.x + " " + touchVector.y);
+            Log.d(TAG, "onCreateInputView: " + viewCenterVector.x + " " + viewCenterVector.y);
+
 
             int action = motion.getActionMasked();
             switch(action) {
