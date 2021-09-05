@@ -36,6 +36,12 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         button0.setOnClickListener(this);
         button1.setOnClickListener(this);
 
+        int btnHeight = 300;
+        button0.getLayoutParams().height = btnHeight;
+        button0.getLayoutParams().width = btnHeight;
+        button1.getLayoutParams().height = btnHeight;
+        button1.getLayoutParams().width = btnHeight;
+
         InputConnection inputConnection = getCurrentInputConnection();
 
         View.OnTouchListener onTouchListenerCallback = (view, motion) -> {
