@@ -47,9 +47,10 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             // If touch is > than x distance away, get angle and insert that character.
             if (touchDistFromCenter >= 75) {
                 float angle = getAngle(buttonCenterPos, touchRelativePos);
-                float range = 360 / 8;  // 8 letters
+                float range = 360 / (8 * 2);  // 8 letters times 2 to give range to left and right of each
+                Log.d(TAG, "onCreateInputView: angle: " + angle);
 
-                if (isInRange(angle, 0, range)) {
+                if (isInRangeOfFirstLetter(angle, range)) {
                     selectedLetter = "g";
                     text.setVisibility(View.VISIBLE);
                 }
@@ -74,6 +75,11 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
                 else if (isInRange(angle, 315, range)) {
                     selectedLetter = "f";
                 }
+                else {
+                    //selectedLetter = "??";
+                    // There are some very small deadzones between letters, but selectedLetter will just be set to the previous selectedLetter (if one was selected).
+                    // ToDo: Move the above into a method (GetSelectedLetter()), and then call on it again from here with an increased range.
+                }
 
                 if (selectedLetter != "") {
                     button1.setText(selectedLetter);
@@ -85,12 +91,9 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
                 button1.setText("O");
             }
 
-            Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
+            //Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
             //Log.d(TAG, "onCreateInputView: " + touchVector.x + " " + touchVector.y);
             //Log.d(TAG, "onCreateInputView: " + buttonCenterPos.x + " " + buttonCenterPos.y);
-
-            float angle = getAngle(buttonCenterPos, touchRelativePos);
-            Log.d(TAG, "onCreateInputView: Relative Pos: " + angle);
 
             return true;
         };
@@ -101,16 +104,22 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
 
     private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
         float angle = (float) Math.toDegrees(Math.atan2(centerPoint.y - otherPoint.y, centerPoint.x - otherPoint.x));
-        if (angle < 0)
-            angle += 360;
-
+        if (angle < 0) angle += 360;
         return angle;
     }
 
     // Returns true if actualAngle is withing range of angleToCheck.
     // (Example: actualAngle is 83, angleToCheck is 90, and range is 5, then it returns true because 83 is less than 5 units away from 90.)
     private boolean isInRange(float actualAngle, int angleToCheck, float range) {
-        if (actualAngle > angleToCheck - range && actualAngle < angleToCheck + range)
+        if (actualAngle > (angleToCheck - range) && actualAngle < (angleToCheck + range))
+            return true;
+        return false;
+    }
+
+    // actualAngle will never be less than 0 and never be greater than 360 (Pi).
+    // So if checking for a range of 22.5, angle is in range if it is greater than 337.5 and less than 22.5.
+    private boolean isInRangeOfFirstLetter(float actualAngle, float range) {
+        if (actualAngle > (360 - range) || actualAngle < (0 + range))
             return true;
         return false;
     }
