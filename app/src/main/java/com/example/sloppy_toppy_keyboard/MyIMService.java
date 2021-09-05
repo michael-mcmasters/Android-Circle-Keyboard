@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MyIMService extends InputMethodService implements View.OnClickListener {
 
@@ -26,6 +28,9 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
     public View onCreateInputView() {
         View myKeyboardView = getLayoutInflater().inflate(R.layout.key_layout, null);
 
+        // Trying to make a TextView for every letter, that only pops up when user is hovering over that letter.
+        TextView text = myKeyboardView.findViewById(R.id.textView);
+
         Button button0 = myKeyboardView.findViewById(R.id.button0);
         Button button1 = myKeyboardView.findViewById(R.id.button1);
         button0.setOnClickListener(this);
@@ -42,8 +47,11 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             // If touch is > than x distance away, get angle and insert that character.
             if (touchDistFromCenter > 40) {
                 float angle = getAngle(buttonCenterPos, touchRelativePos);
+
+                // Not all angles are checked so it may feel janky.
                 if (isInRange(angle, 0)) {
                     selectedLetter = "g";
+                    text.setVisibility(View.VISIBLE);
                 }
                 else if (isInRange(angle, 45)) {
                     selectedLetter = "h";
