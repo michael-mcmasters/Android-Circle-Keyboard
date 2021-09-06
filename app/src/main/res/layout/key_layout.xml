@@ -19,7 +19,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/button1"
-            app:layout_constraintVertical_bias="0.881" />
+            app:layout_constraintVertical_bias="0.881"
+            />
 
     <Button
             android:text="O"
@@ -44,11 +45,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintVertical_bias="1"
             tools:text="a"
             android:layout_marginBottom="45dp"
             app:layout_constraintBottom_toTopOf="@+id/button1"
-            app:layout_constraintHorizontal_bias="0.754" />
+            cen
+             />
 
     <TextView
             android:text="b"
