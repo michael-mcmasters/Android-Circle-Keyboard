@@ -8,8 +8,10 @@
 
     <Button
         android:id="@+id/button0"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        app:layout_constraintWidth_max="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintHeight_max="25dp"
         android:layout_margin="10dp"
         android:background="@drawable/custombackground"
         android:text="O"
@@ -24,8 +26,10 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        app:layout_constraintWidth_max="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintHeight_max="25dp"
         android:layout_margin="10dp"
         android:background="@drawable/custombackground"
         android:text="O"
@@ -170,7 +174,7 @@
         android:id="@+id/iKey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="h"
+        android:text="i"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircle="@id/button0"
         app:layout_constraintCircleAngle="0"
