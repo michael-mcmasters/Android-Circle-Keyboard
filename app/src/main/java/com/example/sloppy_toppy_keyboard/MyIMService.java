@@ -13,6 +13,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
     private static String TAG = "MyIMService";
 
     private String selectedLetter = "";
+    private int circleActivationRange = 75;
 
     private static class Vector2 {
         private double x;
@@ -29,7 +30,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         View myKeyboardView = getLayoutInflater().inflate(R.layout.key_layout, null);
 
         // Trying to make a TextView for every letter, that only pops up when user is hovering over that letter.
-        TextView text = myKeyboardView.findViewById(R.id.textView);
+        TextView text = myKeyboardView.findViewById(R.id.aKey);
 
         Button button0 = myKeyboardView.findViewById(R.id.button0);
         Button button1 = myKeyboardView.findViewById(R.id.button1);
@@ -51,7 +52,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchRelativePos.x, touchRelativePos.y - buttonCenterPos.y);
 
             // If touch is > than x distance away, get angle and insert that character.
-            if (touchDistFromCenter >= 75) {
+            if (touchDistFromCenter >= circleActivationRange) {
                 float angle = getAngle(buttonCenterPos, touchRelativePos);
                 float range = 360 / (8 * 2);  // 8 letters times 2 to give range to left and right of each
                 Log.d(TAG, "onCreateInputView: angle: " + angle);
