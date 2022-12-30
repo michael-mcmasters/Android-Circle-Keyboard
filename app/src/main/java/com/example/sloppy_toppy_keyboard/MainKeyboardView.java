@@ -1,28 +1,43 @@
 package com.example.sloppy_toppy_keyboard;
 
 import android.content.Context;
-import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class MyIMService extends InputMethodService {
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+public class MainKeyboardView extends ConstraintLayout {
 
     private static String TAG = "MyIMService";
+    private Context context;
+    private InputConnection inputConnection;
+    private View myKeyboardView;
 
-    private String prevSelectedLetter = "";
     private String selectedLetter = "";
-    private int circleActivationRange = 75;
+    private String prevSelectedLetter = "";
+    private static final int circleActivationRange = 75;
 
-    @Override
-    public View onCreateInputView() {
-        View myKeyboardView = getLayoutInflater().inflate(R.layout.key_layout, null);
+    public MainKeyboardView(Context context, InputConnection inputConnection) {
+        super(context);
+        this.context = context;
+        this.inputConnection = inputConnection;
+        myKeyboardView = initialize();
+    }
+
+    public View getMyKeyboardView() {
+        return myKeyboardView;
+    }
+
+    private View initialize() {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View myKeyboardView = inflater.inflate(R.layout.key_layout, null);
 
         // Trying to make a TextView for every letter, that only pops up when user is hovering over that letter.
         TextView text = myKeyboardView.findViewById(R.id.aKey);
@@ -36,10 +51,8 @@ public class MyIMService extends InputMethodService {
         button1.getLayoutParams().height = btnHeight;
         button1.getLayoutParams().width = btnHeight;
 
-        InputConnection inputConnection = getCurrentInputConnection();
-
         View.OnTouchListener onTouchListenerCallback = (view, motion) -> {
-                                          // (0, 0) plus width and height halved to get center of button.
+            // (0, 0) plus width and height halved to get center of button.
             Vector2 buttonCenterPos = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
             Vector2 touchRelativePos = new Vector2(motion.getX(), motion.getY());
             double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchRelativePos.x, touchRelativePos.y - buttonCenterPos.y);
@@ -105,6 +118,7 @@ public class MyIMService extends InputMethodService {
         };
         button0.setOnTouchListener(onTouchListenerCallback);
         button1.setOnTouchListener(onTouchListenerCallback);
+
         return myKeyboardView;
     }
 
@@ -133,7 +147,7 @@ public class MyIMService extends InputMethodService {
     private void vibrate() {
         Vibrator v = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         }
 
         int milliseconds = 25;
@@ -144,4 +158,5 @@ public class MyIMService extends InputMethodService {
             v.vibrate(milliseconds);
         }
     }
+
 }
