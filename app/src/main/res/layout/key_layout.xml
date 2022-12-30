@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/button0"
-        android:layout_width="25dp"
-        app:layout_constraintWidth_max="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintHeight_max="25dp"
+        android:layout_width="40dp"
+        app:layout_constraintWidth_max="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintHeight_max="40dp"
         android:layout_margin="10dp"
         android:background="@drawable/custombackground"
         android:text="O"
@@ -26,10 +26,10 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="25dp"
-        app:layout_constraintWidth_max="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintHeight_max="25dp"
+        android:layout_width="40dp"
+        app:layout_constraintWidth_max="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintHeight_max="40dp"
         android:layout_margin="10dp"
         android:background="@drawable/custombackground"
         android:text="O"

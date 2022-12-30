@@ -1,6 +1,10 @@
 package com.example.sloppy_toppy_keyboard;
 
+import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
@@ -12,6 +16,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
 
     private static String TAG = "MyIMService";
 
+    private String prevSelectedLetter = "";
     private String selectedLetter = "";
     private int circleActivationRange = 75;
 
@@ -60,6 +65,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
                 if (isInRangeOfFirstLetter(angle, range)) {
                     selectedLetter = "g";
                     text.setVisibility(View.VISIBLE);
+//                    vibrate();
                 }
                 else if (isInRange(angle, 45, range)) {
                     selectedLetter = "h";
@@ -92,7 +98,7 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
                     button1.setText(selectedLetter);
                 }
             }
-            else if (touchDistFromCenter < 75 && selectedLetter != "") {
+            else if (touchDistFromCenter < circleActivationRange && selectedLetter != "") {
                 inputConnection.commitText(selectedLetter, 1);
                 selectedLetter = "";
                 button1.setText("O");
@@ -101,6 +107,11 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
             //Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
             //Log.d(TAG, "onCreateInputView: " + touchVector.x + " " + touchVector.y);
             //Log.d(TAG, "onCreateInputView: " + buttonCenterPos.x + " " + buttonCenterPos.y);
+
+            if (selectedLetter != prevSelectedLetter) {
+                vibrate();
+            }
+            prevSelectedLetter = selectedLetter;
 
             return true;
         };
@@ -129,6 +140,21 @@ public class MyIMService extends InputMethodService implements View.OnClickListe
         if (actualAngle > (360 - range) || actualAngle < (0 + range))
             return true;
         return false;
+    }
+
+    private void vibrate() {
+        Vibrator v = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
+
+        int milliseconds = 25;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(milliseconds);
+        }
     }
 
     @Override
