@@ -4,9 +4,7 @@ import android.inputmethodservice.InputMethodService;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 
-// Naming it this because followed a tutorial and AndroidManifest.xml and perhaps other xml files may reference it (not sure, doing this quickly).
-// In future, want to rename it to SloppyToppyKeyboardApplication or something.
-public class MyIMServices2 extends InputMethodService {
+public class CircleKeyboardApplication extends InputMethodService {
 
     @Override
     public View onCreateInputView() {

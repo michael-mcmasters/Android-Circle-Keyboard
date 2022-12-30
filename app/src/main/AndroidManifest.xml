@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MyIMServices2"
+        <service android:name=".CircleKeyboardApplication"
                 android:label="myLabel"
                 android:permission="android.permission.BIND_INPUT_METHOD"
                 android:exported="true">
