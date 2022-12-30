@@ -12,6 +12,6 @@ public class CircleKeyboardApplication extends InputMethodService {
         MainKeyboardView mainKeyboardView = new MainKeyboardView(this, inputConnection);
         // Should be able to just return mainKeyboardView, but keyboard doesn't render, so have to do it this way instead.
         // Think it has to do with the way the view is inflated.
-        return mainKeyboardView.getMyKeyboardView();
+        return mainKeyboardView.getKeyboardView();
     }
 }

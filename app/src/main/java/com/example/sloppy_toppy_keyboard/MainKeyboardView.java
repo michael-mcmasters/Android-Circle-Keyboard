@@ -9,49 +9,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MainKeyboardView extends ConstraintLayout {
 
-    private static String TAG = "MyIMService";
+    private static final String TAG = "MainKeyboardView";
     private Context context;
     private InputConnection inputConnection;
-    private View myKeyboardView;
+    private View keyboardView;
 
     private String selectedLetter = "";
     private String prevSelectedLetter = "";
     private static final int circleActivationRange = 75;
 
+
     public MainKeyboardView(Context context, InputConnection inputConnection) {
         super(context);
         this.context = context;
         this.inputConnection = inputConnection;
-        myKeyboardView = initialize();
+        initialize();
     }
 
-    public View getMyKeyboardView() {
-        return myKeyboardView;
+    public View getKeyboardView() {
+        return keyboardView;
     }
 
-    private View initialize() {
+    private void initialize() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View myKeyboardView = inflater.inflate(R.layout.key_layout, null);
+        keyboardView = inflater.inflate(R.layout.key_layout, null);
 
-        // Trying to make a TextView for every letter, that only pops up when user is hovering over that letter.
-        TextView text = myKeyboardView.findViewById(R.id.aKey);
+        Button button0 = keyboardView.findViewById(R.id.button0);
+        Button button1 = keyboardView.findViewById(R.id.button1);
+        button0.setOnTouchListener(getButtonCallback(button0));
+        button1.setOnTouchListener(getButtonCallback(button1));
+    }
 
-        Button button0 = myKeyboardView.findViewById(R.id.button0);
-        Button button1 = myKeyboardView.findViewById(R.id.button1);
-
-        int btnHeight = 300;
-        button0.getLayoutParams().height = btnHeight;
-        button0.getLayoutParams().width = btnHeight;
-        button1.getLayoutParams().height = btnHeight;
-        button1.getLayoutParams().width = btnHeight;
-
-        View.OnTouchListener onTouchListenerCallback = (view, motion) -> {
+    private View.OnTouchListener getButtonCallback(Button button) {
+        return (view, motion) -> {
             // (0, 0) plus width and height halved to get center of button.
             Vector2 buttonCenterPos = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
             Vector2 touchRelativePos = new Vector2(motion.getX(), motion.getY());
@@ -65,8 +60,6 @@ public class MainKeyboardView extends ConstraintLayout {
 
                 if (isInRangeOfFirstLetter(angle, range)) {
                     selectedLetter = "g";
-                    text.setVisibility(View.VISIBLE);
-//                    vibrate();
                 }
                 else if (isInRange(angle, 45, range)) {
                     selectedLetter = "h";
@@ -96,13 +89,13 @@ public class MainKeyboardView extends ConstraintLayout {
                 }
 
                 if (selectedLetter != "") {
-                    button1.setText(selectedLetter);
+                    button.setText(selectedLetter);
                 }
             }
             else if (touchDistFromCenter < circleActivationRange && selectedLetter != "") {
                 inputConnection.commitText(selectedLetter, 1);
                 selectedLetter = "";
-                button1.setText("O");
+                button.setText("O");
             }
 
             //Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
@@ -116,10 +109,6 @@ public class MainKeyboardView extends ConstraintLayout {
 
             return true;
         };
-        button0.setOnTouchListener(onTouchListenerCallback);
-        button1.setOnTouchListener(onTouchListenerCallback);
-
-        return myKeyboardView;
     }
 
     private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
@@ -149,6 +138,7 @@ public class MainKeyboardView extends ConstraintLayout {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         }
+        if (v == null) return;
 
         int milliseconds = 25;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
