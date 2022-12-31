@@ -28,8 +28,8 @@ public class MainKeyboardView extends ConstraintLayout {
         super(context);
         this.context = context;
         this.inputConnection = inputConnection;
-        leftCircleOnPressListener = new CircleOnPressListener(context, inputConnection);
-        rightCircleOnPressListener = new CircleOnPressListener(context, inputConnection);
+        leftCircleOnPressListener = new CircleOnPressListener(context, inputConnection, true);
+        rightCircleOnPressListener = new CircleOnPressListener(context, inputConnection, false);
         initialize();
     }
 

@@ -18,6 +18,7 @@ public class CircleOnPressListener {
 
     private Context context;
     private InputConnection inputConnection;
+    private boolean isLeftCircle;
 
     private String selectedLetter = "";
     private String prevSelectedLetter = "";
@@ -25,9 +26,10 @@ public class CircleOnPressListener {
 
     private int fingerIndex;
 
-    public CircleOnPressListener(Context context, InputConnection inputConnection) {
+    public CircleOnPressListener(Context context, InputConnection inputConnection, boolean isLeftCircle) {
         this.context = context;
         this.inputConnection = inputConnection;
+        this.isLeftCircle = isLeftCircle;
     }
 
     public View.OnTouchListener getButtonCallback(Button button) {
@@ -69,7 +71,7 @@ public class CircleOnPressListener {
 
             // (0, 0) plus width and height halved to get center of button.
             Vector2 buttonCenterPos = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
-            Vector2 touchRelativePos = new Vector2(motionEvent.getX(fingerIndex), motionEvent.getY(fingerIndex));
+            Vector2 touchRelativePos = new Vector2(motionEvent.getX(fingerIndex), motionEvent.getY(fingerIndex));   // Do we need fingerIndex now that each circle button is using its own class instance?
             double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchRelativePos.x, touchRelativePos.y - buttonCenterPos.y);
 
             Log.d(TAG, "getButtonCallback: " + touchDistFromCenter);
@@ -81,28 +83,28 @@ public class CircleOnPressListener {
 //                Log.d(TAG, "onCreateInputView: angle: " + angle);
 
                 if (isInRangeOfFirstLetter(angle, range)) {
-                    selectedLetter = "g";
+                    selectedLetter = isLeftCircle ? "a" : "i";
                 }
                 else if (isInRange(angle, 45, range)) {
-                    selectedLetter = "h";
+                    selectedLetter = isLeftCircle ? "b" : "j";
                 }
                 else if (isInRange(angle, 90, range)) {
-                    selectedLetter = "a";
+                    selectedLetter = isLeftCircle ? "c" : "k";
                 }
                 else if (isInRange(angle, 135, range)) {
-                    selectedLetter = "b";
+                    selectedLetter = isLeftCircle ? "d" : "l";
                 }
                 else if (isInRange(angle, 180, range)) {
-                    selectedLetter = "c";
+                    selectedLetter = isLeftCircle ? "e" : "m";
                 }
                 else if (isInRange(angle, 225, range)) {
-                    selectedLetter = "d";
+                    selectedLetter = isLeftCircle ? "f" : "n";
                 }
                 else if (isInRange(angle, 270, range)) {
-                    selectedLetter = "e";
+                    selectedLetter = isLeftCircle ? "g" : "o";
                 }
                 else if (isInRange(angle, 315, range)) {
-                    selectedLetter = "f";
+                    selectedLetter = isLeftCircle ? "h" : "p";
                 }
                 else {
                     //selectedLetter = "??";
