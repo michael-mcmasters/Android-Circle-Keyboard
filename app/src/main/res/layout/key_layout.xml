@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="200dp"
-    >
+        android:background="@drawable/customborder"
+        >
 
     <Button
         android:id="@+id/button0"
@@ -13,6 +14,7 @@
         android:layout_height="40dp"
         android:layout_margin="30dp"
         android:background="@drawable/custombackground"
+        android:text="O"
         android:textAlignment="center"
         android:textSize="10sp"
         android:translationX="-20dp"
@@ -31,6 +33,7 @@
         android:layout_height="40dp"
         android:layout_margin="30dp"
         android:background="@drawable/custombackground"
+        android:text="O"
         android:textAlignment="center"
         android:textSize="10sp"
         android:translationX="20dp"
