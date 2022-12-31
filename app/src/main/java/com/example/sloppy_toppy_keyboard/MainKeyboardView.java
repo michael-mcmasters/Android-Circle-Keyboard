@@ -16,17 +16,35 @@ public class MainKeyboardView extends ConstraintLayout {
     private CircleOnPressListener rightCircleOnPressListener;
     private View keyboardView;
 
+    private String leftCircleState;
+    private String rightCircleState;
 
     public MainKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
         super(context);
         this.context = context;
-        leftCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, true);
-        rightCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, false);
+        this.circleKeyboardApplication = circleKeyboardApplication;
+        leftCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, this, true);
+        rightCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, this, false);
+        leftCircleState = "ACTION_UP";
+        rightCircleState = "ACTION_UP";
         initialize();
     }
 
     public View getKeyboardView() {
         return keyboardView;
+    }
+
+    // This method maybe shouldn't be in this View class. Should create another class that instantiates this view class and the CircleOnPressListener class?
+    public void notifyButtonState(boolean leftCircle, String circleState) {
+        if (leftCircle) {
+            leftCircleState = circleState;
+        } else {
+            rightCircleState = circleState;
+        }
+
+        if (leftCircleState.equals("ACTION_UP") && rightCircleState.equals("ACTION_UP")) {
+            circleKeyboardApplication.commitText(" ");
+        }
     }
 
     private void initialize() {

@@ -16,7 +16,8 @@ public class CircleOnPressListener {
     private static final String TAG = "CircleOnPressListener";
 
     private Context context;
-    CircleKeyboardApplication circleKeyboardApplication;
+    private CircleKeyboardApplication circleKeyboardApplication;
+    private MainKeyboardView mainKeyboardView;
     private boolean isLeftCircle;
 
     private String selectedLetter = "";
@@ -26,9 +27,10 @@ public class CircleOnPressListener {
 
     private int fingerIndex;
 
-    public CircleOnPressListener(Context context, CircleKeyboardApplication circleKeyboardApplication, boolean isLeftCircle) {
+    public CircleOnPressListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView, boolean isLeftCircle) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
+        this.mainKeyboardView = mainKeyboardView;
         this.isLeftCircle = isLeftCircle;
     }
 
@@ -62,11 +64,13 @@ public class CircleOnPressListener {
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 // For the first pointer that touches the screen - Its index is always 0
                 Log.d(TAG, "ACTION_DOWN");
+                mainKeyboardView.notifyButtonState(isLeftCircle, "ACTION_DOWN");
                 fingerIndex = 0;
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
                 // Sent when the last pointer leaves the screen.
                 Log.d(TAG, "ACTION_UP");
                 fingerIndex = -1;
+                mainKeyboardView.notifyButtonState(isLeftCircle, "ACTION_UP");
                 return true;
             }
 
