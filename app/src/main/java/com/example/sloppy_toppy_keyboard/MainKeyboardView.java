@@ -30,8 +30,14 @@ public class MainKeyboardView extends ConstraintLayout {
         initialize();
     }
 
-    public View getKeyboardView() {
-        return keyboardView;
+    private void initialize() {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        keyboardView = inflater.inflate(R.layout.key_layout, null);
+
+        Button button0 = keyboardView.findViewById(R.id.button0);
+        Button button1 = keyboardView.findViewById(R.id.button1);
+        button0.setOnTouchListener(leftCircleOnPressListener.getButtonCallback(button0));
+        button1.setOnTouchListener(rightCircleOnPressListener.getButtonCallback(button1));
     }
 
     // This method maybe shouldn't be in this View class. Should create another class that instantiates this view class and the CircleOnPressListener class?
@@ -47,13 +53,7 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
-    private void initialize() {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        keyboardView = inflater.inflate(R.layout.key_layout, null);
-
-        Button button0 = keyboardView.findViewById(R.id.button0);
-        Button button1 = keyboardView.findViewById(R.id.button1);
-        button0.setOnTouchListener(leftCircleOnPressListener.getButtonCallback(button0));
-        button1.setOnTouchListener(rightCircleOnPressListener.getButtonCallback(button1));
+    public View getKeyboardView() {
+        return keyboardView;
     }
 }
