@@ -7,7 +7,6 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 
 import androidx.core.view.MotionEventCompat;
@@ -23,7 +22,7 @@ public class CircleOnPressListener {
     private String selectedLetter = "";
     private String prevSelectedLetter = "";
     private static final int firstRingActivationRange = 75;
-    private static final int secondRingActivationRange = 140;
+    private static final int secondRingActivationRange = 150;
 
     private int fingerIndex;
 
@@ -78,92 +77,19 @@ public class CircleOnPressListener {
 
             Log.d(TAG, "getButtonCallback: " + touchDistFromCenter);
 
-            // If touch is > than x distance away, get angle and insert that character.
             if (touchDistFromCenter >= firstRingActivationRange) {
-                float angle = getAngle(buttonCenterPos, touchRelativePos);
-                float range = 360 / (8 * 2);  // 8 letters times 2 to give range to left and right of each
-//                Log.d(TAG, "onCreateInputView: angle: " + angle);
+                float touchAngleFromCenter = getAngle(buttonCenterPos, touchRelativePos);
+                float angleRange = 360 / (8 * 2);  // Pie (circle) / 8 letters times 2 to give range to left and right of each
 
-                // Glitch is because when user is within first ring distance, selectedOuterLetter is deleted.
-                // So need to make it global.
-
-
-
-//                String selectedOuterLetter = "";
-//                if (touchDistFromCenter >= secondRingActivationRange) {
-//                    selectedOuterLetter = detectOuterLetter(angle, range);
-//                    selectedLetter = selectedOuterLetter;
-//                }
-
-                // secondRingLetters
                 if (touchDistFromCenter >= secondRingActivationRange) {
-                    selectedLetter = detectOuterLetter(angle, range);
+                    selectedLetter = detectSecondRingLetter(touchAngleFromCenter, angleRange);
                 }
-
-                // firstRingLetters
-                if (isInRangeOfLeftMostLetter(angle, range)) {
-                    String firstRingLetter = isLeftCircle ? "a" : "i";
-                    if (selectedLetter != "x") {    // if secondRing letter hasn't been chosen, continue... (only a has a secondRing letter beside it)
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 45, range)) {
-                    String firstRingLetter = isLeftCircle ? "b" : "j";
-                    if (selectedLetter != "y") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 90, range)) {
-                    String firstRingLetter = isLeftCircle ? "c" : "k";
-                    if (selectedLetter != "z" && selectedLetter != "q") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 135, range)) {
-                    String firstRingLetter = isLeftCircle ? "d" : "l";
-                    if (selectedLetter != "r") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 180, range)) {
-                    String firstRingLetter = isLeftCircle ? "e" : "m";
-                    if (selectedLetter != "s") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 225, range)) {
-                    String firstRingLetter = isLeftCircle ? "f" : "n";
-                    if (selectedLetter != "t") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 270, range)) {
-                    String firstRingLetter = isLeftCircle ? "g" : "o";
-                    if (selectedLetter != "v" && selectedLetter != "u") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else if (isInRange(angle, 315, range)) {
-                    String firstRingLetter = isLeftCircle ? "h" : "p";
-                    if (selectedLetter != "w") {
-                        selectedLetter = firstRingLetter;
-                    }
-                }
-                else {
-                    //selectedLetter = "??";
-                    // There are some very small deadzones between letters, but selectedLetter will just be set to the previous selectedLetter (if one was selected).
-                    // ToDo: Move the above into a method (GetSelectedLetter()), and then call on it again from here with an increased range.
-                }
+                selectedLetter = detectFirstRingLetter(selectedLetter, touchAngleFromCenter, angleRange);
             }
             else if (touchDistFromCenter < firstRingActivationRange && selectedLetter != "") {
                 circleKeyboardApplication.commitText(selectedLetter);
                 selectedLetter = "";
-                button.setText("O");
             }
-
-            //Log.d(TAG, "onCreateInputView: " + touchDistFromCenter);
-            //Log.d(TAG, "onCreateInputView: " + touchVector.x + " " + touchVector.y);
-            //Log.d(TAG, "onCreateInputView: " + buttonCenterPos.x + " " + buttonCenterPos.y);
 
             if (selectedLetter != prevSelectedLetter) {
 //                vibrate();
@@ -174,7 +100,8 @@ public class CircleOnPressListener {
         };
     }
 
-    private String detectOuterLetter(float angle, float range) {
+    // Returns the second ring letter if one exists for the given angle
+    private String detectSecondRingLetter(float angle, float range) {
         if (isLeftCircle) {
             if (isInRangeOfLeftMostLetter(angle, range)) {
                 return "x";
@@ -212,6 +139,64 @@ public class CircleOnPressListener {
                 return "";
             }
         }
+    }
+
+    // Returns the first ring letter for the given angle. If a second ring letter is already selected for that angle, returns that instead.
+    private String detectFirstRingLetter(String selectedLetter, float angle, float range) {
+        if (isInRangeOfLeftMostLetter(angle, range)) {
+            String firstRingLetter = isLeftCircle ? "a" : "i";
+            if (selectedLetter != "x") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 45, range)) {
+            String firstRingLetter = isLeftCircle ? "b" : "j";
+            if (selectedLetter != "y") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 90, range)) {
+            String firstRingLetter = isLeftCircle ? "c" : "k";
+            if (selectedLetter != "z" && selectedLetter != "q") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 135, range)) {
+            String firstRingLetter = isLeftCircle ? "d" : "l";
+            if (selectedLetter != "r") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 180, range)) {
+            String firstRingLetter = isLeftCircle ? "e" : "m";
+            if (selectedLetter != "s") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 225, range)) {
+            String firstRingLetter = isLeftCircle ? "f" : "n";
+            if (selectedLetter != "t") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 270, range)) {
+            String firstRingLetter = isLeftCircle ? "g" : "o";
+            if (selectedLetter != "v" && selectedLetter != "u") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else if (isInRange(angle, 315, range)) {
+            String firstRingLetter = isLeftCircle ? "h" : "p";
+            if (selectedLetter != "w") {
+                selectedLetter = firstRingLetter;
+            }
+        }
+        else {
+            //selectedLetter = "??";
+            // There are some very small deadzones between letters, but selectedLetter will just be set to the previous selectedLetter (if one was selected).
+            // ToDo: Move the above into a method (GetSelectedLetter()), and then call on it again from here with an increased range.
+        }
+        return selectedLetter;
     }
 
     private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
