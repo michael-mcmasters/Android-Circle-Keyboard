@@ -18,7 +18,8 @@ public class MainKeyboardView extends ConstraintLayout {
     private View keyboardView;
 
 //    private String selectedLetter = "";
-//    private String prevSelectedLetter = "";
+//    private String prevSelectedLetter = "";ls
+
 //    private static final int circleActivationRange = 75;
 
     // fingerCount
