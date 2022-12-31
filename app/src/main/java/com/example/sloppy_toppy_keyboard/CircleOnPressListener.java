@@ -32,35 +32,35 @@ public class CircleOnPressListener {
 
     public View.OnTouchListener getButtonCallback(Button button) {
         return (view, motionEvent) -> {
-//            Integer actionInteger = MotionEventCompat.getActionMasked(motionEvent);
-//            if (actionInteger.equals(MotionEvent.ACTION_DOWN)) {
+//            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+//            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
 //                // For the first pointer that touches the screen - Its index is always 0
 //                Log.d(TAG, "ACTION_DOWN");
 //                fingerIndex = 0;
-//            } else if (actionInteger.equals(MotionEvent.ACTION_POINTER_DOWN)) {
+//            } else if (fingerAction.equals(MotionEvent.ACTION_POINTER_DOWN)) {
 //                // For extra pointers that enter the screen beyond the first. The index of the pointer that just went down can be obtained by using getActionIndex()
 //                Log.d(TAG, "ACTION_POINTER_DOWN");
 //                fingerIndex = 1;
-//            } else if (actionInteger.equals(MotionEvent.ACTION_POINTER_UP)) {
+//            } else if (fingerAction.equals(MotionEvent.ACTION_POINTER_UP)) {
 //                // Sent when a non-primary pointer goes up. The index of the pointer that just went up can be obtained by using getActionIndex().
 //                Log.d(TAG, "ACTION_POINTER_UP");
 //                if (motionEvent.getActionIndex() == fingerIndex) {
 //                    fingerIndex = -1;
 //                }
 //                return true;
-//            } else if (actionInteger.equals(MotionEvent.ACTION_UP)) {
+//            } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
 //                // Sent when the last pointer leaves the screen.
 //                Log.d(TAG, "ACTION_UP");
 //                fingerIndex = -1;
 //                return true;
 //            }
 
-            Integer actionInteger = MotionEventCompat.getActionMasked(motionEvent);
-            if (actionInteger.equals(MotionEvent.ACTION_DOWN)) {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 // For the first pointer that touches the screen - Its index is always 0
                 Log.d(TAG, "ACTION_DOWN");
                 fingerIndex = 0;
-            } else if (actionInteger.equals(MotionEvent.ACTION_UP)) {
+            } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
                 // Sent when the last pointer leaves the screen.
                 Log.d(TAG, "ACTION_UP");
                 fingerIndex = -1;
@@ -131,20 +131,6 @@ public class CircleOnPressListener {
 
             return true;
         };
-    }
-
-    // For some reason, this is how you check the state of a finger action on Android. Src: https://developer.android.com/develop/ui/views/touch-and-input/gestures/multi
-    public static String actionToString(int action) {
-        switch (action) {
-            case MotionEvent.ACTION_DOWN: return "Down";
-            case MotionEvent.ACTION_MOVE: return "Move";
-            case MotionEvent.ACTION_POINTER_DOWN: return "Pointer Down";
-            case MotionEvent.ACTION_UP: return "Up";
-            case MotionEvent.ACTION_POINTER_UP: return "Pointer Up";
-            case MotionEvent.ACTION_OUTSIDE: return "Outside";
-            case MotionEvent.ACTION_CANCEL: return "Cancel";
-        }
-        return "";
     }
 
     private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
