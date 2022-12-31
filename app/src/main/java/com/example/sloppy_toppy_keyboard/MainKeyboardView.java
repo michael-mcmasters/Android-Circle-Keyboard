@@ -13,6 +13,7 @@ public class MainKeyboardView extends ConstraintLayout {
     private static final String TAG = "MainKeyboardView";
     private Context context;
     private InputConnection inputConnection;
+    private CircleKeyboardApplication circleKeyboardApplication;
     private CircleOnPressListener leftCircleOnPressListener;
     private CircleOnPressListener rightCircleOnPressListener;
     private View keyboardView;
@@ -25,23 +26,16 @@ public class MainKeyboardView extends ConstraintLayout {
     // fingerCount
 
 
-    public MainKeyboardView(Context context, InputConnection inputConnection) {
+    public MainKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
         super(context);
         this.context = context;
-        this.inputConnection = inputConnection;
-        leftCircleOnPressListener = new CircleOnPressListener(context, inputConnection, true);
-        rightCircleOnPressListener = new CircleOnPressListener(context, inputConnection, false);
+        leftCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, true);
+        rightCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, false);
         initialize();
     }
 
     public View getKeyboardView() {
         return keyboardView;
-    }
-
-    public void setInputConnection(InputConnection inputConnection) {
-        this.inputConnection = inputConnection;
-        leftCircleOnPressListener.setInputConnection(inputConnection);
-        rightCircleOnPressListener.setInputConnection(inputConnection);
     }
 
     private void initialize() {

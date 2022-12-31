@@ -17,7 +17,7 @@ public class CircleOnPressListener {
     private static final String TAG = "CircleOnPressListener";
 
     private Context context;
-    private InputConnection inputConnection;
+    CircleKeyboardApplication circleKeyboardApplication;
     private boolean isLeftCircle;
 
     private String selectedLetter = "";
@@ -27,15 +27,12 @@ public class CircleOnPressListener {
 
     private int fingerIndex;
 
-    public CircleOnPressListener(Context context, InputConnection inputConnection, boolean isLeftCircle) {
+    public CircleOnPressListener(Context context, CircleKeyboardApplication circleKeyboardApplication, boolean isLeftCircle) {
         this.context = context;
-        this.inputConnection = inputConnection;
+        this.circleKeyboardApplication = circleKeyboardApplication;
         this.isLeftCircle = isLeftCircle;
     }
 
-    public void setInputConnection(InputConnection inputConnection) {
-        this.inputConnection = inputConnection;
-    }
 
     public View.OnTouchListener getButtonCallback(Button button) {
         return (view, motionEvent) -> {
@@ -159,7 +156,7 @@ public class CircleOnPressListener {
                 }
             }
             else if (touchDistFromCenter < firstRingActivationRange && selectedLetter != "") {
-                inputConnection.commitText(selectedLetter, 1);
+                circleKeyboardApplication.commitText(selectedLetter);
                 selectedLetter = "";
                 button.setText("O");
             }
