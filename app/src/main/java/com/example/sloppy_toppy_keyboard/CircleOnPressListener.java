@@ -22,8 +22,8 @@ public class CircleOnPressListener {
 
     private String selectedLetter = "";
     private String prevSelectedLetter = "";
-    private static final int firstRingActivationRange = 75;
-    private static final int secondRingActivationRange = 150;
+    private static final int firstRingActivationRange = 100;
+    private static final int secondRingActivationRange = 200;
 
     private int fingerIndex;
 
@@ -93,9 +93,11 @@ public class CircleOnPressListener {
             else if (touchDistFromCenter < firstRingActivationRange && selectedLetter != "") {
                 circleKeyboardApplication.commitText(selectedLetter);
                 selectedLetter = "";
+                button.setText("");
             }
 
             if (selectedLetter != prevSelectedLetter) {
+                button.setText(selectedLetter);
                 vibrate();
             }
             prevSelectedLetter = selectedLetter;
