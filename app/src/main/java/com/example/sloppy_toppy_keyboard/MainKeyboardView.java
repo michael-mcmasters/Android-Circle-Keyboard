@@ -38,6 +38,12 @@ public class MainKeyboardView extends ConstraintLayout {
         return keyboardView;
     }
 
+    public void setInputConnection(InputConnection inputConnection) {
+        this.inputConnection = inputConnection;
+        leftCircleOnPressListener.setInputConnection(inputConnection);
+        rightCircleOnPressListener.setInputConnection(inputConnection);
+    }
+
     private void initialize() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);

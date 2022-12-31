@@ -33,6 +33,10 @@ public class CircleOnPressListener {
         this.isLeftCircle = isLeftCircle;
     }
 
+    public void setInputConnection(InputConnection inputConnection) {
+        this.inputConnection = inputConnection;
+    }
+
     public View.OnTouchListener getButtonCallback(Button button) {
         return (view, motionEvent) -> {
 //            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
