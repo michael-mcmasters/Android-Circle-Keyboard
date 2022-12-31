@@ -96,7 +96,7 @@ public class CircleOnPressListener {
             }
 
             if (selectedLetter != prevSelectedLetter) {
-//                vibrate();
+                vibrate();
             }
             prevSelectedLetter = selectedLetter;
 
@@ -233,7 +233,7 @@ public class CircleOnPressListener {
         }
         if (v == null) return;
 
-        int milliseconds = 25;
+        int milliseconds = 5;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
