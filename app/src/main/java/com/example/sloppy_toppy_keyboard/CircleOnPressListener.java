@@ -22,7 +22,7 @@ public class CircleOnPressListener {
 
     private String selectedLetter = "";
     private String prevSelectedLetter = "";
-    private static final int firstRingActivationRange = 100;
+    private static final int firstRingActivationRange = 85;
     private static final int secondRingActivationRange = 200;
 
     private int fingerIndex;
@@ -235,7 +235,7 @@ public class CircleOnPressListener {
         }
         if (v == null) return;
 
-        int milliseconds = 5;
+        int milliseconds = 10;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
