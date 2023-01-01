@@ -91,7 +91,7 @@ public class CircleOnPressListener {
                 selectedLetter = detectFirstRingLetter(selectedLetter, touchAngleFromCenter, angleRange);
             }
             else if (touchDistFromCenter < firstRingActivationRange && selectedLetter != "") {
-                circleKeyboardApplication.commitText(selectedLetter);
+                enterCommand(selectedLetter);
                 selectedLetter = "";
                 button.setText("");
             }
@@ -127,7 +127,10 @@ public class CircleOnPressListener {
                 return "";
             }
         } else {
-            if (isInRange(angle, 90, range)) {
+            if (isInRangeOfLeftMostLetter(angle, range)) {
+                return "del";
+            }
+            else if (isInRange(angle, 90, range)) {
                 return "q";
             }
             else if (isInRange(angle, 135, range)) {
@@ -151,7 +154,7 @@ public class CircleOnPressListener {
     private String detectFirstRingLetter(String selectedLetter, float angle, float range) {
         if (isInRangeOfLeftMostLetter(angle, range)) {
             String firstRingLetter = isLeftCircle ? "a" : "i";
-            if (selectedLetter != "x") {
+            if (selectedLetter != "x" && selectedLetter != "del") {
                 selectedLetter = firstRingLetter;
             }
         }
@@ -203,6 +206,17 @@ public class CircleOnPressListener {
             // ToDo: Move the above into a method (GetSelectedLetter()), and then call on it again from here with an increased range.
         }
         return selectedLetter;
+    }
+
+    private void enterCommand(String selectedLetter) {
+        switch (selectedLetter) {
+            case "del":
+                circleKeyboardApplication.deleteText();
+                break;
+            default:
+                circleKeyboardApplication.commitText(selectedLetter);
+                break;
+        }
     }
 
     private float getAngle(Vector2 centerPoint, Vector2 otherPoint) {
