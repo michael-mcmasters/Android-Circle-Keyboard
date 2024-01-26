@@ -3,523 +3,555 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="230dp"
+        android:layout_height="match_parent"
+        android:maxHeight="500dp"
         android:background="@drawable/customborder"
         >
 
     <Button
         android:id="@+id/button0"
+        android:text="0"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="30dp"
+        android:layout_margin="60dp"
         android:background="@drawable/custombackground"
         android:textAlignment="center"
         android:textSize="10sp"
         android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/button2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button1"
         app:layout_constraintHeight_max="40dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916"
         app:layout_constraintWidth_max="40dp" />
 
     <Button
         android:id="@+id/button1"
+        android:text="1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="30dp"
+        android:layout_margin="60dp"
         android:background="@drawable/custombackground"
         android:textAlignment="center"
         android:textSize="10sp"
         android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/button3"
+        app:layout_constraintStart_toEndOf="@+id/button0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="40dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916"
         app:layout_constraintWidth_max="40dp" />
 
-    <TextView
-        android:id="@+id/kKey"
-        android:text="k"
-        tools:text="k"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="0"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/lKey"
-        android:text="l"
-        tools:text="l"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="45"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/mKey"
-        android:text="m"
-        tools:text="m"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="90"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/nKey"
-        android:text="n"
-        tools:text="n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="135"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/oKey"
-        android:text="o"
-        tools:text="o"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="180"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/pKey"
-        android:text="p"
-        tools:text="p"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="225"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/iKey"
-        android:text="i"
-        tools:text="i"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="270"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/jKey"
-        android:text="j"
-        tools:text="j"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="315"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/cKey"
-        android:text="c"
-        tools:text="c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/button2"
+        android:text="2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="60dp"
+        android:background="@drawable/custombackground"
+        android:textAlignment="center"
+        android:textSize="10sp"
         android:translationX="-20dp"
+        app:layout_constraintTop_toTopOf="@id/button0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="0"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHeight_max="40dp"
+        app:layout_constraintWidth_max="40dp" />
 
-    <TextView
-        android:id="@+id/dKey"
-        android:text="d"
-        tools:text="d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="45"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/eKey"
-        android:text="e"
-        tools:text="e"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="90"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/fKey"
-        android:text="f"
-        tools:text="f"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="135"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/gKey"
-        android:text="g"
-        tools:text="g"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="180"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/hKey"
-        android:text="h"
-        tools:text="h"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="225"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/aKey"
-        android:text="a"
-        tools:text="a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="270"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <TextView
-        android:id="@+id/bKey"
-        android:text="b"
-        tools:text="b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="315"
-        app:layout_constraintCircleRadius="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <!-- Outer  -->
-
-    <TextView
-        android:id="@+id/qKey"
-        android:text="q"
-        tools:text="q"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/button3"
+        android:text="3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="60dp"
+        android:background="@drawable/custombackground"
+        android:textAlignment="center"
+        android:textSize="10sp"
         android:translationX="20dp"
+        app:layout_constraintTop_toTopOf="@id/button1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="0"
-        app:layout_constraintCircleRadius="91dp"
+        app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHeight_max="40dp"
+        app:layout_constraintWidth_max="40dp" />
 
-    <TextView
-        android:id="@+id/rKey"
-        android:text="r"
-        tools:text="r"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="45"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/kKey"-->
+<!--        android:text="k"-->
+<!--        tools:text="k"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="0"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/sKey"
-        android:text="s"
-        tools:text="s"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="90"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/lKey"-->
+<!--        android:text="l"-->
+<!--        tools:text="l"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="45"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/tKey"
-        android:text="t"
-        tools:text="t"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="135"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/mKey"-->
+<!--        android:text="m"-->
+<!--        tools:text="m"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="90"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/uKey"
-        android:text="u"
-        tools:text="u"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="180"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/nKey"-->
+<!--        android:text="n"-->
+<!--        tools:text="n"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="135"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/vKey"
-        android:text="v"
-        tools:text="v"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="180"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/oKey"-->
+<!--        android:text="o"-->
+<!--        tools:text="o"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="180"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/wKey"
-        android:text="w"
-        tools:text="w"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="225"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/pKey"-->
+<!--        android:text="p"-->
+<!--        tools:text="p"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="225"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/xKey"
-        android:text="x"
-        tools:text="x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="270"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/iKey"-->
+<!--        android:text="i"-->
+<!--        tools:text="i"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="270"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/yKey"
-        android:text="y"
-        tools:text="y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="315"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/jKey"-->
+<!--        android:text="j"-->
+<!--        tools:text="j"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="315"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/zKey"
-        android:text="z"
-        tools:text="z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button0"
-        app:layout_constraintCircleAngle="0"
-        app:layout_constraintCircleRadius="91dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/cKey"-->
+<!--        android:text="c"-->
+<!--        tools:text="c"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="0"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/deleteKey"
-        android:text="del"
-        tools:text="del"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationX="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircle="@id/button1"
-        app:layout_constraintCircleAngle="270"
-        app:layout_constraintCircleRadius="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/dKey"-->
+<!--        android:text="d"-->
+<!--        tools:text="d"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="45"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
 
-    <!-- End Outer -->
+<!--    <TextView-->
+<!--        android:id="@+id/eKey"-->
+<!--        android:text="e"-->
+<!--        tools:text="e"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="90"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/fKey"-->
+<!--        android:text="f"-->
+<!--        tools:text="f"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="135"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/gKey"-->
+<!--        android:text="g"-->
+<!--        tools:text="g"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="180"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/hKey"-->
+<!--        android:text="h"-->
+<!--        tools:text="h"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="225"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/aKey"-->
+<!--        android:text="a"-->
+<!--        tools:text="a"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="270"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/bKey"-->
+<!--        android:text="b"-->
+<!--        tools:text="b"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="315"-->
+<!--        app:layout_constraintCircleRadius="54dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        />-->
+
+<!--    &lt;!&ndash; Outer  &ndash;&gt;-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/qKey"-->
+<!--        android:text="q"-->
+<!--        tools:text="q"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="0"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/rKey"-->
+<!--        android:text="r"-->
+<!--        tools:text="r"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="45"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/sKey"-->
+<!--        android:text="s"-->
+<!--        tools:text="s"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="90"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tKey"-->
+<!--        android:text="t"-->
+<!--        tools:text="t"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="135"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/uKey"-->
+<!--        android:text="u"-->
+<!--        tools:text="u"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="180"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/vKey"-->
+<!--        android:text="v"-->
+<!--        tools:text="v"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="180"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/wKey"-->
+<!--        android:text="w"-->
+<!--        tools:text="w"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="225"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/xKey"-->
+<!--        android:text="x"-->
+<!--        tools:text="x"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="270"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/yKey"-->
+<!--        android:text="y"-->
+<!--        tools:text="y"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="315"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/zKey"-->
+<!--        android:text="z"-->
+<!--        tools:text="z"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="-20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button0"-->
+<!--        app:layout_constraintCircleAngle="0"-->
+<!--        app:layout_constraintCircleRadius="91dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/deleteKey"-->
+<!--        android:text="del"-->
+<!--        tools:text="del"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationX="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintCircle="@id/button1"-->
+<!--        app:layout_constraintCircleAngle="270"-->
+<!--        app:layout_constraintCircleRadius="100dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.697"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+<!--    &lt;!&ndash; End Outer &ndash;&gt;-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
