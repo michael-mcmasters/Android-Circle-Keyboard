@@ -22,7 +22,7 @@
                 android:id="@+id/topLeftButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
@@ -30,7 +30,7 @@
                 android:id="@+id/topRightButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
@@ -44,7 +44,7 @@
                 android:id="@+id/bottomLeftButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
@@ -52,7 +52,7 @@
                 android:id="@+id/bottomRightButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />

@@ -44,6 +44,7 @@ public class ButtonListener {
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
                 Log.d(TAG, "Touch Up");
                 onTouchUp(motionEvent);
+//                vibrate(30);
             }
 
             onTouchDrag(view, motionEvent);

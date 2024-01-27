@@ -44,16 +44,16 @@ public class MainKeyboardView extends ConstraintLayout {
         Button bottomRightButton = keyboardView.findViewById(R.id.bottomRightButton);
 
         topLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("L", "U", "R", "D")).getButtonCallback(topLeftButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "B", "C", "D")).getButtonCallback(topLeftButton)
         );
         topRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("1", "2", "3", "4")).getButtonCallback(topRightButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H")).getButtonCallback(topRightButton)
         );
         bottomLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("5", "6", "7", "8")).getButtonCallback(bottomLeftButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L")).getButtonCallback(bottomLeftButton)
         );
         bottomRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("9", "10", "11", "12")).getButtonCallback(bottomRightButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P")).getButtonCallback(bottomRightButton)
         );
     }
 
