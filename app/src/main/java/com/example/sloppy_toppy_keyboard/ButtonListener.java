@@ -1,6 +1,9 @@
 package com.example.sloppy_toppy_keyboard;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +23,7 @@ public class ButtonListener {
 
     private Vector2 startPosition;
     private Vector2 endPosition;
+    private boolean vibrated;
 
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
@@ -42,6 +46,8 @@ public class ButtonListener {
                 onTouchUp(motionEvent);
             }
 
+            onTouchDrag(view, motionEvent);
+
             view.performClick();
             return true;
         };
@@ -49,6 +55,21 @@ public class ButtonListener {
 
     private void onTouchDown(MotionEvent motionEvent) {
         startPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));  // should be relative to the button
+        vibrated = false;
+    }
+
+    private void onTouchDrag(View view, MotionEvent motionEvent) {
+        if (vibrated) return;
+
+        // If dist from center is greater than that / 2, vibrate (bc we are are out of button area)
+        Vector2 buttonCenterPos = new Vector2(view.getWidth() * 0.5f, view.getHeight() * 0.5f);
+        Vector2 touchPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
+        double touchDistFromCenter = Math.hypot(buttonCenterPos.x - touchPosition.x, touchPosition.y - buttonCenterPos.y);
+        if (touchDistFromCenter > view.getWidth() / 2 || touchDistFromCenter > view.getHeight() / 2) {
+            vibrate(30);
+            vibrated = true;
+        }
+
     }
 
     private void onTouchUp(MotionEvent motionEvent) {
@@ -77,6 +98,22 @@ public class ButtonListener {
                 // down
                 circleKeyboardApplication.commitText(keyMap.getDown());
             }
+        }
+    }
+
+    private void vibrate(int milliseconds) {
+        Vibrator v = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (v == null) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(milliseconds);
         }
     }
 
