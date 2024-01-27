@@ -8,22 +8,24 @@ import android.widget.Button;
 
 import androidx.core.view.MotionEventCompat;
 
+import com.example.sloppy_toppy_keyboard.model.KeyMap;
+
 public class ButtonListener {
 
     private static final String TAG = "CircleOnPressListener";
 
     private Context context;
     private CircleKeyboardApplication circleKeyboardApplication;
-    private MainKeyboardView mainKeyboardView;
+    private KeyMap keyMap;
 
     private Vector2 startPosition;
     private Vector2 endPosition;
 
 
-    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView) {
+    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
-        this.mainKeyboardView = mainKeyboardView;
+        this.keyMap = keyMap;
     }
 
     // Gets start position
@@ -62,18 +64,18 @@ public class ButtonListener {
         if (xDistance > yDistance) {
             if (endPosition.x < startPosition.x) {
                 // left
-                circleKeyboardApplication.commitText("L");
+                circleKeyboardApplication.commitText(keyMap.getLeft());
             } else {
                 // right
-                circleKeyboardApplication.commitText("R");
+                circleKeyboardApplication.commitText(keyMap.getRight());
             }
         } else {
             if (endPosition.y < startPosition.y) {
                 // up
-                circleKeyboardApplication.commitText("U");
+                circleKeyboardApplication.commitText(keyMap.getUp());
             } else {
                 // down
-                circleKeyboardApplication.commitText("D");
+                circleKeyboardApplication.commitText(keyMap.getDown());
             }
         }
     }

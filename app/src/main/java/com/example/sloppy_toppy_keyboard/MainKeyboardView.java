@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.sloppy_toppy_keyboard.model.KeyMap;
+
 public class MainKeyboardView extends ConstraintLayout {
 
     private static final String TAG = "MainKeyboardView";
@@ -42,16 +44,16 @@ public class MainKeyboardView extends ConstraintLayout {
         Button bottomRightButton = keyboardView.findViewById(R.id.bottomRightButton);
 
         topLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, this).getButtonCallback(topLeftButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("L", "U", "R", "D")).getButtonCallback(topLeftButton)
         );
         topRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, this).getButtonCallback(topRightButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("1", "2", "3", "4")).getButtonCallback(topRightButton)
         );
         bottomLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, this).getButtonCallback(bottomLeftButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("5", "6", "7", "8")).getButtonCallback(bottomLeftButton)
         );
         bottomRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, this).getButtonCallback(bottomRightButton)
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("9", "10", "11", "12")).getButtonCallback(bottomRightButton)
         );
     }
 
