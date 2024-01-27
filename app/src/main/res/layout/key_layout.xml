@@ -19,15 +19,17 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/button0"
+                android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="150dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
             <Button
                 android:id="@+id/button1"
+                android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="150dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
@@ -39,15 +41,17 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/button2"
+                android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="150dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
             <Button
                 android:id="@+id/button3"
+                android:text="topleft"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="150dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 />
