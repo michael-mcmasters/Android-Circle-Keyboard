@@ -7,7 +7,10 @@ import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.sloppy_toppy_keyboard.listeners.BackspaceListener;
+import com.example.sloppy_toppy_keyboard.listeners.ButtonListener;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
+import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
 public class MainKeyboardView extends ConstraintLayout {
 
@@ -43,6 +46,11 @@ public class MainKeyboardView extends ConstraintLayout {
         Button bottomLeftButton = keyboardView.findViewById(R.id.bottomLeftButton);
         Button bottomRightButton = keyboardView.findViewById(R.id.bottomRightButton);
 
+        Button backspaceButton = keyboardView.findViewById(R.id.backspaceButton);
+        Button numButton = keyboardView.findViewById(R.id.numButton);
+        Button spaceButton = keyboardView.findViewById(R.id.spaceButton);
+        Button enterButton = keyboardView.findViewById(R.id.enterButton);
+
         topLeftButton.setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "B", "C", "D")).getButtonCallback(topLeftButton)
         );
@@ -54,6 +62,9 @@ public class MainKeyboardView extends ConstraintLayout {
         );
         bottomRightButton.setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P")).getButtonCallback(bottomRightButton)
+        );
+        backspaceButton.setOnTouchListener(
+                new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
         );
     }
 

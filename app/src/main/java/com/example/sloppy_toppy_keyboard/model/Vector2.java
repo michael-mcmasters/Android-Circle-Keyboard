@@ -1,6 +1,7 @@
-package com.example.sloppy_toppy_keyboard;
+package com.example.sloppy_toppy_keyboard.model;
 
 public class Vector2 {
+
     public double x;
     public double y;
 

@@ -1,4 +1,4 @@
-package com.example.sloppy_toppy_keyboard;
+package com.example.sloppy_toppy_keyboard.listeners;
 
 import android.content.Context;
 import android.os.Build;
@@ -11,7 +11,9 @@ import android.widget.Button;
 
 import androidx.core.view.MotionEventCompat;
 
+import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
+import com.example.sloppy_toppy_keyboard.model.Vector2;
 
 public class ButtonListener {
 
@@ -48,7 +50,7 @@ public class ButtonListener {
 
             onTouchDrag(view, motionEvent);
 
-            view.performClick();
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         };
     }
