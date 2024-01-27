@@ -73,15 +73,15 @@ public class MainKeyboardView extends ConstraintLayout {
 
     // This method maybe shouldn't be in this View class. Should create another class that instantiates this view class and the CircleOnPressListener class?
     public void notifyButtonState(boolean leftCircle, String circleState) {
-        if (leftCircle) {
-            leftCircleState = circleState;
-        } else {
-            rightCircleState = circleState;
-        }
-
-        if (leftCircleState.equals("ACTION_UP") && rightCircleState.equals("ACTION_UP")) {
-            circleKeyboardApplication.commitText(" ");
-        }
+//        if (leftCircle) {
+//            leftCircleState = circleState;
+//        } else {
+//            rightCircleState = circleState;
+//        }
+//
+//        if (leftCircleState.equals("ACTION_UP") && rightCircleState.equals("ACTION_UP")) {
+//            circleKeyboardApplication.commitText(" ");
+//        }
     }
 
     public View getKeyboardView() {
