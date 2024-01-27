@@ -18,7 +18,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
             <Button
-                android:id="@+id/button0"
+                android:id="@+id/topLeftButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
@@ -26,7 +26,7 @@
                 android:insetBottom="0dp"
                 />
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/topRightButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
@@ -40,7 +40,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/bottomLeftButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
@@ -48,7 +48,7 @@
                 android:insetBottom="0dp"
                 />
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/bottomRightButton"
                 android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
