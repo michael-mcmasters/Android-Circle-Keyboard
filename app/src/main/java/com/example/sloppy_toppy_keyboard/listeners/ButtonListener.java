@@ -37,7 +37,7 @@ public class ButtonListener {
     // Gets start position
     // Gets end position
     // Determines if up/down/left/right
-    public View.OnTouchListener getButtonCallback(Button button) {
+    public View.OnTouchListener getButtonCallback() {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {

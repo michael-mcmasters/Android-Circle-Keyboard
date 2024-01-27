@@ -9,6 +9,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.sloppy_toppy_keyboard.listeners.BackspaceListener;
 import com.example.sloppy_toppy_keyboard.listeners.ButtonListener;
+import com.example.sloppy_toppy_keyboard.listeners.EnterListener;
+import com.example.sloppy_toppy_keyboard.listeners.NumListener;
+import com.example.sloppy_toppy_keyboard.listeners.SpaceListener;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
@@ -41,30 +44,30 @@ public class MainKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);
 
-        Button topLeftButton = keyboardView.findViewById(R.id.topLeftButton);
-        Button topRightButton = keyboardView.findViewById(R.id.topRightButton);
-        Button bottomLeftButton = keyboardView.findViewById(R.id.bottomLeftButton);
-        Button bottomRightButton = keyboardView.findViewById(R.id.bottomRightButton);
-
-        Button backspaceButton = keyboardView.findViewById(R.id.backspaceButton);
-        Button numButton = keyboardView.findViewById(R.id.numButton);
-        Button spaceButton = keyboardView.findViewById(R.id.spaceButton);
-        Button enterButton = keyboardView.findViewById(R.id.enterButton);
-
-        topLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "B", "C", "D")).getButtonCallback(topLeftButton)
+        // Get buttons by id (defined in XML), and add listener functions to them
+        keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "B", "C", "D")).getButtonCallback()
         );
-        topRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H")).getButtonCallback(topRightButton)
+        keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H")).getButtonCallback()
         );
-        bottomLeftButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L")).getButtonCallback(bottomLeftButton)
+        keyboardView.findViewById(R.id.bottomLeftButton).setOnTouchListener(
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L")).getButtonCallback()
         );
-        bottomRightButton.setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P")).getButtonCallback(bottomRightButton)
+        keyboardView.findViewById(R.id.bottomRightButton).setOnTouchListener(
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P")).getButtonCallback()
         );
-        backspaceButton.setOnTouchListener(
+        keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
+        );
+        keyboardView.findViewById(R.id.numButton).setOnTouchListener(
+                new NumListener(context, circleKeyboardApplication).getButtonCallback()
+        );
+        keyboardView.findViewById(R.id.spaceButton).setOnTouchListener(
+                new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
+        );
+        keyboardView.findViewById(R.id.enterButton).setOnTouchListener(
+                new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );
     }
 
