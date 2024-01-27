@@ -5,56 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/customborder"
-    android:paddingBottom="50dp"
-    android:maxHeight="500dp">
+    android:maxHeight="500dp"
+    android:orientation="vertical"
+    >
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <Button
+                android:layout_width="0dp"
+                android:text="backspace"
+                />
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:stretchColumns="*">
+
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1">
+
             <Button
                 android:id="@+id/topLeftButton"
-                android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                />
+                android:text="topleft" />
+
             <Button
                 android:id="@+id/topRightButton"
-                android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                />
+                android:text="topleft" />
         </TableRow>
+
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1">
+
             <Button
                 android:id="@+id/bottomLeftButton"
-                android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                />
+                android:text="topleft" />
+
             <Button
                 android:id="@+id/bottomRightButton"
-                android:text="topleft"
                 android:layout_width="fill_parent"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:text="topleft" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <Button
+                android:text="num"
+                />
+            <Button
+                android:text="space"
+                />
+            <Button
+                android:text="enter"
                 />
         </TableRow>
     </TableLayout>
