@@ -1,17 +1,25 @@
 package com.example.sloppy_toppy_keyboard.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+// Allows Jackson ObjectMapper to set private fields (if any)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class KeyMap {
 
-    private String left;
-    private String up;
-    private String right;
-    private String down;
+    public String left;
+    public String up;
+    public String right;
+    public String down;
 
     private String farLeft;
     private String farUp;
     private String farRight;
     private String farDown;
 
+
+    public KeyMap() {
+
+    }
 
     public KeyMap(String left, String up, String right, String down, String farLeft, String farUp, String farRight, String farDown) {
         this.left = left;

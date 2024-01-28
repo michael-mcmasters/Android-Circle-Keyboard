@@ -1,9 +1,13 @@
 package com.example.sloppy_toppy_keyboard;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -15,9 +19,14 @@ import com.example.sloppy_toppy_keyboard.listeners.SpaceListener;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainKeyboardView extends ConstraintLayout {
 
     private static final String TAG = "MainKeyboardView";
+
     private Context context;
     private CircleKeyboardApplication circleKeyboardApplication;
     private CircleOnPressListener leftCircleOnPressListener;
@@ -44,9 +53,18 @@ public class MainKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);
 
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        KeyMap keyMap = new KeyMap("X", "X", "X", "X", "X", "X", "X", "X");
+        try {
+            keyMap = readFile();
+        } catch(Exception e) {
+            Log.d(TAG, "initialize: Error reading file");
+        }
+
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S", "L", "U", "R", "D")).getButtonCallback()
+//                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S", "L", "U", "R", "D")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, keyMap).getButtonCallback()
         );
         keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H", "L", "U", "R", "D")).getButtonCallback()
@@ -86,5 +104,26 @@ public class MainKeyboardView extends ConstraintLayout {
 
     public View getKeyboardView() {
         return keyboardView;
+    }
+
+    private KeyMap readFile() throws IOException {
+        InputStream inputStream = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+//            File file = new File("./local.yml");
+//            File file = new File(context.getFilesDir(), "local.yml");
+
+            inputStream = getResources().openRawResource(R.raw.local);
+
+//            Log.d(TAG, "initialize: file is " + file);
+            return mapper.readValue(inputStream, KeyMap.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return null;
     }
 }
