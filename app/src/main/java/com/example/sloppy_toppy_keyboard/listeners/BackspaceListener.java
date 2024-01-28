@@ -3,7 +3,6 @@ package com.example.sloppy_toppy_keyboard.listeners;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.core.view.MotionEventCompat;
 
@@ -24,7 +23,7 @@ public class BackspaceListener {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.deleteText();
+                circleKeyboardApplication.backspace();
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does

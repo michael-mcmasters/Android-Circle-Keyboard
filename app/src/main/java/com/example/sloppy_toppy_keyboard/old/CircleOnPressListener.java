@@ -215,7 +215,7 @@ public class CircleOnPressListener {
     private void enterCommand(String selectedLetter) {
         switch (selectedLetter) {
             case "del":
-                circleKeyboardApplication.deleteText();
+                circleKeyboardApplication.backspace();
                 break;
             default:
                 circleKeyboardApplication.commitText(selectedLetter);

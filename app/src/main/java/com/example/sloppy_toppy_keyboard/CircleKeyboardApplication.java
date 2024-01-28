@@ -44,7 +44,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     // Not 100% what all code here does but it works. Probably possibly can delete some of it as it was copied from elsewhere.
-    public void deleteText() {
+    public void backspace() {
         CharSequence sel = inputConnection.getSelectedText(0);
         if (TextUtils.isEmpty(sel)) {
             inputConnection.deleteSurroundingText(1, 0);
@@ -53,16 +53,16 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void finishComposingText() {
+    public void enter() {
         sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
     }
 
-    public void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
+    private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
         sendDownKeyEvent(keyEventCode, flags);
         sendUpKeyEvent(keyEventCode, flags);
     }
 
-    public void sendDownKeyEvent(int keyEventCode, int flags) {
+    private void sendDownKeyEvent(int keyEventCode, int flags) {
         inputConnection.sendKeyEvent(
                 new KeyEvent(
                         SystemClock.uptimeMillis(),
@@ -75,7 +75,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         );
     }
 
-    public void sendUpKeyEvent(int keyEventCode, int flags) {
+    private void sendUpKeyEvent(int keyEventCode, int flags) {
         inputConnection.sendKeyEvent(
                 new KeyEvent(
                         SystemClock.uptimeMillis(),

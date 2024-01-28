@@ -23,7 +23,7 @@ public class NumListener {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.deleteText();
+                circleKeyboardApplication.backspace();
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
