@@ -36,20 +36,22 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-            <Button
+            <ImageButton
                 android:id="@+id/topLeftButton"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:src="@drawable/ayyee"
                 android:text="wasd" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/topRightButton"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:src="@drawable/ayyee"
                 android:text="eiou (kj?!)" />
         </TableRow>
 
@@ -59,20 +61,22 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-            <Button
+            <ImageButton
                 android:id="@+id/bottomLeftButton"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:src="@drawable/ayyee"
                 android:text="ntlr (fgbv)" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/bottomRightButton"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:src="@drawable/ayyee"
                 android:text="chmp (qxyz)" />
         </TableRow>
 
@@ -101,23 +105,23 @@
         </TableRow>
     </TableLayout>
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/kKey"-->
-    <!--        android:text="k"-->
-    <!--        tools:text="k"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:translationX="20dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintCircle="@id/button1"-->
-    <!--        app:layout_constraintCircleAngle="0"-->
-    <!--        app:layout_constraintCircleRadius="54dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.697"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="1.0"-->
-    <!--        />-->
+<!--        <TextView-->
+<!--            android:id="@+id/kKey"-->
+<!--            android:text="k"-->
+<!--            tools:text="k"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:translationX="20dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintCircle="@id/button1"-->
+<!--            app:layout_constraintCircleAngle="0"-->
+<!--            app:layout_constraintCircleRadius="54dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.697"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="1.0"-->
+<!--            />-->
 
     <!--    <TextView-->
     <!--        android:id="@+id/lKey"-->
