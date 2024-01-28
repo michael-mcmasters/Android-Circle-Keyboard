@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -19,7 +18,6 @@ import com.example.sloppy_toppy_keyboard.listeners.SpaceListener;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -53,27 +51,18 @@ public class MainKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);
 
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        KeyMap keyMap = new KeyMap("X", "X", "X", "X", "X", "X", "X", "X");
-        try {
-            keyMap = readFile();
-        } catch(Exception e) {
-            Log.d(TAG, "initialize: Error reading file");
-        }
-
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-//                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S", "L", "U", "R", "D")).getButtonCallback()
-                new ButtonListener(context, circleKeyboardApplication, keyMap).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.top_left)).getButtonCallback()
         );
         keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H", "L", "U", "R", "D")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.top_right)).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L", "L", "U", "R", "D")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.bottom_left)).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P", "L", "U", "R", "D")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.bottom_right)).getButtonCallback()
         );
         keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
@@ -106,24 +95,28 @@ public class MainKeyboardView extends ConstraintLayout {
         return keyboardView;
     }
 
-    private KeyMap readFile() throws IOException {
+    private KeyMap getKeyMapFromConfigFile(int fileName) {
+        try {
+            return parseConfigFile(fileName);
+        } catch (Exception e) {
+            Log.e(TAG, "Error reading file");
+            throw new RuntimeException("Can not parse file");
+        }
+    }
+
+    private KeyMap parseConfigFile(int fileName) throws IOException {
         InputStream inputStream = null;
         try {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-//            File file = new File("./local.yml");
-//            File file = new File(context.getFilesDir(), "local.yml");
-
-            inputStream = getResources().openRawResource(R.raw.local);
-
-//            Log.d(TAG, "initialize: file is " + file);
+            inputStream = getResources().openRawResource(fileName);
             return mapper.readValue(inputStream, KeyMap.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error reading file");
         } finally {
             if (inputStream != null) {
                 inputStream.close();
             }
         }
-        return null;
+        throw new RuntimeException("Ca not parse file");
     }
 }

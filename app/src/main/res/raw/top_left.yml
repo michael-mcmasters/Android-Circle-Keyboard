@@ -1,0 +1,9 @@
+left: A
+up: W
+right: D
+down: S
+
+farLeft: L
+farUp: U
+farRight: R
+farDown: D

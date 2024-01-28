@@ -1,0 +1,9 @@
+left: M
+up: N
+right: O
+down: P
+
+farLeft: fl
+farUp: fu
+farRight: fr
+farDown: fd
