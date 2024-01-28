@@ -25,7 +25,9 @@ public class ButtonListener {
 
     private Vector2 startPosition;
     private Vector2 endPosition;
+
     private boolean vibrated;
+    private boolean vibratedFarLetter;
 
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
@@ -58,12 +60,17 @@ public class ButtonListener {
     private void onTouchDown(MotionEvent motionEvent) {
         startPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));  // should be relative to the button
         vibrated = false;
+        vibratedFarLetter = false;
     }
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
         if (!vibrated && getTouchDistanceFromCenter(view, motionEvent) > 50) {
-            vibrate(10);
+//            vibrate(10);
             vibrated = true;
+        }
+        if (!vibratedFarLetter && getTouchDistanceFromCenter(view, motionEvent) > 250) {
+            vibrate(10);
+            vibratedFarLetter = true;
         }
 
 //        if (draggedOutsideOfButton(view, motionEvent)) {
