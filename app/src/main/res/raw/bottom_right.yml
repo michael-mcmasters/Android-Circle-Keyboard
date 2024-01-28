@@ -1,9 +1,9 @@
-left: M
-up: N
-right: O
-down: P
+up: C
+left: H
+down: M
+right: P
 
-farLeft: fl
-farUp: fu
-farRight: fr
-farDown: fd
+farUp: Q
+farLeft: X
+farDown: Y
+farRight: Z
