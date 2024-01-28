@@ -32,6 +32,7 @@ public class ButtonListener {
 
     private boolean slidOutAndInForFarLetter;
     private boolean hitFirstLetter;
+    private String selectedOutAndInLetter = "";
 
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
@@ -52,6 +53,7 @@ public class ButtonListener {
                 onTouchUp(view, motionEvent);
             }
 
+            endPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
             onTouchDrag(view, motionEvent);
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
@@ -76,6 +78,27 @@ public class ButtonListener {
         if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < 50) {
             vibrate(10);
             slidOutAndInForFarLetter = true;
+            selectedOutAndInLetter = "";
+
+            double xDistance = Math.abs(startPosition.x - endPosition.x);
+            double yDistance = Math.abs(startPosition.y - endPosition.y);
+
+            if (slidOutAndInForFarLetter) {
+                // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
+                if (xDistance > yDistance) {
+                    if (endPosition.x < startPosition.x) {
+                        selectedOutAndInLetter = keyMap.getFarLeft();
+                    } else {
+                        selectedOutAndInLetter = keyMap.getFarRight();
+                    }
+                } else {
+                    if (endPosition.y < startPosition.y) {
+                        selectedOutAndInLetter = keyMap.getFarUp();
+                    } else {
+                        selectedOutAndInLetter = keyMap.getFarDown();
+                    }
+                }
+            }
         }
 //        if (!vibratedFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) > 250) {
 //            vibrate(10);
@@ -84,7 +107,6 @@ public class ButtonListener {
     }
 
     private void onTouchUp(View view, MotionEvent motionEvent) {
-        endPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
         Log.d(TAG, String.format("startPosition x: %s, y: %s", startPosition.x, startPosition.y));
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
@@ -95,32 +117,16 @@ public class ButtonListener {
         double xDistance = Math.abs(startPosition.x - endPosition.x);
         double yDistance = Math.abs(startPosition.y - endPosition.y);
 
-        if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-//            circleKeyboardApplication.commitText("<");
-            doubleTappedForFarLetter = true;
-            return;
-        }
+//        if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
+////            circleKeyboardApplication.commitText("<");
+//            doubleTappedForFarLetter = true;
+//            return;
+//        }
 
         if (slidOutAndInForFarLetter) {
-            // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
-            if (xDistance > yDistance) {
-                if (endPosition.x < startPosition.x) {
-                    // ended left
-                    circleKeyboardApplication.commitText(keyMap.getFarRight());
-                } else {
-                    // ended right
-                    circleKeyboardApplication.commitText(keyMap.getFarLeft());
-                }
-            } else {
-                if (endPosition.y < startPosition.y) {
-                    // ended up
-                    circleKeyboardApplication.commitText(keyMap.getFarDown());
-                } else {
-                    // ended down
-                    circleKeyboardApplication.commitText(keyMap.getFarUp());
-                }
-            }
-        } else {
+            circleKeyboardApplication.commitText(selectedOutAndInLetter);
+        }
+        else {
             // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
