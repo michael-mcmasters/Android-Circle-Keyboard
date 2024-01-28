@@ -28,6 +28,7 @@ public class ButtonListener {
 
     private boolean vibrated;
     private boolean vibratedFarLetter;
+    private boolean doubleTappedForFarLetter;
 
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
@@ -36,6 +37,8 @@ public class ButtonListener {
         this.keyMap = keyMap;
     }
 
+    // if dist is low on touch up, set 2nd letter true
+
     // Gets start position
     // Gets end position
     // Determines if up/down/left/right
@@ -43,10 +46,8 @@ public class ButtonListener {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                Log.d(TAG, "Touch Down");
                 onTouchDown(motionEvent);
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                Log.d(TAG, "Touch Up");
                 onTouchUp(view, motionEvent);
             }
 
@@ -73,11 +74,6 @@ public class ButtonListener {
             vibrate(10);
             vibratedFarLetter = true;
         }
-
-//        if (draggedOutsideOfButton(view, motionEvent)) {
-//            vibrate(30);
-//            vibrated = true;
-//        }
     }
 
     private void onTouchUp(View view, MotionEvent motionEvent) {
@@ -86,10 +82,16 @@ public class ButtonListener {
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
 
-        boolean selectedFarLetter = vibratedFarLetter;
+        boolean selectedFarLetter = vibratedFarLetter | doubleTappedForFarLetter;
 
         double xDistance = Math.abs(startPosition.x - endPosition.x);
         double yDistance = Math.abs(startPosition.y - endPosition.y);
+
+        if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
+//            circleKeyboardApplication.commitText("<");
+            doubleTappedForFarLetter = true;
+            return;
+        }
 
         // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
         if (xDistance > yDistance) {
@@ -110,6 +112,8 @@ public class ButtonListener {
                 circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
             }
         }
+
+        doubleTappedForFarLetter = false;
     }
 
     // Returns true if touch is greater than the button width / 2
@@ -130,18 +134,18 @@ public class ButtonListener {
     }
 
     private void vibrate(int milliseconds) {
-        Vibrator v = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        }
-        if (v == null) return;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            //deprecated in API 26
-            v.vibrate(milliseconds);
-        }
+//        Vibrator v = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+//        }
+//        if (v == null) return;
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+//        } else {
+//            //deprecated in API 26
+//            v.vibrate(milliseconds);
+//        }
     }
 
 }
