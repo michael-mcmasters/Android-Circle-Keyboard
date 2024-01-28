@@ -64,11 +64,12 @@ public class ButtonListener {
     }
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
-        if (!vibrated && getTouchDistanceFromCenter(view, motionEvent) > 50) {
+        if (!vibrated && getTouchDistanceFromStartPoint(view, motionEvent) > 50) {
 //            vibrate(10);
             vibrated = true;
         }
-        if (!vibratedFarLetter && getTouchDistanceFromCenter(view, motionEvent) > 250) {
+//        if (!vibratedFarLetter && (getTouchDistanceFromStartPoint(view, motionEvent) > 250 || draggedOutsideOfButton(view, motionEvent))) {
+        if (!vibratedFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) > 250) {
             vibrate(10);
             vibratedFarLetter = true;
         }
@@ -115,6 +116,11 @@ public class ButtonListener {
     private boolean draggedOutsideOfButton(View view, MotionEvent motionEvent) {
         double touchDistFromCenter = getTouchDistanceFromCenter(view, motionEvent);
         return touchDistFromCenter > view.getWidth() / 2 || touchDistFromCenter > view.getHeight() / 2;
+    }
+
+    private double getTouchDistanceFromStartPoint(View view, MotionEvent motionEvent) {
+        Vector2 currentPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
+        return Math.hypot(startPosition.x - currentPosition.x, currentPosition.y - startPosition.y);
     }
 
     private double getTouchDistanceFromCenter(View view, MotionEvent motionEvent) {
