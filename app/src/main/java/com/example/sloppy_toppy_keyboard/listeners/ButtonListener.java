@@ -30,14 +30,15 @@ public class ButtonListener {
     private boolean vibratedFarLetter;
     private boolean doubleTappedForFarLetter;
 
+    private boolean slidOutAndInForFarLetter;
+    private boolean hitFirstLetter;
+
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
         this.keyMap = keyMap;
     }
-
-    // if dist is low on touch up, set 2nd letter true
 
     // Gets start position
     // Gets end position
@@ -62,18 +63,24 @@ public class ButtonListener {
         startPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));  // should be relative to the button
         vibrated = false;
         vibratedFarLetter = false;
+        slidOutAndInForFarLetter = false;
+        hitFirstLetter = false;
     }
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
         if (!vibrated && getTouchDistanceFromStartPoint(view, motionEvent) > 50) {
-//            vibrate(10);
-            vibrated = true;
-        }
-//        if (!vibratedFarLetter && (getTouchDistanceFromStartPoint(view, motionEvent) > 250 || draggedOutsideOfButton(view, motionEvent))) {
-        if (!vibratedFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) > 250) {
             vibrate(10);
-            vibratedFarLetter = true;
+            vibrated = true;
+            hitFirstLetter = true;
         }
+        if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < 50) {
+            vibrate(10);
+            slidOutAndInForFarLetter = true;
+        }
+//        if (!vibratedFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) > 250) {
+//            vibrate(10);
+//            vibratedFarLetter = true;
+//        }
     }
 
     private void onTouchUp(View view, MotionEvent motionEvent) {
@@ -82,7 +89,8 @@ public class ButtonListener {
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
 
-        boolean selectedFarLetter = vibratedFarLetter | doubleTappedForFarLetter;
+//        boolean selectedFarLetter = vibratedFarLetter | doubleTappedForFarLetter | slidOutAndInForFarLetter;
+        boolean selectedFarLetter = false;
 
         double xDistance = Math.abs(startPosition.x - endPosition.x);
         double yDistance = Math.abs(startPosition.y - endPosition.y);
@@ -93,23 +101,44 @@ public class ButtonListener {
             return;
         }
 
-        // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
-        if (xDistance > yDistance) {
-            if (endPosition.x < startPosition.x) {
-                // left
-                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
-
+        if (slidOutAndInForFarLetter) {
+            // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
+            if (xDistance > yDistance) {
+                if (endPosition.x < startPosition.x) {
+                    // ended left
+                    circleKeyboardApplication.commitText(keyMap.getFarRight());
+                } else {
+                    // ended right
+                    circleKeyboardApplication.commitText(keyMap.getFarLeft());
+                }
             } else {
-                // right
-                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
+                if (endPosition.y < startPosition.y) {
+                    // ended up
+                    circleKeyboardApplication.commitText(keyMap.getFarDown());
+                } else {
+                    // ended down
+                    circleKeyboardApplication.commitText(keyMap.getFarUp());
+                }
             }
         } else {
-            if (endPosition.y < startPosition.y) {
-                // up
-                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
+            // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
+            if (xDistance > yDistance) {
+                if (endPosition.x < startPosition.x) {
+                    // left
+                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
+
+                } else {
+                    // right
+                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
+                }
             } else {
-                // down
-                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
+                if (endPosition.y < startPosition.y) {
+                    // up
+                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
+                } else {
+                    // down
+                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
+                }
             }
         }
 
@@ -134,18 +163,18 @@ public class ButtonListener {
     }
 
     private void vibrate(int milliseconds) {
-//        Vibrator v = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-//        }
-//        if (v == null) return;
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
-//        } else {
-//            //deprecated in API 26
-//            v.vibrate(milliseconds);
-//        }
+        Vibrator v = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (v == null) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(milliseconds);
+        }
     }
 
 }
