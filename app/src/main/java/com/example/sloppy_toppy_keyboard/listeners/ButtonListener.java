@@ -85,6 +85,8 @@ public class ButtonListener {
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
 
+        boolean selectedFarLetter = vibratedFarLetter;
+
         double xDistance = Math.abs(startPosition.x - endPosition.x);
         double yDistance = Math.abs(startPosition.y - endPosition.y);
 
@@ -92,18 +94,19 @@ public class ButtonListener {
         if (xDistance > yDistance) {
             if (endPosition.x < startPosition.x) {
                 // left
-                circleKeyboardApplication.commitText(keyMap.getLeft());
+                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
+
             } else {
                 // right
-                circleKeyboardApplication.commitText(keyMap.getRight());
+                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
             }
         } else {
             if (endPosition.y < startPosition.y) {
                 // up
-                circleKeyboardApplication.commitText(keyMap.getUp());
+                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
             } else {
                 // down
-                circleKeyboardApplication.commitText(keyMap.getDown());
+                circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
             }
         }
     }

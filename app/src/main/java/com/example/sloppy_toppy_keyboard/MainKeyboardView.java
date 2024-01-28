@@ -46,16 +46,16 @@ public class MainKeyboardView extends ConstraintLayout {
 
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S", "L", "U", "R", "D")).getButtonCallback()
         );
         keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H", "L", "U", "R", "D")).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("I", "J", "K", "L", "L", "U", "R", "D")).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("M", "N", "O", "P", "L", "U", "R", "D")).getButtonCallback()
         );
         keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()

@@ -7,11 +7,21 @@ public class KeyMap {
     private String right;
     private String down;
 
-    public KeyMap(String left, String up, String right, String down) {
+    private String farLeft;
+    private String farUp;
+    private String farRight;
+    private String farDown;
+
+
+    public KeyMap(String left, String up, String right, String down, String farLeft, String farUp, String farRight, String farDown) {
         this.left = left;
         this.up = up;
         this.right = right;
         this.down = down;
+        this.farLeft = farLeft;
+        this.farUp = farUp;
+        this.farRight = farRight;
+        this.farDown = farDown;
     }
 
     public String getLeft() {
@@ -28,5 +38,21 @@ public class KeyMap {
 
     public String getDown() {
         return down;
+    }
+
+    public String getFarLeft() {
+        return farLeft;
+    }
+
+    public String getFarUp() {
+        return farUp;
+    }
+
+    public String getFarRight() {
+        return farRight;
+    }
+
+    public String getFarDown() {
+        return farDown;
     }
 }
