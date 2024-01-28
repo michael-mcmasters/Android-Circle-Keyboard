@@ -46,7 +46,7 @@ public class MainKeyboardView extends ConstraintLayout {
 
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "B", "C", "D")).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, new KeyMap("A", "W", "D", "S")).getButtonCallback()
         );
         keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, new KeyMap("E", "F", "G", "H")).getButtonCallback()

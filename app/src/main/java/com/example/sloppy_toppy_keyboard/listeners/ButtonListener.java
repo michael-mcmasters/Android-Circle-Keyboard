@@ -61,8 +61,8 @@ public class ButtonListener {
     }
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
-        if (!vibrated && getTouchDistanceFromCenter(view, motionEvent) > 100) {
-            vibrate(20);
+        if (!vibrated && getTouchDistanceFromCenter(view, motionEvent) > 50) {
+            vibrate(10);
             vibrated = true;
         }
 
