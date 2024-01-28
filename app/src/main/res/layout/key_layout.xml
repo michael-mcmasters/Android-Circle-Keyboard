@@ -42,7 +42,7 @@
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="topleft" />
+                android:text="wasd" />
 
             <Button
                 android:id="@+id/topRightButton"
@@ -50,7 +50,7 @@
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="topleft" />
+                android:text="eiou (kj?!)" />
         </TableRow>
 
         <TableRow
@@ -65,7 +65,7 @@
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="topleft" />
+                android:text="ntlr (fgbv)" />
 
             <Button
                 android:id="@+id/bottomRightButton"
@@ -73,7 +73,7 @@
                 android:layout_height="120dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="topleft" />
+                android:text="chmp (qxyz)" />
         </TableRow>
 
     </TableLayout>
