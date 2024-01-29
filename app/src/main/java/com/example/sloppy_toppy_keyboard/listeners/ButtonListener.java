@@ -70,35 +70,55 @@ public class ButtonListener {
     }
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
+        double xDistance = Math.abs(startPosition.x - endPosition.x);
+        double yDistance = Math.abs(startPosition.y - endPosition.y);
         if (!vibrated && getTouchDistanceFromStartPoint(view, motionEvent) > 50) {
             vibrate(10);
             vibrated = true;
             hitFirstLetter = true;
+
+
+            // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
+            if (xDistance > yDistance) {
+                if (endPosition.x < startPosition.x) {
+                    selectedOutAndInLetter = keyMap.getFarLeft();
+                } else {
+                    selectedOutAndInLetter = keyMap.getFarRight();
+                }
+            } else {
+                if (endPosition.y < startPosition.y) {
+                    selectedOutAndInLetter = keyMap.getFarUp();
+                } else {
+                    selectedOutAndInLetter = keyMap.getFarDown();
+                }
+            }
         }
+
+
         if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < 50) {
             vibrate(10);
             slidOutAndInForFarLetter = true;
-            selectedOutAndInLetter = "";
+//            selectedOutAndInLetter = "";
 
-            double xDistance = Math.abs(startPosition.x - endPosition.x);
-            double yDistance = Math.abs(startPosition.y - endPosition.y);
+//            double xDistance = Math.abs(startPosition.x - endPosition.x);
+//            double yDistance = Math.abs(startPosition.y - endPosition.y);
 
-            if (slidOutAndInForFarLetter) {
-                // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
-                if (xDistance > yDistance) {
-                    if (endPosition.x < startPosition.x) {
-                        selectedOutAndInLetter = keyMap.getFarLeft();
-                    } else {
-                        selectedOutAndInLetter = keyMap.getFarRight();
-                    }
-                } else {
-                    if (endPosition.y < startPosition.y) {
-                        selectedOutAndInLetter = keyMap.getFarUp();
-                    } else {
-                        selectedOutAndInLetter = keyMap.getFarDown();
-                    }
-                }
-            }
+//            if (slidOutAndInForFarLetter) {
+//                // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
+//                if (xDistance > yDistance) {
+//                    if (endPosition.x < startPosition.x) {
+//                        selectedOutAndInLetter = keyMap.getFarLeft();
+//                    } else {
+//                        selectedOutAndInLetter = keyMap.getFarRight();
+//                    }
+//                } else {
+//                    if (endPosition.y < startPosition.y) {
+//                        selectedOutAndInLetter = keyMap.getFarUp();
+//                    } else {
+//                        selectedOutAndInLetter = keyMap.getFarDown();
+//                    }
+//                }
+//            }
         }
 //        if (!vibratedFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) > 250) {
 //            vibrate(10);
