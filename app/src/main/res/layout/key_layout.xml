@@ -45,12 +45,12 @@
                 <Button
                     android:id="@+id/topLeftButton"
                     android:layout_width="fill_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
                     android:scaleType="fitXY"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/button_outline"
                     />
 
                 <TextView
@@ -126,12 +126,12 @@
             <Button
                 android:id="@+id/topRightButton"
                 android:layout_width="fill_parent"
-                android:layout_height="120dp"
+                android:layout_height="140dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:padding="0dp"
                 android:scaleType="fitXY"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_outline"
                 />
 
                 <TextView
@@ -213,12 +213,12 @@
                 <Button
                     android:id="@+id/bottomLeftButton"
                     android:layout_width="fill_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
                     android:scaleType="fitXY"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/button_outline"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -291,12 +291,12 @@
                 <Button
                     android:id="@+id/bottomRightButton"
                     android:layout_width="fill_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
                     android:scaleType="fitXY"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/button_outline"
                     />
 
                 <TextView
