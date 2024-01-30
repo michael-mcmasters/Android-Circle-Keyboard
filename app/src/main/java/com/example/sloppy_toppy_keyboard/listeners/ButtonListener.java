@@ -34,6 +34,8 @@ public class ButtonListener {
     private boolean hitFirstLetter;
     private String selectedOutAndInLetter = "";
 
+    private double prevDistance;
+
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
         this.context = context;
@@ -56,6 +58,7 @@ public class ButtonListener {
             endPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
             onTouchDrag(view, motionEvent);
 
+            prevDistance = getTouchDistanceFromStartPoint(view, motionEvent);
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         };
@@ -68,6 +71,9 @@ public class ButtonListener {
         slidOutAndInForFarLetter = false;
         hitFirstLetter = false;
     }
+
+    // Check line boundaries (if x <= 10 || y <= 10) ... (this may not work)
+    //
 
     private void onTouchDrag(View view, MotionEvent motionEvent) {
         double xDistance = Math.abs(startPosition.x - endPosition.x);
@@ -95,7 +101,8 @@ public class ButtonListener {
         }
 
 
-        if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < 50) {
+//        if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < 50) {
+        if (hitFirstLetter && !slidOutAndInForFarLetter && getTouchDistanceFromStartPoint(view, motionEvent) < prevDistance && !draggedOutsideOfButton(view, motionEvent)) {
             vibrate(10);
             slidOutAndInForFarLetter = true;
 //            selectedOutAndInLetter = "";
