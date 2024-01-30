@@ -22,6 +22,7 @@ public class ShiftListener {
         this.circleKeyboardApplication = circleKeyboardApplication;
         this.mainKeyboardView = mainKeyboardView;
         this.upperCase = true;
+        mainKeyboardView.shift(upperCase);
     }
 
     public View.OnTouchListener getButtonCallback() {

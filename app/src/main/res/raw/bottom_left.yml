@@ -1,9 +1,9 @@
-up: N
+up: P
 left: T
 down: L
 right: R
 
-farUp: B
+farUp: V
 farLeft: G
 farDown: F
-farRight: V
+farRight: B
