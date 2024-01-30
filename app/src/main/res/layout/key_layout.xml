@@ -426,6 +426,7 @@
             <Button
                 android:id="@+id/spaceButton"
                 android:text="space"
+                android:layout_height="50dp"
                 />
             <Button
                 android:id="@+id/enterButton"
