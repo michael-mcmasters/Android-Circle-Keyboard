@@ -83,44 +83,48 @@ public class MainKeyboardView extends ConstraintLayout {
         );
     }
 
-    public void shift() {
+    public void shift(boolean upperCase) {
         Log.d("", "Circle Shift");
-        circleKeyboardApplication.shift();
-        toggleUpperCase(keyboardView.findViewById(R.id.key1));
-        toggleUpperCase(keyboardView.findViewById(R.id.key2));
-        toggleUpperCase(keyboardView.findViewById(R.id.key3));
-        toggleUpperCase(keyboardView.findViewById(R.id.key4));
-        toggleUpperCase(keyboardView.findViewById(R.id.key5));
-        toggleUpperCase(keyboardView.findViewById(R.id.key6));
-        toggleUpperCase(keyboardView.findViewById(R.id.key7));
-        toggleUpperCase(keyboardView.findViewById(R.id.key8));
-        toggleUpperCase(keyboardView.findViewById(R.id.key9));
-        toggleUpperCase(keyboardView.findViewById(R.id.key10));
-        toggleUpperCase(keyboardView.findViewById(R.id.key11));
-        toggleUpperCase(keyboardView.findViewById(R.id.key12));
-        toggleUpperCase(keyboardView.findViewById(R.id.key13));
-        toggleUpperCase(keyboardView.findViewById(R.id.key14));
-        toggleUpperCase(keyboardView.findViewById(R.id.key15));
-        toggleUpperCase(keyboardView.findViewById(R.id.key16));
-        toggleUpperCase(keyboardView.findViewById(R.id.key17));
-        toggleUpperCase(keyboardView.findViewById(R.id.key18));
-        toggleUpperCase(keyboardView.findViewById(R.id.key19));
-        toggleUpperCase(keyboardView.findViewById(R.id.key20));
-        toggleUpperCase(keyboardView.findViewById(R.id.key21));
-        toggleUpperCase(keyboardView.findViewById(R.id.key22));
-        toggleUpperCase(keyboardView.findViewById(R.id.key23));
-        toggleUpperCase(keyboardView.findViewById(R.id.key24));
-        toggleUpperCase(keyboardView.findViewById(R.id.key25));
-        toggleUpperCase(keyboardView.findViewById(R.id.key26));
-        toggleUpperCase(keyboardView.findViewById(R.id.key27));
-        toggleUpperCase(keyboardView.findViewById(R.id.key28));
-        toggleUpperCase(keyboardView.findViewById(R.id.key29));
-        toggleUpperCase(keyboardView.findViewById(R.id.key30));
-        toggleUpperCase(keyboardView.findViewById(R.id.key31));
-        toggleUpperCase(keyboardView.findViewById(R.id.key32));
+
+        // Capitalize actual letters
+        circleKeyboardApplication.shift(upperCase);
+
+        // Capitalize visual letters
+        toggleUpperCase(keyboardView.findViewById(R.id.key1), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key2), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key3), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key4), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key5), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key6), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key7), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key8), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key9), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key10), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key11), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key12), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key13), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key14), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key15), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key16), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key17), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key18), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key19), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key20), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key21), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key22), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key23), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key24), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key25), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key26), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key27), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key28), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key29), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key30), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key31), upperCase);
+        toggleUpperCase(keyboardView.findViewById(R.id.key32), upperCase);
     }
 
-    private void toggleUpperCase(View view) {
+    private void toggleUpperCase(View view, boolean upperCase) {
         try {
             if (!(view instanceof TextView)) return;
 
@@ -129,7 +133,8 @@ public class MainKeyboardView extends ConstraintLayout {
 
             char c = textView.getText().charAt(0);
             if (Character.isLetter(c)) {
-                char cc = Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c);
+//                char cc = Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c);
+                char cc = upperCase ? Character.toUpperCase(c) : Character.toLowerCase(c);
                 textView.setText(Character.toString(cc));
             }
         } catch (Exception e) {

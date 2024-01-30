@@ -12,6 +12,7 @@ import android.view.inputmethod.InputConnection;
 public class CircleKeyboardApplication extends InputMethodService {
 
     private InputConnection inputConnection;
+    private boolean shiftEnabled;
 
     @Override
     public View onCreateInputView() {
@@ -40,8 +41,10 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     // May be a good idea to move this to its own TextCommitter class in the future
     public void commitText(String s) {
+        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+            s = String.valueOf(shiftEnabled ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
+        }
         inputConnection.commitText(s, 1);
-
     }
 
     // Not 100% what all code here does but it works. Probably possibly can delete some of it as it was copied from elsewhere.
@@ -58,8 +61,9 @@ public class CircleKeyboardApplication extends InputMethodService {
         sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
     }
 
-    public void shift() {
+    public void shift(boolean enabled) {
         Log.d("", "Parent Shift");
+        shiftEnabled = enabled;
 
     }
 
