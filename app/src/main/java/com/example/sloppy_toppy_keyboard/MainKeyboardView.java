@@ -69,7 +69,7 @@ public class MainKeyboardView extends ConstraintLayout {
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
         );
         keyboardView.findViewById(R.id.shiftButton).setOnTouchListener(
-                new ShiftListener(context, circleKeyboardApplication).getButtonCallback()
+                new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
         );
         keyboardView.findViewById(R.id.numButton).setOnTouchListener(
                 new NumListener(context, circleKeyboardApplication).getButtonCallback()
@@ -80,6 +80,11 @@ public class MainKeyboardView extends ConstraintLayout {
         keyboardView.findViewById(R.id.enterButton).setOnTouchListener(
                 new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );
+    }
+
+    public void shift() {
+        Log.d("", "Circle Shift");
+        circleKeyboardApplication.shift();
     }
 
     // This method maybe shouldn't be in this View class. Should create another class that instantiates this view class and the CircleOnPressListener class?

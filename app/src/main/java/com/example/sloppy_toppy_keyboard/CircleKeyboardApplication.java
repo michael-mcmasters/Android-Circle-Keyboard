@@ -3,6 +3,7 @@ package com.example.sloppy_toppy_keyboard;
 import android.inputmethodservice.InputMethodService;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -55,6 +56,10 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     public void enter() {
         sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
+    }
+
+    public void shift() {
+        Log.d("", "Parent Shift");
     }
 
     private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
