@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -66,6 +67,9 @@ public class MainKeyboardView extends ConstraintLayout {
         );
         keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
+        );
+        keyboardView.findViewById(R.id.shiftButton).setOnTouchListener(
+                new ShiftListener(context, circleKeyboardApplication).getButtonCallback()
         );
         keyboardView.findViewById(R.id.numButton).setOnTouchListener(
                 new NumListener(context, circleKeyboardApplication).getButtonCallback()
