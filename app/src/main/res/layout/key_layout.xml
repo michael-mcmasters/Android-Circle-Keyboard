@@ -54,6 +54,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="W"
@@ -63,6 +64,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A"
@@ -71,6 +73,7 @@
                     android:paddingRight="50dp" />
 
                 <TextView
+                    android:id="@+id/key3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="S"
@@ -79,6 +82,7 @@
                     android:paddingTop="50dp" />
 
                 <TextView
+                    android:id="@+id/key4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="D"
@@ -87,6 +91,7 @@
                     android:paddingLeft="50dp" />
 
                 <TextView
+                    android:id="@+id/key5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -95,6 +100,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -102,6 +108,7 @@
                     android:paddingRight="100dp" />
 
                 <TextView
+                    android:id="@+id/key7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -109,6 +116,7 @@
                     android:paddingTop="100dp" />
 
                 <TextView
+                    android:id="@+id/key8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -135,6 +143,7 @@
                 />
 
                 <TextView
+                    android:id="@+id/key9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="E"
@@ -144,6 +153,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="I"
@@ -152,6 +162,7 @@
                     android:paddingRight="50dp" />
 
                 <TextView
+                    android:id="@+id/key11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="O"
@@ -160,6 +171,7 @@
                     android:paddingTop="50dp" />
 
                 <TextView
+                    android:id="@+id/key12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="U"
@@ -168,6 +180,7 @@
                     android:paddingLeft="50dp" />
 
                 <TextView
+                    android:id="@+id/key13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="K"
@@ -176,6 +189,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="J"
@@ -183,6 +197,7 @@
                     android:paddingRight="100dp" />
 
                 <TextView
+                    android:id="@+id/key15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="!"
@@ -190,6 +205,7 @@
                     android:paddingTop="100dp" />
 
                 <TextView
+                    android:id="@+id/key16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="?"
@@ -221,6 +237,7 @@
                     android:background="@drawable/button_outline"
                     />
                 <TextView
+                    android:id="@+id/key17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="N"
@@ -230,6 +247,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="T"
@@ -238,6 +256,7 @@
                     android:paddingRight="50dp" />
 
                 <TextView
+                    android:id="@+id/key19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="L"
@@ -246,6 +265,7 @@
                     android:paddingTop="50dp" />
 
                 <TextView
+                    android:id="@+id/key20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R"
@@ -254,6 +274,7 @@
                     android:paddingLeft="50dp" />
 
                 <TextView
+                    android:id="@+id/key21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="B"
@@ -262,6 +283,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="G"
@@ -269,6 +291,7 @@
                     android:paddingRight="100dp" />
 
                 <TextView
+                    android:id="@+id/key23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="F"
@@ -276,6 +299,7 @@
                     android:paddingTop="100dp" />
 
                 <TextView
+                    android:id="@+id/key24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="V"
@@ -300,6 +324,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="C"
@@ -309,6 +334,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="H"
@@ -317,6 +343,7 @@
                     android:paddingRight="50dp" />
 
                 <TextView
+                    android:id="@+id/key27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="M"
@@ -325,6 +352,7 @@
                     android:paddingTop="50dp" />
 
                 <TextView
+                    android:id="@+id/key28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="P"
@@ -333,6 +361,7 @@
                     android:paddingLeft="50dp" />
 
                 <TextView
+                    android:id="@+id/key29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Q"
@@ -341,6 +370,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/key30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X"
@@ -348,6 +378,7 @@
                     android:paddingRight="100dp" />
 
                 <TextView
+                    android:id="@+id/key31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Y"
@@ -355,6 +386,7 @@
                     android:paddingTop="100dp" />
 
                 <TextView
+                    android:id="@+id/key32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Z"

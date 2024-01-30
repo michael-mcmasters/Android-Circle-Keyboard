@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,6 +86,55 @@ public class MainKeyboardView extends ConstraintLayout {
     public void shift() {
         Log.d("", "Circle Shift");
         circleKeyboardApplication.shift();
+        toggleUpperCase(keyboardView.findViewById(R.id.key1));
+        toggleUpperCase(keyboardView.findViewById(R.id.key2));
+        toggleUpperCase(keyboardView.findViewById(R.id.key3));
+        toggleUpperCase(keyboardView.findViewById(R.id.key4));
+        toggleUpperCase(keyboardView.findViewById(R.id.key5));
+        toggleUpperCase(keyboardView.findViewById(R.id.key6));
+        toggleUpperCase(keyboardView.findViewById(R.id.key7));
+        toggleUpperCase(keyboardView.findViewById(R.id.key8));
+        toggleUpperCase(keyboardView.findViewById(R.id.key9));
+        toggleUpperCase(keyboardView.findViewById(R.id.key10));
+        toggleUpperCase(keyboardView.findViewById(R.id.key11));
+        toggleUpperCase(keyboardView.findViewById(R.id.key12));
+        toggleUpperCase(keyboardView.findViewById(R.id.key13));
+        toggleUpperCase(keyboardView.findViewById(R.id.key14));
+        toggleUpperCase(keyboardView.findViewById(R.id.key15));
+        toggleUpperCase(keyboardView.findViewById(R.id.key16));
+        toggleUpperCase(keyboardView.findViewById(R.id.key17));
+        toggleUpperCase(keyboardView.findViewById(R.id.key18));
+        toggleUpperCase(keyboardView.findViewById(R.id.key19));
+        toggleUpperCase(keyboardView.findViewById(R.id.key20));
+        toggleUpperCase(keyboardView.findViewById(R.id.key21));
+        toggleUpperCase(keyboardView.findViewById(R.id.key22));
+        toggleUpperCase(keyboardView.findViewById(R.id.key23));
+        toggleUpperCase(keyboardView.findViewById(R.id.key24));
+        toggleUpperCase(keyboardView.findViewById(R.id.key25));
+        toggleUpperCase(keyboardView.findViewById(R.id.key26));
+        toggleUpperCase(keyboardView.findViewById(R.id.key27));
+        toggleUpperCase(keyboardView.findViewById(R.id.key28));
+        toggleUpperCase(keyboardView.findViewById(R.id.key29));
+        toggleUpperCase(keyboardView.findViewById(R.id.key30));
+        toggleUpperCase(keyboardView.findViewById(R.id.key31));
+        toggleUpperCase(keyboardView.findViewById(R.id.key32));
+    }
+
+    private void toggleUpperCase(View view) {
+        try {
+            if (!(view instanceof TextView)) return;
+
+            TextView textView = (TextView) view;
+            if (textView.getText() == null || textView.getText().equals("")) return;
+
+            char c = textView.getText().charAt(0);
+            if (Character.isLetter(c)) {
+                char cc = Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c);
+                textView.setText(Character.toString(cc));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "toggleUpperCase: Exception capitalizing letter");
+        }
     }
 
     // This method maybe shouldn't be in this View class. Should create another class that instantiates this view class and the CircleOnPressListener class?

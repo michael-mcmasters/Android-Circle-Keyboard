@@ -60,6 +60,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     public void shift() {
         Log.d("", "Parent Shift");
+
     }
 
     private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
