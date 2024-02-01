@@ -4,10 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.example.sloppy_toppy_keyboard.model.KeyBindings;
+import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -55,6 +57,8 @@ public class MainKeyboardView extends ConstraintLayout {
 
         KeyBindings keyBindings = getKeyMapFromConfigFile(R.raw.key_bindings);
 
+        setLettersVisually(keyBindings);
+
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopLeft()).getButtonCallback()
@@ -83,6 +87,27 @@ public class MainKeyboardView extends ConstraintLayout {
         keyboardView.findViewById(R.id.enterButton).setOnTouchListener(
                 new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );
+    }
+
+    private void setLettersVisually(KeyBindings keyBindings) {
+        setLetters(keyboardView.findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
+        setLetters(keyboardView.findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
+        setLetters(keyboardView.findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
+        setLetters(keyboardView.findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
+    }
+
+    private void setLetters(ViewGroup viewGroup, KeyMap keyMap) {
+        int propertyIndex = 0;  // used to switch up, left, down, right, farUp, farLeft, farDown, farRight
+
+        for (int index = 0; index < viewGroup.getChildCount(); index++) {
+            View child = viewGroup.getChildAt(index);
+            Log.d(TAG, "setLettersVisually: " + child);
+            if (child instanceof TextView && ((TextView) child).getText() != "") {
+                String character = keyMap.getPropertyValueByIndex(keyMap, propertyIndex);
+                ((TextView) child).setText(character);
+                propertyIndex++;
+            }
+        }
     }
 
     public void shift(boolean upperCase) {

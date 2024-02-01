@@ -32,6 +32,30 @@ public class KeyMap {
         this.farDown = farDown;
     }
 
+    // Used to set TextView values dynamically from config file.
+    // The numbers must match the order of the letters in the XML layout.
+    public String getPropertyValueByIndex(KeyMap keymap, int propertyIndex) {
+        switch (propertyIndex) {
+            case 0:
+                return keymap.getUp();
+            case 1:
+                return keymap.getLeft();
+            case 2:
+                return keymap.getDown();
+            case 3:
+                return keymap.getRight();
+            case 4:
+                return keymap.getFarUp();
+            case 5:
+                return keymap.getFarLeft();
+            case 6:
+                return keymap.getFarDown();
+            case 7:
+                return keymap.getFarRight();
+        }
+        throw new RuntimeException("Unknown number for property");
+    }
+
     public String getLeft() {
         return left;
     }

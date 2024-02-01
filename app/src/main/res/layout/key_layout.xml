@@ -38,6 +38,7 @@
 
             <!-- Top Left Button -->
             <RelativeLayout
+                android:id="@+id/topLeftButtonLayout"
                 android:layout_width="0.5dp"
                 android:layout_height="fill_parent"
                 >
@@ -128,6 +129,7 @@
 
             <!-- Top Right Button -->
             <RelativeLayout
+                android:id="@+id/topRightButtonLayout"
                 android:layout_width="0.5dp"
                 android:layout_height="fill_parent"
                 >
@@ -223,6 +225,7 @@
 
             <!-- Bottom Left Button -->
             <RelativeLayout
+                android:id="@+id/bottomLeftButtonLayout"
                 android:layout_width="0.5dp"
                 android:layout_height="fill_parent"
                 >
@@ -309,6 +312,7 @@
 
             <!-- Bottom Right Button -->
             <RelativeLayout
+                android:id="@+id/bottomRightButtonLayout"
                 android:layout_width="0.5dp"
                 android:layout_height="fill_parent"
                 >
