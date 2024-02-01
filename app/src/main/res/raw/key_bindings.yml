@@ -3,38 +3,38 @@ topLeft:
   left: A
   down: S
   right: D
-  farUp: ""
-  farLeft: ""
-  farDown: ""
-  farRight: ""
+  farUp: F
+  farLeft: G
+  farDown: V
+  farRight: K
 
 topRight:
   up: E
   left: I
   down: O
   right: U
-  farUp: K
+  farUp: ""
   farLeft: J
-  farDown: "!"
-  farRight: "?"
+  farDown: ""
+  farRight: B
 
 bottomLeft:
   up: P
   left: T
   down: L
   right: R
-  farUp: V
-  farLeft: G
-  farDown: F
-  farRight: B
+  farUp: Q
+  farLeft: X
+  farDown: Y
+  farRight: Z
 
 bottomRight:
   up: C
   left: H
   down: N
   right: M
-  farUp: Q
-  farLeft: X
-  farDown: Y
-  farRight: Z
+  farUp: "!"
+  farLeft: ","
+  farDown: "."
+  farRight: "?"
 
