@@ -48,18 +48,25 @@ public class MainKeyboardView extends ConstraintLayout {
 
         leftCircleState = "ACTION_UP";
         rightCircleState = "ACTION_UP";
-        initialize();
-    }
 
-    private void initialize() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);
 
         KeyBindings keyBindings = getKeyMapFromConfigFile(R.raw.key_bindings);
-
         setLettersVisually(keyBindings);
+        setLettersFunctionally(keyBindings);
+    }
 
-        // Get buttons by id (defined in XML), and add listener functions to them
+    // Sets what the user sees on the keyboard
+    private void setLettersVisually(KeyBindings keyBindings) {
+        setButtonsLettersVisually(keyboardView.findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
+        setButtonsLettersVisually(keyboardView.findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
+        setButtonsLettersVisually(keyboardView.findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
+        setButtonsLettersVisually(keyboardView.findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
+    }
+
+    // Sets the touch gestures of the keyboard
+    private void setLettersFunctionally(KeyBindings keyBindings) {
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
                 new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopLeft()).getButtonCallback()
         );
@@ -89,14 +96,7 @@ public class MainKeyboardView extends ConstraintLayout {
         );
     }
 
-    private void setLettersVisually(KeyBindings keyBindings) {
-        setLetters(keyboardView.findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
-        setLetters(keyboardView.findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
-        setLetters(keyboardView.findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
-        setLetters(keyboardView.findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
-    }
-
-    private void setLetters(ViewGroup viewGroup, KeyMap keyMap) {
+    private void setButtonsLettersVisually(ViewGroup viewGroup, KeyMap keyMap) {
         int propertyIndex = 0;  // used to switch up, left, down, right, farUp, farLeft, farDown, farRight
 
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
