@@ -1,0 +1,39 @@
+topLeft:
+  up: W
+  left: A
+  down: S
+  right: D
+  farUp: ""
+  farLeft: ""
+  farDown: ""
+  farRight: ""
+
+topRight:
+  up: E
+  left: I
+  down: O
+  right: U
+  farUp: K
+  farLeft: J
+  farDown: "!"
+  farRight: "?"
+
+bottomLeft:
+  up: P
+  left: T
+  down: L
+  right: R
+  farUp: V
+  farLeft: G
+  farDown: F
+  farRight: B
+
+bottomRight:
+  up: C
+  left: H
+  down: N
+  right: M
+  farUp: Q
+  farLeft: X
+  farDown: Y
+  farRight: Z

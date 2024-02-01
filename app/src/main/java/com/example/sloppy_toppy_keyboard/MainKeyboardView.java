@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
+import com.example.sloppy_toppy_keyboard.model.KeyBindings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -17,7 +18,6 @@ import com.example.sloppy_toppy_keyboard.listeners.ButtonListener;
 import com.example.sloppy_toppy_keyboard.listeners.EnterListener;
 import com.example.sloppy_toppy_keyboard.listeners.NumListener;
 import com.example.sloppy_toppy_keyboard.listeners.SpaceListener;
-import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
 import java.io.IOException;
@@ -53,18 +53,20 @@ public class MainKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         keyboardView = inflater.inflate(R.layout.key_layout, null);
 
+        KeyBindings keyBindings = getKeyMapFromConfigFile(R.raw.key_bindings);
+
         // Get buttons by id (defined in XML), and add listener functions to them
         keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.top_left)).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopLeft()).getButtonCallback()
         );
         keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.top_right)).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopRight()).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.bottom_left)).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomLeft()).getButtonCallback()
         );
         keyboardView.findViewById(R.id.bottomRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, getKeyMapFromConfigFile(R.raw.bottom_right)).getButtonCallback()
+                new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomRight()).getButtonCallback()
         );
         keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
                 new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
@@ -159,7 +161,7 @@ public class MainKeyboardView extends ConstraintLayout {
         return keyboardView;
     }
 
-    private KeyMap getKeyMapFromConfigFile(int fileName) {
+    private KeyBindings getKeyMapFromConfigFile(int fileName) {
         try {
             return parseConfigFile(fileName);
         } catch (Exception e) {
@@ -168,12 +170,12 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
-    private KeyMap parseConfigFile(int fileName) throws IOException {
+    private KeyBindings parseConfigFile(int fileName) throws IOException {
         InputStream inputStream = null;
         try {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             inputStream = getResources().openRawResource(fileName);
-            return mapper.readValue(inputStream, KeyMap.class);
+            return mapper.readValue(inputStream, KeyBindings.class);
         } catch (IOException e) {
             Log.e(TAG, "Error reading file");
         } finally {
@@ -181,6 +183,6 @@ public class MainKeyboardView extends ConstraintLayout {
                 inputStream.close();
             }
         }
-        throw new RuntimeException("Ca not parse file");
+        throw new RuntimeException("Can not parse file");
     }
 }

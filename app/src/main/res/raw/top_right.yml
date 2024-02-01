@@ -1,9 +1,0 @@
-up: E
-left: I
-down: O
-right: U
-
-farUp: K
-farLeft: J
-farDown: "!"
-farRight: "?"
