@@ -14,13 +14,19 @@ public class CircleKeyboardApplication extends InputMethodService {
     private InputConnection inputConnection;
     private boolean shiftEnabled;
 
+
     @Override
     public View onCreateInputView() {
         MainKeyboardView mainKeyboardView = new MainKeyboardView(this, this);
-        // Should be able to just return mainKeyboardView, but keyboard doesn't render, so have to do it this way instead.
-        // Think it has to do with the way the view is inflated.
-        return mainKeyboardView.getKeyboardView();
+//        setInputView(mainKeyboardView);
+        return mainKeyboardView;
     }
+
+//    private void setCurrentKeypadView(View view) {
+//        this.currentKeypadView = view;
+//        currentKeypadView.invalidate();
+//        setInputView(currentKeypadView);
+//    }
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {

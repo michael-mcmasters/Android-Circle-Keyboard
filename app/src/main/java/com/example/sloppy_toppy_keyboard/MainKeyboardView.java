@@ -34,8 +34,6 @@ public class MainKeyboardView extends ConstraintLayout {
     private CircleOnPressListener leftCircleOnPressListener;
     private CircleOnPressListener rightCircleOnPressListener;
 
-    private View keyboardView;
-
     private String leftCircleState;
     private String rightCircleState;
 
@@ -50,7 +48,7 @@ public class MainKeyboardView extends ConstraintLayout {
         rightCircleState = "ACTION_UP";
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        keyboardView = inflater.inflate(R.layout.key_layout, null);
+        inflater.inflate(R.layout.key_layout, this);
 
         KeyBindings keyBindings = getKeyMapFromConfigFile(R.raw.key_bindings);
         setLettersVisually(keyBindings);
@@ -59,40 +57,40 @@ public class MainKeyboardView extends ConstraintLayout {
 
     // Sets what the user sees on the keyboard
     private void setLettersVisually(KeyBindings keyBindings) {
-        setButtonsLettersVisually(keyboardView.findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
-        setButtonsLettersVisually(keyboardView.findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
-        setButtonsLettersVisually(keyboardView.findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
-        setButtonsLettersVisually(keyboardView.findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
+        setButtonsLettersVisually(findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
+        setButtonsLettersVisually(findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
+        setButtonsLettersVisually(findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
+        setButtonsLettersVisually(findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
     }
 
     // Sets the touch gestures of the keyboard
     private void setLettersFunctionally(KeyBindings keyBindings) {
-        keyboardView.findViewById(R.id.topLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopLeft()).getButtonCallback()
+        findViewById(R.id.topLeftButton).setOnTouchListener(
+            new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopLeft()).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.topRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopRight()).getButtonCallback()
+        findViewById(R.id.topRightButton).setOnTouchListener(
+            new ButtonListener(context, circleKeyboardApplication, keyBindings.getTopRight()).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.bottomLeftButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomLeft()).getButtonCallback()
+        findViewById(R.id.bottomLeftButton).setOnTouchListener(
+            new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomLeft()).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.bottomRightButton).setOnTouchListener(
-                new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomRight()).getButtonCallback()
+        findViewById(R.id.bottomRightButton).setOnTouchListener(
+            new ButtonListener(context, circleKeyboardApplication, keyBindings.getBottomRight()).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.backspaceButton).setOnTouchListener(
-                new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
+        findViewById(R.id.backspaceButton).setOnTouchListener(
+            new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.shiftButton).setOnTouchListener(
-                new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
+        findViewById(R.id.shiftButton).setOnTouchListener(
+            new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.numButton).setOnTouchListener(
-                new NumListener(context, circleKeyboardApplication).getButtonCallback()
+        findViewById(R.id.numButton).setOnTouchListener(
+            new NumListener(context, circleKeyboardApplication).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.spaceButton).setOnTouchListener(
-                new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
+        findViewById(R.id.spaceButton).setOnTouchListener(
+            new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
         );
-        keyboardView.findViewById(R.id.enterButton).setOnTouchListener(
-                new EnterListener(context, circleKeyboardApplication).getButtonCallback()
+        findViewById(R.id.enterButton).setOnTouchListener(
+            new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );
     }
 
@@ -117,38 +115,38 @@ public class MainKeyboardView extends ConstraintLayout {
         circleKeyboardApplication.shift(upperCase);
 
         // Capitalize visual letters
-        toggleUpperCase(keyboardView.findViewById(R.id.key1), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key2), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key3), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key4), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key5), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key6), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key7), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key8), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key9), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key10), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key11), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key12), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key13), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key14), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key15), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key16), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key17), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key18), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key19), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key20), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key21), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key22), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key23), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key24), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key25), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key26), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key27), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key28), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key29), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key30), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key31), upperCase);
-        toggleUpperCase(keyboardView.findViewById(R.id.key32), upperCase);
+        toggleUpperCase(findViewById(R.id.key1), upperCase);
+        toggleUpperCase(findViewById(R.id.key2), upperCase);
+        toggleUpperCase(findViewById(R.id.key3), upperCase);
+        toggleUpperCase(findViewById(R.id.key4), upperCase);
+        toggleUpperCase(findViewById(R.id.key5), upperCase);
+        toggleUpperCase(findViewById(R.id.key6), upperCase);
+        toggleUpperCase(findViewById(R.id.key7), upperCase);
+        toggleUpperCase(findViewById(R.id.key8), upperCase);
+        toggleUpperCase(findViewById(R.id.key9), upperCase);
+        toggleUpperCase(findViewById(R.id.key10), upperCase);
+        toggleUpperCase(findViewById(R.id.key11), upperCase);
+        toggleUpperCase(findViewById(R.id.key12), upperCase);
+        toggleUpperCase(findViewById(R.id.key13), upperCase);
+        toggleUpperCase(findViewById(R.id.key14), upperCase);
+        toggleUpperCase(findViewById(R.id.key15), upperCase);
+        toggleUpperCase(findViewById(R.id.key16), upperCase);
+        toggleUpperCase(findViewById(R.id.key17), upperCase);
+        toggleUpperCase(findViewById(R.id.key18), upperCase);
+        toggleUpperCase(findViewById(R.id.key19), upperCase);
+        toggleUpperCase(findViewById(R.id.key20), upperCase);
+        toggleUpperCase(findViewById(R.id.key21), upperCase);
+        toggleUpperCase(findViewById(R.id.key22), upperCase);
+        toggleUpperCase(findViewById(R.id.key23), upperCase);
+        toggleUpperCase(findViewById(R.id.key24), upperCase);
+        toggleUpperCase(findViewById(R.id.key25), upperCase);
+        toggleUpperCase(findViewById(R.id.key26), upperCase);
+        toggleUpperCase(findViewById(R.id.key27), upperCase);
+        toggleUpperCase(findViewById(R.id.key28), upperCase);
+        toggleUpperCase(findViewById(R.id.key29), upperCase);
+        toggleUpperCase(findViewById(R.id.key30), upperCase);
+        toggleUpperCase(findViewById(R.id.key31), upperCase);
+        toggleUpperCase(findViewById(R.id.key32), upperCase);
     }
 
     private void toggleUpperCase(View view, boolean upperCase) {
@@ -180,10 +178,6 @@ public class MainKeyboardView extends ConstraintLayout {
 //        if (leftCircleState.equals("ACTION_UP") && rightCircleState.equals("ACTION_UP")) {
 //            circleKeyboardApplication.commitText(" ");
 //        }
-    }
-
-    public View getKeyboardView() {
-        return keyboardView;
     }
 
     private KeyBindings getKeyMapFromConfigFile(int fileName) {
