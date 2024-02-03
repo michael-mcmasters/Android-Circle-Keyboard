@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
+import android.widget.EditText;
 
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
@@ -55,6 +58,21 @@ public class CircleKeyboardApplication extends InputMethodService {
     public void onInitializeInterface() {
         super.onInitializeInterface();
         inputConnection = getCurrentInputConnection();
+    }
+
+    public void highlight() {
+        int cursorPosition = getCursorPosition(inputConnection);
+        if (cursorPosition - 4 > 0) {
+            inputConnection.setSelection(cursorPosition - 4, cursorPosition);
+        }
+    }
+
+    private int getCursorPosition(InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        if (extractedText != null && extractedText.selectionStart >= 0) {
+            return extractedText.selectionStart;
+        }
+        return -1;
     }
 
     // May be a good idea to move this to its own TextCommitter class in the future

@@ -24,7 +24,6 @@ public class NumListener {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.backspace();
                 circleKeyboardApplication.changeKeyboardView(KeyboardView.CHARACTERS_KEYBOARD);
             }
 

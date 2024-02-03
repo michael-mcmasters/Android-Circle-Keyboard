@@ -25,14 +25,24 @@ public class CharactersKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.characters_layout, this);
 
-        findViewById(R.id.buttonExample).setOnTouchListener((view, motionEvent) -> {
-                Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-                if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                    circleKeyboardApplication.changeKeyboardView(KeyboardView.MAIN_KEYBOARD);
+        findViewById(R.id.mainKeyboardButton).setOnTouchListener((view, motionEvent) -> {
+                    Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+                    if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                        circleKeyboardApplication.changeKeyboardView(KeyboardView.MAIN_KEYBOARD);
+                    }
+                    view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+                    return true;
                 }
-                view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-                return true;
-            }
+        );
+
+        findViewById(R.id.highlightButton).setOnTouchListener((view, motionEvent) -> {
+                    Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+                    if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                        circleKeyboardApplication.highlight();
+                    }
+                    view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+                    return true;
+                }
         );
     }
 
