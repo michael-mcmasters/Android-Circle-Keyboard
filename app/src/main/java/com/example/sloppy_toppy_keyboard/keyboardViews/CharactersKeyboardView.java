@@ -35,7 +35,7 @@ public class CharactersKeyboardView extends ConstraintLayout {
         findViewById(R.id.leftChar).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.moveCursor(0, ctrlHeld, highlightEnabled);
+                circleKeyboardApplication.moveCursor(-1, ctrlHeld, highlightEnabled);
             }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;

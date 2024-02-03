@@ -67,12 +67,18 @@ public class CircleKeyboardApplication extends InputMethodService {
     // Ctrl modifier, move entire word
     // Highlight is enabled, highlight
     // tld: check for modifiers, move in direction, highlight if needed
-    // 0 left, 1 right
+    // -1 left, 1 right
     public void moveCursor(int direction, boolean ctrlHeld, boolean highlightEnabled) {
         Log.d(TAG, "moveCursor. Direction: " + direction);
         Log.d(TAG, "moveCursor. ctrlHeld: " + ctrlHeld);
         Log.d(TAG, "moveCursor. highlightEnabled: " + highlightEnabled);
         Log.d(TAG, "\n");
+
+        int cursorPosition = getCursorPosition(inputConnection);
+        if (!ctrlHeld) {
+            inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
+        }
+
     }
 
     // < < > >
