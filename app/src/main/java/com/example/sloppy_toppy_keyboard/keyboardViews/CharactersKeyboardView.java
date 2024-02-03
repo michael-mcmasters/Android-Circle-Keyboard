@@ -15,35 +15,84 @@ public class CharactersKeyboardView extends ConstraintLayout {
 
     private static final String TAG = "CharactersKeyboardView";
 
+    private boolean ctrlHeld;
+    private boolean highlightEnabled;
+
+
     public CharactersKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
         super(context);
-
-//        buttonExample
-//        Keyboard keyboard = new Keyboard(context, R.layout.characters_layout);
-//        this.setKeyboard(keyboard);
+        ctrlHeld = false;
+        highlightEnabled = false;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.characters_layout, this);
 
+        findViewById(R.id.home).setOnTouchListener((view, motionEvent) -> {
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.leftChar).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.moveCursor(0, ctrlHeld, highlightEnabled);
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.rightChar).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.moveCursor(1, ctrlHeld, highlightEnabled);
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.end).setOnTouchListener((view, motionEvent) -> {
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.ctrl).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                ctrlHeld = true;
+            }
+            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
+                ctrlHeld = false;
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.highlight).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                highlightEnabled = !highlightEnabled;
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
         findViewById(R.id.mainKeyboardButton).setOnTouchListener((view, motionEvent) -> {
-                    Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-                    if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                        circleKeyboardApplication.changeKeyboardView(KeyboardView.MAIN_KEYBOARD);
-                    }
-                    view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-                    return true;
-                }
-        );
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.changeKeyboardView(KeyboardView.MAIN_KEYBOARD);
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
 
         findViewById(R.id.highlightButton).setOnTouchListener((view, motionEvent) -> {
-                    Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-                    if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                        circleKeyboardApplication.highlight();
-                    }
-                    view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-                    return true;
-                }
-        );
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.highlight();
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
     }
 
 

@@ -18,6 +18,8 @@ import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 
 public class CircleKeyboardApplication extends InputMethodService {
 
+    private static final String TAG = "CircleKeyboardApp";
+
     private MainKeyboardView mainKeyboardView;
     private CharactersKeyboardView charactersKeyboardView;
 
@@ -59,6 +61,43 @@ public class CircleKeyboardApplication extends InputMethodService {
         super.onInitializeInterface();
         inputConnection = getCurrentInputConnection();
     }
+
+
+    // No modifiers, go in direction
+    // Ctrl modifier, move entire word
+    // Highlight is enabled, highlight
+    // tld: check for modifiers, move in direction, highlight if needed
+    // 0 left, 1 right
+    public void moveCursor(int direction, boolean ctrlHeld, boolean highlightEnabled) {
+        Log.d(TAG, "moveCursor. Direction: " + direction);
+        Log.d(TAG, "moveCursor. ctrlHeld: " + ctrlHeld);
+        Log.d(TAG, "moveCursor. highlightEnabled: " + highlightEnabled);
+        Log.d(TAG, "\n");
+    }
+
+    // < < > >
+    // ctrl, toggle-highlight
+
+    // Arrow goes left/right
+    // Ctrl + Arrow goes left word / right word
+
+
+
+    // < < < > > >
+    // bottom left: ctrl, shift
+
+    // left, right
+    // left word, right word
+    // left beginning, right end
+
+    // highlight left, delete right
+    // highlight left word, delete right word
+    // highlight beginning, delete end
+
+    // (I think we should just allow highlighting, then pressing delete for this one)
+    // delete left, delete right
+    // delete left word, delete right word
+    // delete beginning, delete end
 
     public void highlight() {
         int cursorPosition = getCursorPosition(inputConnection);
