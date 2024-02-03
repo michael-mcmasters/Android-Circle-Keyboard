@@ -31,6 +31,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     public View onCreateInputView() {
         mainKeyboardView = new MainKeyboardView(this, this);
         charactersKeyboardView = new CharactersKeyboardView(this, this);
+//        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
         return mainKeyboardView;
     }
 
@@ -79,58 +80,46 @@ public class CircleKeyboardApplication extends InputMethodService {
             inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
         }
         else {
-            int index = getLeftWordCursorIndex(true);
-            // get left word cursor index
-             inputConnection.setSelection(index, index);
+            if (direction == -1) {
+                int index = getLeftWordCursorIndex();
+                inputConnection.setSelection(index, index);
+            } else {
+                int index = getRightWordCursorIndex();
+                inputConnection.setSelection(index, index);
+            }
         }
 
     }
 
-    private int getLeftWordCursorIndex(boolean beginningOfWord) {
+    private int getLeftWordCursorIndex() {
         CharSequence textLeftOfCursor = inputConnection.getTextBeforeCursor(getCursorPosition(), 0);
-        Log.d(TAG, "textLeftOfCursor: " + textLeftOfCursor);
 
         // loop backwards, find first space, index is char before that
         for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
             if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
-                Log.d(TAG, "INDEX: " + i);
                 return i + 1;
-            }
-            else if (i == 0) {
+            } else if (i == 0) {
                 return 0;
+            }
+        }
+        return -1;
+    }
+
+    private int getRightWordCursorIndex() {
+        int cursorPosition = getCursorPosition();
+        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+//
+        // loop forwards, find first space, return char index before it
+        for (int i = cursorPosition; i < allText.length(); i++) {
+            if (i >= 1 && allText.charAt(i) == ' ') {
+                return i + 1;
+            } else if (i == allText.length() - 1) {
+                return allText.length();
             }
         }
         Log.d(TAG, "INDEX: " + "-1");
         return -1;
     }
-
-//    private int getRightWordCursorIndex(boolean beginningOfWord) {
-//
-//    }
-
-    // < < > >
-    // ctrl, toggle-highlight
-
-    // Arrow goes left/right
-    // Ctrl + Arrow goes left word / right word
-
-
-
-    // < < < > > >
-    // bottom left: ctrl, shift
-
-    // left, right
-    // left word, right word
-    // left beginning, right end
-
-    // highlight left, delete right
-    // highlight left word, delete right word
-    // highlight beginning, delete end
-
-    // (I think we should just allow highlighting, then pressing delete for this one)
-    // delete left, delete right
-    // delete left word, delete right word
-    // delete beginning, delete end
 
     public void highlight() {
         int cursorPosition = getCursorPosition();
