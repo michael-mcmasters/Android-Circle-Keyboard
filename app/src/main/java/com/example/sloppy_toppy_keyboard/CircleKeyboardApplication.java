@@ -9,7 +9,13 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
+import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
+
 public class CircleKeyboardApplication extends InputMethodService {
+
+    MainKeyboardView mainKeyboardView;
+    CharactersKeyboardView charactersKeyboardView;
 
     private InputConnection inputConnection;
     private boolean shiftEnabled;
@@ -17,9 +23,13 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     @Override
     public View onCreateInputView() {
-        MainKeyboardView mainKeyboardView = new MainKeyboardView(this, this);
+        mainKeyboardView = new MainKeyboardView(this, this);
+////        setInputView(mainKeyboardView);
+//        return mainKeyboardView;
+
+        charactersKeyboardView = new CharactersKeyboardView(this, this);
 //        setInputView(mainKeyboardView);
-        return mainKeyboardView;
+        return charactersKeyboardView;
     }
 
 //    private void setCurrentKeypadView(View view) {
@@ -27,6 +37,18 @@ public class CircleKeyboardApplication extends InputMethodService {
 //        currentKeypadView.invalidate();
 //        setInputView(currentKeypadView);
 //    }
+
+//    public void setView(View view) {
+//        setInputView(mainKeyboardView);
+//    }
+
+    public void setViewCharactersKeyboard() {
+        setInputView(charactersKeyboardView);
+    }
+
+    public void setViewMainKeyboard() {
+        setInputView(mainKeyboardView);
+    }
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {

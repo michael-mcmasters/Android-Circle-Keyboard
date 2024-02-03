@@ -12,7 +12,7 @@ import android.widget.Button;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
-import com.example.sloppy_toppy_keyboard.MainKeyboardView;
+import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 import com.example.sloppy_toppy_keyboard.model.Vector2;
 
 public class CircleOnPressListener {

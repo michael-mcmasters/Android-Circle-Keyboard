@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
-import com.example.sloppy_toppy_keyboard.MainKeyboardView;
+import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 
 public class ShiftListener {
 

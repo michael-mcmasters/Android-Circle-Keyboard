@@ -1,4 +1,4 @@
-package com.example.sloppy_toppy_keyboard;
+package com.example.sloppy_toppy_keyboard.keyboardViews;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
+import com.example.sloppy_toppy_keyboard.R;
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.example.sloppy_toppy_keyboard.model.KeyBindings;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
