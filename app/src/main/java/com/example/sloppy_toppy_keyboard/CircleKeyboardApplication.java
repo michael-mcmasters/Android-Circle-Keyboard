@@ -74,12 +74,39 @@ public class CircleKeyboardApplication extends InputMethodService {
         Log.d(TAG, "moveCursor. highlightEnabled: " + highlightEnabled);
         Log.d(TAG, "\n");
 
-        int cursorPosition = getCursorPosition(inputConnection);
+        int cursorPosition = getCursorPosition();
         if (!ctrlHeld) {
             inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
         }
+        else {
+            int index = getLeftWordCursorIndex(true);
+            // get left word cursor index
+             inputConnection.setSelection(index, index);
+        }
 
     }
+
+    private int getLeftWordCursorIndex(boolean beginningOfWord) {
+        CharSequence textLeftOfCursor = inputConnection.getTextBeforeCursor(getCursorPosition(), 0);
+        Log.d(TAG, "textLeftOfCursor: " + textLeftOfCursor);
+
+        // loop backwards, find first space, index is char before that
+        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
+                Log.d(TAG, "INDEX: " + i);
+                return i + 1;
+            }
+            else if (i == 0) {
+                return 0;
+            }
+        }
+        Log.d(TAG, "INDEX: " + "-1");
+        return -1;
+    }
+
+//    private int getRightWordCursorIndex(boolean beginningOfWord) {
+//
+//    }
 
     // < < > >
     // ctrl, toggle-highlight
@@ -106,13 +133,13 @@ public class CircleKeyboardApplication extends InputMethodService {
     // delete beginning, delete end
 
     public void highlight() {
-        int cursorPosition = getCursorPosition(inputConnection);
+        int cursorPosition = getCursorPosition();
         if (cursorPosition - 4 > 0) {
             inputConnection.setSelection(cursorPosition - 4, cursorPosition);
         }
     }
 
-    private int getCursorPosition(InputConnection inputConnection) {
+    private int getCursorPosition() {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         if (extractedText != null && extractedText.selectionStart >= 0) {
             return extractedText.selectionStart;
