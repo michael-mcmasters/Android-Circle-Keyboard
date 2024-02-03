@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
+import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 
 public class NumListener {
 
@@ -24,7 +25,7 @@ public class NumListener {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 circleKeyboardApplication.backspace();
-                circleKeyboardApplication.setViewCharactersKeyboard();
+                circleKeyboardApplication.changeKeyboardView(KeyboardView.CHARACTERS_KEYBOARD);
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does

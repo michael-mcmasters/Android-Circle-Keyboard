@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 
 public class CircleKeyboardApplication extends InputMethodService {
 
-    MainKeyboardView mainKeyboardView;
-    CharactersKeyboardView charactersKeyboardView;
+    private MainKeyboardView mainKeyboardView;
+    private CharactersKeyboardView charactersKeyboardView;
 
     private InputConnection inputConnection;
     private boolean shiftEnabled;
@@ -24,30 +25,19 @@ public class CircleKeyboardApplication extends InputMethodService {
     @Override
     public View onCreateInputView() {
         mainKeyboardView = new MainKeyboardView(this, this);
-////        setInputView(mainKeyboardView);
-//        return mainKeyboardView;
-
         charactersKeyboardView = new CharactersKeyboardView(this, this);
-//        setInputView(mainKeyboardView);
-        return charactersKeyboardView;
+        return mainKeyboardView;
     }
 
-//    private void setCurrentKeypadView(View view) {
-//        this.currentKeypadView = view;
-//        currentKeypadView.invalidate();
-//        setInputView(currentKeypadView);
-//    }
-
-//    public void setView(View view) {
-//        setInputView(mainKeyboardView);
-//    }
-
-    public void setViewCharactersKeyboard() {
-        setInputView(charactersKeyboardView);
-    }
-
-    public void setViewMainKeyboard() {
-        setInputView(mainKeyboardView);
+    public void changeKeyboardView(KeyboardView keyboardView) {
+        switch (keyboardView) {
+            case MAIN_KEYBOARD:
+                setInputView(mainKeyboardView);
+                break;
+            case CHARACTERS_KEYBOARD:
+                setInputView(charactersKeyboardView);
+                break;
+        }
     }
 
     @Override

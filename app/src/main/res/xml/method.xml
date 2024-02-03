@@ -3,5 +3,5 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:xmins="http://schemas.android.com/apk/res-auto"
         >
-    <subtype android:imeSubtypeMode="keyboard" />
+    <subtype android:imeSubtypeMode="keyboardView" />
 </input-method>
