@@ -8,7 +8,6 @@ import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.R;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
-import com.example.sloppy_toppy_keyboard.model.Vector2;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.MotionEventCompat;
@@ -31,6 +30,10 @@ public class CharactersKeyboardView extends ConstraintLayout {
         inflater.inflate(R.layout.characters_layout_2, this);
 
         findViewById(R.id.homeButton).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.moveCursorWithHomeButton(highlightCursorStartPosition);
+            }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         });
@@ -38,7 +41,7 @@ public class CharactersKeyboardView extends ConstraintLayout {
         findViewById(R.id.leftButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.moveCursor(KeyboardArrowDirection.LEFT, ctrlHeld, highlightCursorStartPosition);
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, ctrlHeld, highlightCursorStartPosition);
             }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
@@ -47,13 +50,17 @@ public class CharactersKeyboardView extends ConstraintLayout {
         findViewById(R.id.rightButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.moveCursor(KeyboardArrowDirection.RIGHT, ctrlHeld, highlightCursorStartPosition);
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, ctrlHeld, highlightCursorStartPosition);
             }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         });
 
         findViewById(R.id.endButton).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                circleKeyboardApplication.moveCursorWithEndButton(highlightCursorStartPosition);
+            }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         });
