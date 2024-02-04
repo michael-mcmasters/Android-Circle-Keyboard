@@ -63,12 +63,8 @@ public class CircleKeyboardApplication extends InputMethodService {
         inputConnection = getCurrentInputConnection();
     }
 
-
-    // No modifiers, go in direction
-    // Ctrl modifier, move entire word
-    // Highlight is enabled, highlight
-    // tld: check for modifiers, move in direction, highlight if needed
-    // -1 left, 1 right
+    // Moves the cursor left/right.
+    // If highlightCursorStartPosition has a value, highlights text from its position to the cursor's position.
     public void moveCursor(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
         Log.d(TAG, "moveCursor. keyboardArrowDirection: " + keyboardArrowDirection);
         Log.d(TAG, "moveCursor. ctrlHeld: " + ctrlHeld);
@@ -76,38 +72,27 @@ public class CircleKeyboardApplication extends InputMethodService {
         Log.d(TAG, "\n");
 
         int inputtedTextLength = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
-        boolean highlightButtonHeld = highlightCursorStartPosition != -1;
+        int cursorPosition = getCursorPosition();
 
-        if (highlightButtonHeld) {
-            int cursorPosition = getCursorPosition();
-            if (ctrlHeld) {
-                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
-                inputConnection.setSelection(index, highlightCursorStartPosition);
-            }
-            else {
-                int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
-                int newPosition = cursorPosition + direction;
-                if (newPosition < 0 || newPosition > inputtedTextLength) {
-                    newPosition = cursorPosition;
-                }
-                inputConnection.setSelection(newPosition, highlightCursorStartPosition);
-            }
+        if (ctrlHeld) {
+            int newCursorPosition = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
+            inputConnection.setSelection(newCursorPosition, getSecondCursorPositionIfHighlighting(newCursorPosition, highlightCursorStartPosition));
         }
         else {
-            int cursorPosition = getCursorPosition();
-            if (ctrlHeld) {
-                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
-                inputConnection.setSelection(index, index);
+            int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
+            int newCursorPosition = cursorPosition + direction;
+            if (newCursorPosition < 0 || newCursorPosition > inputtedTextLength) {
+                newCursorPosition = cursorPosition;
             }
-            else {
-                int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
-                int newPosition = cursorPosition + direction;
-                if (newPosition < 0 || newPosition > inputtedTextLength) {
-                    newPosition = cursorPosition;
-                }
-                inputConnection.setSelection(newPosition, newPosition);
-            }
+            inputConnection.setSelection(newCursorPosition, getSecondCursorPositionIfHighlighting(newCursorPosition, highlightCursorStartPosition));
         }
+    }
+
+    // Returns the second cursor's position if highlighting a selection of text. Returns first cursor's position if not.
+    // The reason is because inputConnection.setSelection assumes you are highlighting text. And so expects both cursors to be passed as args.
+    // However if you just want to move the cursor left/right without highlighting, you need to pass the new position as both args.
+    private int getSecondCursorPositionIfHighlighting(int firstCursorPosition, int highlightCursorStartPosition) {
+        return highlightCursorStartPosition == -1 ? firstCursorPosition : highlightCursorStartPosition;
     }
 
     // Loops backwards from the final cursor position, finds the first space, and returns the index before that
