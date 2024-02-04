@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customborder"
+    android:maxHeight="500dp"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:stretchColumns="*">
+
+        <!--        <TableRow-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="400dp"-->
+        <!--            >-->
+
+        <!--            <Button-->
+        <!--                android:id="@+id/home"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="fill_parent"-->
+        <!--                android:background="@drawable/button_outline"-->
+        <!--                android:insetTop="0dp"-->
+        <!--                android:insetBottom="0dp"-->
+        <!--                android:padding="0dp"-->
+        <!--                android:text="Left"-->
+        <!--                />-->
+
+        <!--            <Button-->
+        <!--                android:id="@+id/homee"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="fill_parent"-->
+        <!--                android:background="@drawable/button_outline"-->
+        <!--                android:insetTop="0dp"-->
+        <!--                android:insetBottom="0dp"-->
+        <!--                android:padding="0dp"-->
+        <!--                android:text="Right"-->
+        <!--                />-->
+
+        <!--        </TableRow>-->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:stretchColumns="*">
+
+                <Button
+                    android:id="@+id/bothButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="both" />
+
+                <Button
+                    android:id="@+id/shiftButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="shift" />
+
+                <Button
+                    android:id="@+id/ctrlButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="ctrl" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:stretchColumns="*">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:stretchColumns="*">
+
+                    <Button
+                        android:id="@+id/leftButton"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/button_outline"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:text="Left" />
+
+                    <Button
+                        android:id="@+id/rightButton"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/button_outline"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:text="Right" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/homeButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="home" />
+
+                <Button
+                    android:id="@+id/endButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="end" />
+
+                <Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="delete" />
+
+                <Button
+                    android:id="@+id/backspaceButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_outline"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="backspace" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/mainKeyboardButton"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/button_outline"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:text="keyboard" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
