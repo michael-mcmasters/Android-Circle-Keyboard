@@ -112,11 +112,17 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     private int getLeftWordCursorIndex() {
-        CharSequence textLeftOfCursor = inputConnection.getTextBeforeCursor(getCursorPosition(), 0);
+        // get all text. create it until reaching cursor position
+        // Get all text up until the cursor position. (If highlighting text, loops until the ending cursor)
+        CharSequence c = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < getCursorPosition(); i++) {
+            sb.append(c.charAt(i));
+        }
 
-        // loop backwards, find first space, index is char before that
-        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
-            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
+        // loop backwards, find first space, the index is the char before that
+        for (int i = sb.length() - 1; i >= 0; i--) {
+            if (i + 1 < sb.length() && sb.charAt(i) == ' ') {
                 return i + 1;
             } else if (i == 0) {
                 return 0;
