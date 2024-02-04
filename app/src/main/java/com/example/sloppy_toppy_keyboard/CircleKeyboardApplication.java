@@ -87,7 +87,11 @@ public class CircleKeyboardApplication extends InputMethodService {
             }
             else {
                 int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
-                inputConnection.setSelection(cursorPosition + direction, highlightCursorStartPosition);
+                int newPosition = cursorPosition + direction;
+                if (newPosition < 0 || newPosition > inputtedTextLength) {
+                    newPosition = cursorPosition;
+                }
+                inputConnection.setSelection(newPosition, highlightCursorStartPosition);
             }
         }
         else {
@@ -98,13 +102,11 @@ public class CircleKeyboardApplication extends InputMethodService {
             }
             else {
                 int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
-                if (cursorPosition + direction < 0) {
-                    inputConnection.setSelection(0, 0);
-                } else if (cursorPosition + direction > inputtedTextLength) {
-                    inputConnection.setSelection(inputtedTextLength, inputtedTextLength);
-                } else {
-                    inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
+                int newPosition = cursorPosition + direction;
+                if (newPosition < 0 || newPosition > inputtedTextLength) {
+                    newPosition = cursorPosition;
                 }
+                inputConnection.setSelection(newPosition, newPosition);
             }
         }
     }
