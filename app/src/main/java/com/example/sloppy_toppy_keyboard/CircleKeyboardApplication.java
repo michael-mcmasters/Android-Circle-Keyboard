@@ -12,6 +12,7 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 
+import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
@@ -31,7 +32,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     public View onCreateInputView() {
         mainKeyboardView = new MainKeyboardView(this, this);
         charactersKeyboardView = new CharactersKeyboardView(this, this);
-//        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
+        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
         return mainKeyboardView;
     }
 
@@ -69,26 +70,43 @@ public class CircleKeyboardApplication extends InputMethodService {
     // Highlight is enabled, highlight
     // tld: check for modifiers, move in direction, highlight if needed
     // -1 left, 1 right
-    public void moveCursor(int direction, boolean ctrlHeld, boolean highlightEnabled) {
-        Log.d(TAG, "moveCursor. Direction: " + direction);
+    public void moveCursor(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
+        Log.d(TAG, "moveCursor. keyboardArrowDirection: " + keyboardArrowDirection);
         Log.d(TAG, "moveCursor. ctrlHeld: " + ctrlHeld);
-        Log.d(TAG, "moveCursor. highlightEnabled: " + highlightEnabled);
+        Log.d(TAG, "moveCursor. highlightCursorStartPosition: " + highlightCursorStartPosition);
         Log.d(TAG, "\n");
 
-        int cursorPosition = getCursorPosition();
-        if (!ctrlHeld) {
-            inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
-        }
-        else {
-            if (direction == -1) {
-                int index = getLeftWordCursorIndex();
-                inputConnection.setSelection(index, index);
-            } else {
-                int index = getRightWordCursorIndex();
-                inputConnection.setSelection(index, index);
+        int inputtedTextLength = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
+        boolean highlightButtonHeld = highlightCursorStartPosition != -1;
+
+        if (highlightButtonHeld) {
+            int cursorPosition = getCursorPosition();
+            if (ctrlHeld) {
+                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getLeftWordCursorIndex() : getRightWordCursorIndex();
+                inputConnection.setSelection(index, highlightCursorStartPosition);
+            }
+            else {
+                int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
+                inputConnection.setSelection(cursorPosition + direction, highlightCursorStartPosition);
             }
         }
-
+        else {
+            int cursorPosition = getCursorPosition();
+            if (ctrlHeld) {
+                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getLeftWordCursorIndex() : getRightWordCursorIndex();
+                inputConnection.setSelection(index, index);
+            }
+            else {
+                int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
+                if (cursorPosition + direction < 0) {
+                    inputConnection.setSelection(0, 0);
+                } else if (cursorPosition + direction > inputtedTextLength) {
+                    inputConnection.setSelection(inputtedTextLength, inputtedTextLength);
+                } else {
+                    inputConnection.setSelection(cursorPosition + direction, cursorPosition + direction);
+                }
+            }
+        }
     }
 
     private int getLeftWordCursorIndex() {
@@ -128,7 +146,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    private int getCursorPosition() {
+    public int getCursorPosition() {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         if (extractedText != null && extractedText.selectionStart >= 0) {
             return extractedText.selectionStart;

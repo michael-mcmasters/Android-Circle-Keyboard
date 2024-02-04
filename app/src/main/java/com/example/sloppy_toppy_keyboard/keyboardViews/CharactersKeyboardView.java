@@ -6,7 +6,9 @@ import android.view.MotionEvent;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.R;
+import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
+import com.example.sloppy_toppy_keyboard.model.Vector2;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.MotionEventCompat;
@@ -16,13 +18,14 @@ public class CharactersKeyboardView extends ConstraintLayout {
     private static final String TAG = "CharactersKeyboardView";
 
     private boolean ctrlHeld;
-    private boolean highlightEnabled;
+    private boolean highlightHeld;
+    private int highlightCursorStartPosition;
 
 
     public CharactersKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
         super(context);
         ctrlHeld = false;
-        highlightEnabled = false;
+        highlightHeld = false;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.characters_layout_2, this);
@@ -35,7 +38,7 @@ public class CharactersKeyboardView extends ConstraintLayout {
         findViewById(R.id.leftButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.moveCursor(-1, ctrlHeld, highlightEnabled);
+                circleKeyboardApplication.moveCursor(KeyboardArrowDirection.LEFT, ctrlHeld, highlightCursorStartPosition);
             }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
@@ -44,7 +47,7 @@ public class CharactersKeyboardView extends ConstraintLayout {
         findViewById(R.id.rightButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                circleKeyboardApplication.moveCursor(1, ctrlHeld, highlightEnabled);
+                circleKeyboardApplication.moveCursor(KeyboardArrowDirection.RIGHT, ctrlHeld, highlightCursorStartPosition);
             }
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
@@ -67,14 +70,35 @@ public class CharactersKeyboardView extends ConstraintLayout {
             return true;
         });
 
-//        findViewById(R.id.highlight).setOnTouchListener((view, motionEvent) -> {
-//            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-//            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-//                highlightEnabled = !highlightEnabled;
-//            }
-//            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-//            return true;
-//        });
+        findViewById(R.id.bothButton).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                ctrlHeld = true;
+                highlightHeld = true;
+                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
+            }
+            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
+                ctrlHeld = false;
+                highlightHeld = false;
+                highlightCursorStartPosition = -1;
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
+        findViewById(R.id.shiftButton).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                highlightHeld = true;
+                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
+            }
+            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
+                highlightHeld = false;
+                highlightCursorStartPosition = -1;
+            }
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
 
         findViewById(R.id.mainKeyboardButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
