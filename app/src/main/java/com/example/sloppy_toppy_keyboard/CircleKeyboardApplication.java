@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
-import android.widget.EditText;
 
 import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
@@ -82,7 +81,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         if (highlightButtonHeld) {
             int cursorPosition = getCursorPosition();
             if (ctrlHeld) {
-                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getLeftWordCursorIndex() : getRightWordCursorIndex();
+                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
                 inputConnection.setSelection(index, highlightCursorStartPosition);
             }
             else {
@@ -97,7 +96,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         else {
             int cursorPosition = getCursorPosition();
             if (ctrlHeld) {
-                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getLeftWordCursorIndex() : getRightWordCursorIndex();
+                int index = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
                 inputConnection.setSelection(index, index);
             }
             else {
@@ -111,18 +110,11 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    private int getLeftWordCursorIndex() {
-        // get all text. create it until reaching cursor position
-        // Get all text up until the cursor position. (If highlighting text, loops until the ending cursor)
-        CharSequence c = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < getCursorPosition(); i++) {
-            sb.append(c.charAt(i));
-        }
-
-        // loop backwards, find first space, the index is the char before that
-        for (int i = sb.length() - 1; i >= 0; i--) {
-            if (i + 1 < sb.length() && sb.charAt(i) == ' ') {
+    // Loops backwards from the final cursor position, finds the first space, and returns the index before that
+    private int getCtrlLeftCursorPosition() {
+        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
+        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
                 return i + 1;
             } else if (i == 0) {
                 return 0;
@@ -131,11 +123,11 @@ public class CircleKeyboardApplication extends InputMethodService {
         return -1;
     }
 
-    private int getRightWordCursorIndex() {
+    // Loops forwards starting at the cursor position, finds the first space, and returns the index before it
+    private int getCtrlRightCursorPosition() {
         int cursorPosition = getCursorPosition();
         CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
-//
-        // loop forwards, find first space, return char index before it
+
         for (int i = cursorPosition; i < allText.length(); i++) {
             if (i >= 1 && allText.charAt(i) == ' ') {
                 return i + 1;
@@ -143,15 +135,18 @@ public class CircleKeyboardApplication extends InputMethodService {
                 return allText.length();
             }
         }
-        Log.d(TAG, "INDEX: " + "-1");
         return -1;
     }
 
-    public void highlight() {
-        int cursorPosition = getCursorPosition();
-        if (cursorPosition - 4 > 0) {
-            inputConnection.setSelection(cursorPosition - 4, cursorPosition);
+    // Returns all text up until the final cursor. (You'll have 2 cursors if highlighting text.)
+    // This method is needed because inputConnection.getTextBeforeCursor() only returns text before the *first* cursor.
+    private CharSequence getTextLeftOfFinalCursor() {
+        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        StringBuilder leftText = new StringBuilder();
+        for (int i = 0; i < getCursorPosition(); i++) {     // getCursorPosition returns final cursor's position
+            leftText.append(allText.charAt(i));
         }
+        return leftText;
     }
 
     public int getCursorPosition() {
