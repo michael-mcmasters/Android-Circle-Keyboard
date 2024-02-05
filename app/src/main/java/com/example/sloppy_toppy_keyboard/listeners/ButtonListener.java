@@ -17,6 +17,7 @@ import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
+import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.model.Vector2;
 
@@ -26,6 +27,7 @@ public class ButtonListener {
 
     private Context context;
     private CircleKeyboardApplication circleKeyboardApplication;
+    private MainKeyboardView mainKeyboardView;
     private KeyMap keyMap;
 
     private Vector2 startPosition;
@@ -42,9 +44,10 @@ public class ButtonListener {
     private double prevDistance;
 
 
-    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, KeyMap keyMap) {
+    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView, KeyMap keyMap) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
+        this.mainKeyboardView = mainKeyboardView;
         this.keyMap = keyMap;
     }
 
@@ -146,18 +149,20 @@ public class ButtonListener {
         boolean selectedFarLetter = false;      // not sure if I need this or not
 
         if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-            String tapAction = keyMap.getTap();
-            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
+            mainKeyboardView.performTapAction(keyMap.getTap());
 
-            if (tapAction.equals(CURSOR_LEFT)) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
-            } else if (tapAction.equals(CURSOR_RIGHT)) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
-            } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
-            } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
-            }
+//            String tapAction = keyMap.getTap();
+//            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
+//
+//            if (tapAction.equals(CURSOR_LEFT)) {
+//                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
+//            } else if (tapAction.equals(CURSOR_RIGHT)) {
+//                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
+//            } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
+//                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
+//            } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
+//                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
+//            }
 
             return;
         }

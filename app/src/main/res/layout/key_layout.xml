@@ -428,6 +428,10 @@
                 android:text="num"
                 />
             <Button
+                android:id="@+id/modButton"
+                android:text="Mod"
+                />
+            <Button
                 android:id="@+id/spaceButton"
                 android:text="space"
                 android:layout_height="50dp"
