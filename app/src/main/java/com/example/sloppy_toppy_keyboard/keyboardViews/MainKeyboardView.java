@@ -1,5 +1,7 @@
 package com.example.sloppy_toppy_keyboard.keyboardViews;
 
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_END;
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_HOME;
 import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT;
 import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT_WORD;
 import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT;
@@ -136,6 +138,15 @@ public class MainKeyboardView extends ConstraintLayout {
                 propertyIndex++;
             }
         }
+    }
+
+    public void performLongpressAction(String longPressAction) {
+        if (longPressAction.equals(CURSOR_HOME)) {
+            circleKeyboardApplication.moveCursorWithHomeButton(highlightCursorStartPosition);
+        } else if (longPressAction.equals(CURSOR_END)) {
+            circleKeyboardApplication.moveCursorWithEndButton(highlightCursorStartPosition);
+        }
+
     }
 
     public void performTapAction(String tapAction) {

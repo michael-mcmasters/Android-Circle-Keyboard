@@ -17,6 +17,7 @@ public class KeyMap {
     private String farDown;
 
     private String tap;
+    private String longPress;
 
 
     public KeyMap() {
@@ -92,5 +93,9 @@ public class KeyMap {
 
     public String getTap() {
         return tap;
+    }
+
+    public String getLongPress() {
+        return longPress;
     }
 }

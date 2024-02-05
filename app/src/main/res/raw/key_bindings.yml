@@ -8,6 +8,7 @@ topLeft:
   farDown: V
   farRight: K
   tap: cursorLeft
+  longPress: ""
 
 topRight:
   up: E
@@ -19,6 +20,7 @@ topRight:
   farDown: ""
   farRight: B
   tap: cursorRight
+  longPress: ""
 
 bottomLeft:
   up: P
@@ -30,6 +32,7 @@ bottomLeft:
   farDown: Y
   farRight: Z
   tap: cursorLeftWord
+  longPress: cursorHome
 
 bottomRight:
   up: C
@@ -41,4 +44,5 @@ bottomRight:
   farDown: "."
   farRight: "?"
   tap: cursorRightWord
+  longPress: cursorEnd
 

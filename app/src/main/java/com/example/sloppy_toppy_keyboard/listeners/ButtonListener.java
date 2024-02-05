@@ -43,12 +43,18 @@ public class ButtonListener {
 
     private double prevDistance;
 
+    private long startTime;
+    private boolean longPressed;
+
+    private int longPressTime;
+
 
     public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView, KeyMap keyMap) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
         this.mainKeyboardView = mainKeyboardView;
         this.keyMap = keyMap;
+        this.longPressTime = 700;
     }
 
     // Gets start position
@@ -63,6 +69,13 @@ public class ButtonListener {
                 onTouchUp(view, motionEvent);
             }
 
+            // if millisecond time ended, and distance is not changed, then longpress true
+            if (!longPressed && System.currentTimeMillis() - startTime > longPressTime) {
+                longPressed = true;
+                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
+            }
+
+
             endPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));
             onTouchDrag(view, motionEvent);
 
@@ -73,6 +86,8 @@ public class ButtonListener {
     }
 
     private void onTouchDown(MotionEvent motionEvent) {
+        startTime = System.currentTimeMillis();
+        longPressed = false;
         startPosition = new Vector2(motionEvent.getX(0), motionEvent.getY(0));  // should be relative to the button
         vibrated = false;
         vibratedFarLetter = false;
@@ -145,6 +160,10 @@ public class ButtonListener {
         Log.d(TAG, String.format("startPosition x: %s, y: %s", startPosition.x, startPosition.y));
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
+
+        if (longPressed) {
+            return;
+        }
 
         boolean selectedFarLetter = false;      // not sure if I need this or not
 
