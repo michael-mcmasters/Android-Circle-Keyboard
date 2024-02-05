@@ -1,5 +1,10 @@
 package com.example.sloppy_toppy_keyboard.listeners;
 
+import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT;
+import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT_WORD;
+import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT;
+import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT_WORD;
+
 import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -7,7 +12,6 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.core.view.MotionEventCompat;
 
@@ -143,17 +147,18 @@ public class ButtonListener {
 
         if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
             String tapAction = keyMap.getTap();
-
             int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
-            if (tapAction.equals("cursorLeft")) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, -1);
-            } else if (tapAction.equals("cursorRight")) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, -1);
-            } else if (tapAction.equals("cursorLeftWord")) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, -1);
-            } else if (tapAction.equals("cursorRightWord")) {
-                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, -1);
+
+            if (tapAction.equals(CURSOR_LEFT)) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
+            } else if (tapAction.equals(CURSOR_RIGHT)) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
+            } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
+            } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
             }
+
             return;
         }
 
