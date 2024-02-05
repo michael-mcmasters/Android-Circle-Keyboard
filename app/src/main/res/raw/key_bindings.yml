@@ -7,6 +7,7 @@ topLeft:
   farLeft: G
   farDown: V
   farRight: K
+  tap: cursorLeft
 
 topRight:
   up: E
@@ -17,6 +18,7 @@ topRight:
   farLeft: J
   farDown: ""
   farRight: B
+  tap: cursorRight
 
 bottomLeft:
   up: P
@@ -27,6 +29,7 @@ bottomLeft:
   farLeft: X
   farDown: Y
   farRight: Z
+  tap: cursorLeftWord
 
 bottomRight:
   up: C
@@ -37,4 +40,5 @@ bottomRight:
   farLeft: ","
   farDown: "."
   farRight: "?"
+  tap: cursorRightWord
 

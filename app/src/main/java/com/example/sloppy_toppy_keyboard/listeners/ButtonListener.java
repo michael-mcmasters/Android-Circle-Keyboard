@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
+import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.model.Vector2;
 
@@ -138,17 +139,26 @@ public class ButtonListener {
         Log.d(TAG, String.format("endPosition x: %s, y: %s", endPosition.x, endPosition.y));
         Log.d(TAG, "");
 
-//        boolean selectedFarLetter = vibratedFarLetter | doubleTappedForFarLetter | slidOutAndInForFarLetter;
-        boolean selectedFarLetter = false;
+        boolean selectedFarLetter = false;      // not sure if I need this or not
+
+        if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
+            String tapAction = keyMap.getTap();
+
+            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
+            if (tapAction.equals("cursorLeft")) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, -1);
+            } else if (tapAction.equals("cursorRight")) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, -1);
+            } else if (tapAction.equals("cursorLeftWord")) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, -1);
+            } else if (tapAction.equals("cursorRightWord")) {
+                circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, -1);
+            }
+            return;
+        }
 
         double xDistance = Math.abs(startPosition.x - endPosition.x);
         double yDistance = Math.abs(startPosition.y - endPosition.y);
-
-//        if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-////            circleKeyboardApplication.commitText("<");
-//            doubleTappedForFarLetter = true;
-//            return;
-//        }
 
         if (slidOutAndInForFarLetter) {
             circleKeyboardApplication.commitText(selectedOutAndInLetter);

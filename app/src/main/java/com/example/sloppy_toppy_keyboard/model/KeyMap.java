@@ -16,6 +16,8 @@ public class KeyMap {
     private String farRight;
     private String farDown;
 
+    private String tap;
+
 
     public KeyMap() {
 
@@ -86,5 +88,9 @@ public class KeyMap {
 
     public String getFarDown() {
         return farDown;
+    }
+
+    public String getTap() {
+        return tap;
     }
 }
