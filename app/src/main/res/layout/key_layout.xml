@@ -401,32 +401,32 @@
 
     </TableLayout>
 
-    <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <TableLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start">
+<!--        <TableRow-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="start">-->
 
-            <Button
-                android:id="@+id/shiftButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shift"
-                />
+<!--            <Button-->
+<!--                android:id="@+id/shiftButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Shift"-->
+<!--                />-->
 
-            <Button
-                android:id="@+id/modButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mod"
-                />
-        </TableRow>
+<!--            <Button-->
+<!--                android:id="@+id/modButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Mod"-->
+<!--                />-->
+<!--        </TableRow>-->
 
-    </TableLayout>
+<!--    </TableLayout>-->
 
     <!-- Bottom Row -->
     <TableLayout
@@ -436,17 +436,41 @@
         android:stretchColumns="*">
         <TableRow>
 
-            <Button
-                android:id="@+id/numButton"
-                android:text="num"
-                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:stretchColumns="*">
+
+                <Button
+                    android:id="@+id/shiftButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Shift" />
+
+                <Button
+                    android:id="@+id/numButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="num" />
+
+                <!--                    <Button-->
+                <!--                        android:id="@+id/modButton"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="Mod"-->
+                <!--                        />-->
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/spaceButton"
+                android:layout_height="fill_parent"
                 android:text="space"
-                android:layout_height="50dp"
                 />
             <Button
                 android:id="@+id/enterButton"
+                android:layout_height="fill_parent"
                 android:text="enter"
                 />
         </TableRow>

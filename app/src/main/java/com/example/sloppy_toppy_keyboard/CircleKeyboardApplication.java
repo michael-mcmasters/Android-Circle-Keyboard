@@ -175,6 +175,15 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     }
 
+    public int getInputtedTextSize() {
+        return inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
+    }
+
+    public boolean textIsHighlighted() {
+        ExtractedText allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        return allText.selectionStart != allText.selectionEnd;
+    }
+
     private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
         sendDownKeyEvent(keyEventCode, flags);
         sendUpKeyEvent(keyEventCode, flags);

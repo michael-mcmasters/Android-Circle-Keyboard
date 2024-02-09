@@ -51,6 +51,8 @@ public class MainKeyboardView extends ConstraintLayout {
 
     private Boolean modButtonHeld;
     private Integer highlightCursorStartPosition;
+    private int previousInputtedTextSize;
+
 
     public MainKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
         super(context);
@@ -64,6 +66,7 @@ public class MainKeyboardView extends ConstraintLayout {
 
         modButtonHeld = false;
         highlightCursorStartPosition = -1;
+        previousInputtedTextSize = -1;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.key_layout, this);
@@ -102,25 +105,50 @@ public class MainKeyboardView extends ConstraintLayout {
             new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
         );
 
-        findViewById(R.id.modButton).setOnTouchListener((view, motionEvent) -> {
-            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                modButtonHeld = true;
-                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
-            }
-            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                modButtonHeld = false;
-                highlightCursorStartPosition = -1;
-            }
-            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-            return true;
-        });
+//        findViewById(R.id.modButton).setOnTouchListener((view, motionEvent) -> {
+//            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+//            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+//                modButtonHeld = true;
+//                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
+//            }
+//            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
+//                modButtonHeld = false;
+//                highlightCursorStartPosition = -1;
+//            }
+//            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+//            return true;
+//        });
         findViewById(R.id.numButton).setOnTouchListener(
             new NumListener(context, circleKeyboardApplication).getButtonCallback()
         );
-        findViewById(R.id.spaceButton).setOnTouchListener(
-            new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
-        );
+//        findViewById(R.id.spaceButton).setOnTouchListener(
+//            new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
+//        );
+
+        // Space key as mod button
+        findViewById(R.id.spaceButton).setOnTouchListener((view, motionEvent) -> {
+            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
+            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+                modButtonHeld = true;
+                previousInputtedTextSize = circleKeyboardApplication.getInputtedTextSize();
+                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
+            } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
+                boolean performendModAction = highlightCursorStartPosition != circleKeyboardApplication.getCursorPosition()
+                        || circleKeyboardApplication.getInputtedTextSize() != previousInputtedTextSize
+                        || circleKeyboardApplication.textIsHighlighted();
+
+                if (!performendModAction) {
+                    circleKeyboardApplication.commitText(" ");
+                }
+
+                modButtonHeld = false;
+                highlightCursorStartPosition = -1;
+            }
+
+            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
+            return true;
+        });
+
         findViewById(R.id.enterButton).setOnTouchListener(
             new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );

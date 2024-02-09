@@ -22,7 +22,7 @@ public class SpaceListener {
     public View.OnTouchListener getButtonCallback() {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
+            if (fingerAction.equals(MotionEvent.ACTION_UP)) {
                 circleKeyboardApplication.commitText(" ");
             }
 
