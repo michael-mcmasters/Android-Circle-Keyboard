@@ -71,7 +71,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
         if (ctrlHeld) {
             int newCursorPosition = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
-            inputConnection.setSelection(newCursorPosition, getSecondCursorPosition(newCursorPosition, highlightCursorStartPosition));
+            setCursorPosition(newCursorPosition, highlightCursorStartPosition);
         }
         else {
             int direction = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? -1 : 1;
@@ -79,25 +79,18 @@ public class CircleKeyboardApplication extends InputMethodService {
             if (newCursorPosition < 0 || newCursorPosition > inputtedTextLength) {
                 newCursorPosition = currentCursorPosition;
             }
-            inputConnection.setSelection(newCursorPosition, getSecondCursorPosition(newCursorPosition, highlightCursorStartPosition));
+            setCursorPosition(newCursorPosition, highlightCursorStartPosition);
         }
     }
 
     public void moveCursorWithHomeButton(int highlightCursorStartPosition) {
         int newCursorPosition = 0;
-        inputConnection.setSelection(newCursorPosition, getSecondCursorPosition(newCursorPosition, highlightCursorStartPosition));
+        setCursorPosition(newCursorPosition, highlightCursorStartPosition);
     }
 
     public void moveCursorWithEndButton(int highlightCursorStartPosition) {
         int newCursorPosition = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
-        inputConnection.setSelection(newCursorPosition, getSecondCursorPosition(newCursorPosition, highlightCursorStartPosition));
-    }
-
-    // Returns the second cursor's position if highlighting a selection of text. Returns first cursor's position if not.
-    // The reason is because inputConnection.setSelection assumes you are highlighting text. And so expects both cursors to be passed as args.
-    // However if you just want to move the cursor left/right without highlighting, you need to pass the new position as both args.
-    private int getSecondCursorPosition(int firstCursorPosition, int highlightCursorStartPosition) {
-        return highlightCursorStartPosition == -1 ? firstCursorPosition : highlightCursorStartPosition;
+        setCursorPosition(newCursorPosition, highlightCursorStartPosition);
     }
 
     // Loops backwards from the final cursor position, finds the first space, and returns the index before that
@@ -149,6 +142,9 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     // May be a good idea to move this to its own TextCommitter class in the future
     public void commitText(String s) {
+//        int cursorPosition = getCursorPosition();
+//        int len = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length();
+
         if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
             s = String.valueOf(shiftEnabled ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
         }
@@ -187,6 +183,15 @@ public class CircleKeyboardApplication extends InputMethodService {
     private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
         sendDownKeyEvent(keyEventCode, flags);
         sendUpKeyEvent(keyEventCode, flags);
+    }
+
+    // inputConnection.setSelection always asks for two cursor positions.
+    // If highlighting text, you pass both cursor positions
+    // If not highlighting text, you pass the first cursor positions twice
+    // This method checks if we are highlighting text and set the value automatically
+    private void setCursorPosition(int firstCursorPosition, int highlightCursorStartPosition) {
+        int secondCursorPosition = highlightCursorStartPosition == -1 ? firstCursorPosition : highlightCursorStartPosition;
+        inputConnection.setSelection(firstCursorPosition, secondCursorPosition);
     }
 
     private void sendDownKeyEvent(int keyEventCode, int flags) {
