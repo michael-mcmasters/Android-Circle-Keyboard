@@ -193,7 +193,7 @@ public class MainKeyboardView extends ConstraintLayout {
         Log.d("", "Circle Shift");
 
         // Capitalize actual letters
-        circleKeyboardApplication.shift(upperCase);
+//        circleKeyboardApplication.shift(upperCase);
 
         // Capitalize visual letters
         toggleUpperCase(findViewById(R.id.key1), upperCase);

@@ -13,6 +13,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
+import com.example.sloppy_toppy_keyboard.enums.ShiftState;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 
@@ -24,7 +25,8 @@ public class CircleKeyboardApplication extends InputMethodService {
     private CharactersKeyboardView charactersKeyboardView;
 
     private InputConnection inputConnection;
-    private boolean shiftEnabled;
+//    private boolean shiftEnabled;
+    private ShiftState shiftState;
 
 
     @Override
@@ -140,17 +142,6 @@ public class CircleKeyboardApplication extends InputMethodService {
         return -1;
     }
 
-    // May be a good idea to move this to its own TextCommitter class in the future
-    public void commitText(String s) {
-//        int cursorPosition = getCursorPosition();
-//        int len = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length();
-
-        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
-            s = String.valueOf(shiftEnabled ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
-        }
-        inputConnection.commitText(s, 1);
-    }
-
     // Not 100% what all code here does but it works. Probably possibly can delete some of it as it was copied from elsewhere.
     public void backspace() {
         CharSequence sel = inputConnection.getSelectedText(0);
@@ -159,6 +150,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         } else {
             inputConnection.commitText("", 0);
         }
+        updateShiftState();
     }
 
     public void enter() {
@@ -167,7 +159,11 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     public void shift(boolean enabled) {
         Log.d("", "Parent Shift");
-        shiftEnabled = enabled;
+//        shiftEnabled = enabled;
+
+        if (enabled) {
+            shiftState = ShiftState.LOWERCASE;
+        }
 
     }
 
@@ -188,10 +184,104 @@ public class CircleKeyboardApplication extends InputMethodService {
     // inputConnection.setSelection always asks for two cursor positions.
     // If highlighting text, you pass both cursor positions
     // If not highlighting text, you pass the first cursor positions twice
-    // This method checks if we are highlighting text and set the value automatically
+    // This method checks if we are highlighting text and sets the value automatically
     private void setCursorPosition(int firstCursorPosition, int highlightCursorStartPosition) {
         int secondCursorPosition = highlightCursorStartPosition == -1 ? firstCursorPosition : highlightCursorStartPosition;
         inputConnection.setSelection(firstCursorPosition, secondCursorPosition);
+        updateShiftState();
+    }
+
+
+//    public void commitText(String s) {
+//        // * lower *
+//        // - if beg of text: uppercase
+//        // - if not: lowercase
+//
+//        // * upper_once *
+//        // - if beg of text: uppercase, then set var to lowercase
+//        // - if not, uppercase, then set var to lowercase
+//
+//        // * upper_always *
+//        // - if beg of text, uppercase
+//        // - if not, uppercase
+//
+//        // TODO: Test this, then set shiftState in shift button listener
+//        // Also mainKeyboardView.shift isn't changing letters visually. Not sure what I did wrong.
+//
+//        int cursorPosition = getCursorPosition();
+//        boolean beginningOfSentence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length() == 0;    // TODO: Need to check if period appears before cursor. Not just check if at position 0.
+//
+//        if (shiftState == ShiftState.LOWERCASE) {
+//            if (beginningOfSentence) {
+//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
+//                mainKeyboardView.shift(true);
+//            } else {
+//                s = String.valueOf(Character.toLowerCase(s.charAt(0)));
+//                mainKeyboardView.shift(false);
+//            }
+//        }
+//        else if (shiftState == ShiftState.UPPERCASE_ONCE) {
+//            if (beginningOfSentence) {
+//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
+//                mainKeyboardView.shift(true);
+//            } else {
+//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
+//                mainKeyboardView.shift(true);
+//            }
+//            shiftState = ShiftState.LOWERCASE;
+//        }
+//        else if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
+//            s = String.valueOf(Character.toUpperCase(s.charAt(0)));
+//            mainKeyboardView.shift(true);
+//        }
+//
+//        setShiftState();
+//
+//
+////        int cursorPosition = getCursorPosition();
+////        int len = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length();
+//
+////        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+////            s = String.valueOf(shiftEnabled ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
+////        }
+//        inputConnection.commitText(s, 1);
+//    }
+
+
+    public void commitText(String s) {
+        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+            s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
+                    ? Character.toUpperCase(s.charAt(0))
+                    : Character.toLowerCase(s.charAt(0)));
+        }
+        inputConnection.commitText(s, 1);
+        updateShiftState();
+    }
+
+    // Call this when
+    // move cursor
+    // every time type letter
+    // every time backspace
+    private void updateShiftState() {
+        // beg of sentence, enable
+        // !beg of sentence, disable
+        // set to UPPERCASE_ALWAYS, enable
+
+        if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
+            mainKeyboardView.shift(true);
+            return;
+        }
+
+        int cursorPosition = getCursorPosition();
+        boolean beginningOfSentence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length() == 0;    // TODO: Need to check if period appears before cursor. Not just check if at position 0.
+
+        if (beginningOfSentence) {
+            shiftState = ShiftState.UPPERCASE_ONCE;
+            mainKeyboardView.shift(true);
+        } else {
+            shiftState = ShiftState.LOWERCASE;
+            mainKeyboardView.shift(false);
+        }
     }
 
     private void sendDownKeyEvent(int keyEventCode, int flags) {
