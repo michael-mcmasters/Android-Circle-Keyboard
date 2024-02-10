@@ -158,9 +158,11 @@ public class MainKeyboardView extends ConstraintLayout {
 
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
             View child = viewGroup.getChildAt(index);
-            Log.d(TAG, "setLettersVisually: " + child);
             if (child instanceof TextView && ((TextView) child).getText() != "") {
                 String character = keyMap.getPropertyValueByIndex(keyMap, propertyIndex);
+                if (character.equals(" ")) {
+                    character = "(sp)";
+                }
                 ((TextView) child).setText(character);
                 propertyIndex++;
             }
@@ -190,9 +192,6 @@ public class MainKeyboardView extends ConstraintLayout {
 
     public void capitalizeLettersOnKeyboard(boolean upperCase) {
         Log.d("", "Circle Shift");
-
-        // Capitalize actual letters
-//        circleKeyboardApplication.shift(upperCase);
 
         // Capitalize visual letters
         toggleUpperCase(findViewById(R.id.key1), upperCase);

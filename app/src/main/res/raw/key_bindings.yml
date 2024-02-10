@@ -17,7 +17,7 @@ topRight:
   right: U
   farUp: ""
   farLeft: J
-  farDown: ""
+  farDown: "M"
   farRight: B
   tap: cursorRight
   longPress: ""
@@ -38,7 +38,7 @@ bottomRight:
   up: C
   left: H
   down: N
-  right: M
+  right: " "
   farUp: "!"
   farLeft: ","
   farDown: "."
