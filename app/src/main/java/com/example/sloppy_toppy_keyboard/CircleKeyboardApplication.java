@@ -23,6 +23,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     private MainKeyboardView mainKeyboardView;
     private CharactersKeyboardView charactersKeyboardView;
+    private InputConnectionUtil inputConnectionUtil;
 
     private InputConnection inputConnection;
     private ShiftState shiftState;
@@ -30,21 +31,11 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     @Override
     public View onCreateInputView() {
-        mainKeyboardView = new MainKeyboardView(this, this);
-        charactersKeyboardView = new CharactersKeyboardView(this, this);
+        this.mainKeyboardView = new MainKeyboardView(this, this);
+        this.charactersKeyboardView = new CharactersKeyboardView(this, this);
+        this.inputConnectionUtil = new InputConnectionUtil(inputConnection);
         inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
         return mainKeyboardView;
-    }
-
-    public void changeKeyboardView(KeyboardView keyboardView) {
-        switch (keyboardView) {
-            case MAIN_KEYBOARD:
-                setInputView(mainKeyboardView);
-                break;
-            case CHARACTERS_KEYBOARD:
-                setInputView(charactersKeyboardView);
-                break;
-        }
     }
 
     @Override
@@ -64,14 +55,79 @@ public class CircleKeyboardApplication extends InputMethodService {
         inputConnection = getCurrentInputConnection();
     }
 
+
+    public void changeKeyboardView(KeyboardView keyboardView) {
+        switch (keyboardView) {
+            case MAIN_KEYBOARD:
+                setInputView(mainKeyboardView);
+                break;
+            case CHARACTERS_KEYBOARD:
+                setInputView(charactersKeyboardView);
+                break;
+        }
+    }
+
+    public void commitText(String s) {
+        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+            s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
+                    ? Character.toUpperCase(s.charAt(0))
+                    : Character.toLowerCase(s.charAt(0)));
+        }
+        inputConnection.commitText(s, 1);
+        setShiftFromCursorPosition();
+    }
+
+    public void enter() {
+        inputConnectionUtil.sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
+    }
+
+    public void backspace() {
+        CharSequence sel = inputConnection.getSelectedText(0);
+        if (TextUtils.isEmpty(sel)) {
+            inputConnection.deleteSurroundingText(1, 0);
+        } else {
+            inputConnection.commitText("", 0);
+        }
+        setShiftFromCursorPosition();
+    }
+
+    /**
+     * Determines if shift should be enabled based on where the cursor is in the text. (e.g. capitalize when at the beginning of a sentence.)
+     * Should be called when inputting a char, deleting a char, or moving the cursor
+     */
+    private void setShiftFromCursorPosition() {
+        // If shift is set to always capitalizing letters, then no need to do anything. Just keep capitalizing them.
+        if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
+            return;
+        }
+
+        if (inputConnectionUtil.isNewSentence()) {
+            shiftState = ShiftState.UPPERCASE_ONCE;
+            mainKeyboardView.capitalizeLettersOnKeyboard(true);
+        } else {
+            shiftState = ShiftState.LOWERCASE;
+            mainKeyboardView.capitalizeLettersOnKeyboard(false);
+        }
+    }
+
+    /**
+     * Called from the shift button
+     * @param shiftState
+     */
+    public void setShiftFromButton(ShiftState shiftState) {
+        this.shiftState = shiftState;
+        boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
+        mainKeyboardView.capitalizeLettersOnKeyboard(shiftEnabled);
+    }
+
     // Moves the cursor left/right.
     // If highlightCursorStartPosition has a value, highlights text from its position to the cursor's position.
     public void moveCursorWithArrowButton(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
         int inputtedTextLength = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
-        int currentCursorPosition = getCursorPosition();
+        int currentCursorPosition = inputConnectionUtil.getCursorPosition();
 
         if (ctrlHeld) {
-            int newCursorPosition = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? getCtrlLeftCursorPosition() : getCtrlRightCursorPosition();
+            int newCursorPosition = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? inputConnectionUtil.getCtrlLeftCursorPosition() : inputConnectionUtil.getCtrlRightCursorPosition();
             setCursorPosition(newCursorPosition, highlightCursorStartPosition);
         }
         else {
@@ -94,82 +150,6 @@ public class CircleKeyboardApplication extends InputMethodService {
         setCursorPosition(newCursorPosition, highlightCursorStartPosition);
     }
 
-    // Loops backwards from the final cursor position, finds the first space, and returns the index before that
-    private int getCtrlLeftCursorPosition() {
-        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
-        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
-            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
-                return i + 1;
-            } else if (i == 0) {
-                return 0;
-            }
-        }
-        return -1;
-    }
-
-    // Loops forwards starting at the cursor position, finds the first space, and returns the index before it
-    private int getCtrlRightCursorPosition() {
-        int cursorPosition = getCursorPosition();
-        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
-
-        for (int i = cursorPosition; i < allText.length(); i++) {
-            if (i >= 1 && allText.charAt(i) == ' ') {
-                return i + 1;
-            } else if (i == allText.length() - 1) {
-                return allText.length();
-            }
-        }
-        return -1;
-    }
-
-    // Returns all text up until the final cursor. (You'll have 2 cursors if highlighting text.)
-    // This method is needed because inputConnection.getTextBeforeCursor() only returns text before the *first* cursor.
-    private CharSequence getTextLeftOfFinalCursor() {
-        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
-        StringBuilder leftText = new StringBuilder();
-        for (int i = 0; i < getCursorPosition(); i++) {     // getCursorPosition returns final cursor's position
-            leftText.append(allText.charAt(i));
-        }
-        return leftText;
-    }
-
-    public int getCursorPosition() {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
-        if (extractedText != null && extractedText.selectionStart >= 0) {
-            return extractedText.selectionStart;
-        }
-        return -1;
-    }
-
-    // Not 100% what all code here does but it works. Probably possibly can delete some of it as it was copied from elsewhere.
-    public void backspace() {
-        CharSequence sel = inputConnection.getSelectedText(0);
-        if (TextUtils.isEmpty(sel)) {
-            inputConnection.deleteSurroundingText(1, 0);
-        } else {
-            inputConnection.commitText("", 0);
-        }
-        setShiftFromCursorPosition();
-    }
-
-    public void enter() {
-        sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
-    }
-
-    public int getInputtedTextSize() {
-        return inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
-    }
-
-    public boolean textIsHighlighted() {
-        ExtractedText allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
-        return allText.selectionStart != allText.selectionEnd;
-    }
-
-    private void sendDownAndUpKeyEvent(int keyEventCode, int flags) {
-        sendDownKeyEvent(keyEventCode, flags);
-        sendUpKeyEvent(keyEventCode, flags);
-    }
-
     // inputConnection.setSelection always asks for two cursor positions.
     // If highlighting text, you pass both cursor positions
     // If not highlighting text, you pass the first cursor positions twice
@@ -180,96 +160,11 @@ public class CircleKeyboardApplication extends InputMethodService {
         setShiftFromCursorPosition();
     }
 
-    public void commitText(String s) {
-        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
-            s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
-                    ? Character.toUpperCase(s.charAt(0))
-                    : Character.toLowerCase(s.charAt(0)));
-        }
-        inputConnection.commitText(s, 1);
-        setShiftFromCursorPosition();
-    }
-
-    /**
-     * Determines if shift should be enabled based on where the cursor is in the text. (e.g. capitalize when at the beginning of a sentence.)
-     * Should be called when inputting a char, deleting a char, or moving the cursor
-     */
-    private void setShiftFromCursorPosition() {
-        // If shift is set to always capitalizing letters, then no need to do anything. Just keep capitalizing them.
-        if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
-            return;
-        }
-
-        if (isNewSentence()) {
-            shiftState = ShiftState.UPPERCASE_ONCE;
-            mainKeyboardView.capitalizeLettersOnKeyboard(true);
-        } else {
-            shiftState = ShiftState.LOWERCASE;
-            mainKeyboardView.capitalizeLettersOnKeyboard(false);
-        }
-    }
-
-    /**
-     * Called from the shift button
-     * @param shiftState
-     */
-    public void setShiftFromButton(ShiftState shiftState) {
-        this.shiftState = shiftState;
-        boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
-        mainKeyboardView.capitalizeLettersOnKeyboard(shiftEnabled);
-    }
-
-    private boolean isNewSentence() {
-        int cursorPosition = getCursorPosition();
-        CharSequence charSequence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition);
-
-        // If there is no text, this is the beginning of a sentence
-        if (charSequence.length() == 0) {
-            return true;
-        }
-
-        // Loop from cursor -> backwards. If find period, is a new sentence. If find letter, is not a new sentence.
-        for (int i = cursorPosition - 1; i >= 0; i--) {
-            if (charSequence.charAt(i) == '.') {
-                return true;
-            }
-            else if (Character.isLetter(charSequence.charAt(i))) {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    private void sendDownKeyEvent(int keyEventCode, int flags) {
-        inputConnection.sendKeyEvent(
-                new KeyEvent(
-                        SystemClock.uptimeMillis(),
-                        SystemClock.uptimeMillis(),
-                        KeyEvent.ACTION_DOWN,
-                        keyEventCode,
-                        0,
-                        flags
-                )
-        );
-    }
-
-    private void sendUpKeyEvent(int keyEventCode, int flags) {
-        inputConnection.sendKeyEvent(
-                new KeyEvent(
-                        SystemClock.uptimeMillis(),
-                        SystemClock.uptimeMillis(),
-                        KeyEvent.ACTION_UP,
-                        keyEventCode,
-                        0,
-                        flags
-                )
-        );
-    }
-
     public ShiftState getShiftState() {
         return this.shiftState;
     }
 
-
+    public InputConnectionUtil getInputConnectionUtil() {
+        return this.inputConnectionUtil;
+    }
 }

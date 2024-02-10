@@ -129,12 +129,12 @@ public class MainKeyboardView extends ConstraintLayout {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 modButtonHeld = true;
-                previousInputtedTextSize = circleKeyboardApplication.getInputtedTextSize();
-                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
+                previousInputtedTextSize = circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize();
+                highlightCursorStartPosition = circleKeyboardApplication.getInputConnectionUtil().getCursorPosition();
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                boolean performendModAction = highlightCursorStartPosition != circleKeyboardApplication.getCursorPosition()
-                        || circleKeyboardApplication.getInputtedTextSize() != previousInputtedTextSize
-                        || circleKeyboardApplication.textIsHighlighted();
+                boolean performendModAction = highlightCursorStartPosition != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
+                        || circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize() != previousInputtedTextSize
+                        || circleKeyboardApplication.getInputConnectionUtil().textIsHighlighted();
 
                 if (!performendModAction) {
                     circleKeyboardApplication.commitText(" ");
