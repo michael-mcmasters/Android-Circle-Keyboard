@@ -284,6 +284,29 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
+    public void toggleShift(boolean uppercaseAlways) {
+        if (uppercaseAlways) {
+            shiftState = ShiftState.UPPERCASE_ALWAYS;
+            mainKeyboardView.shift(true);
+            return;
+        }
+
+        switch (shiftState) {
+            case UPPERCASE_ALWAYS:
+                shiftState = ShiftState.LOWERCASE;
+                mainKeyboardView.shift(false);
+                break;
+            case UPPERCASE_ONCE:
+                shiftState = ShiftState.LOWERCASE;
+                mainKeyboardView.shift(false);
+                break;
+            case LOWERCASE:
+                shiftState = ShiftState.UPPERCASE_ONCE;
+                mainKeyboardView.shift(true);
+                break;
+        }
+    }
+
     private void sendDownKeyEvent(int keyEventCode, int flags) {
         inputConnection.sendKeyEvent(
                 new KeyEvent(
