@@ -191,63 +191,6 @@ public class CircleKeyboardApplication extends InputMethodService {
         updateShiftState();
     }
 
-
-//    public void commitText(String s) {
-//        // * lower *
-//        // - if beg of text: uppercase
-//        // - if not: lowercase
-//
-//        // * upper_once *
-//        // - if beg of text: uppercase, then set var to lowercase
-//        // - if not, uppercase, then set var to lowercase
-//
-//        // * upper_always *
-//        // - if beg of text, uppercase
-//        // - if not, uppercase
-//
-//        // TODO: Test this, then set shiftState in shift button listener
-//        // Also mainKeyboardView.shift isn't changing letters visually. Not sure what I did wrong.
-//
-//        int cursorPosition = getCursorPosition();
-//        boolean beginningOfSentence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length() == 0;    // TODO: Need to check if period appears before cursor. Not just check if at position 0.
-//
-//        if (shiftState == ShiftState.LOWERCASE) {
-//            if (beginningOfSentence) {
-//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
-//                mainKeyboardView.shift(true);
-//            } else {
-//                s = String.valueOf(Character.toLowerCase(s.charAt(0)));
-//                mainKeyboardView.shift(false);
-//            }
-//        }
-//        else if (shiftState == ShiftState.UPPERCASE_ONCE) {
-//            if (beginningOfSentence) {
-//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
-//                mainKeyboardView.shift(true);
-//            } else {
-//                s = String.valueOf(Character.toUpperCase(s.charAt(0)));
-//                mainKeyboardView.shift(true);
-//            }
-//            shiftState = ShiftState.LOWERCASE;
-//        }
-//        else if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
-//            s = String.valueOf(Character.toUpperCase(s.charAt(0)));
-//            mainKeyboardView.shift(true);
-//        }
-//
-//        setShiftState();
-//
-//
-////        int cursorPosition = getCursorPosition();
-////        int len = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length();
-//
-////        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
-////            s = String.valueOf(shiftEnabled ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
-////        }
-//        inputConnection.commitText(s, 1);
-//    }
-
-
     public void commitText(String s) {
         if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
             s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
@@ -284,29 +227,6 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void toggleShift(boolean uppercaseAlways) {
-        if (uppercaseAlways) {
-            shiftState = ShiftState.UPPERCASE_ALWAYS;
-            mainKeyboardView.shift(true);
-            return;
-        }
-
-        switch (shiftState) {
-            case UPPERCASE_ALWAYS:
-                shiftState = ShiftState.LOWERCASE;
-                mainKeyboardView.shift(false);
-                break;
-            case UPPERCASE_ONCE:
-                shiftState = ShiftState.LOWERCASE;
-                mainKeyboardView.shift(false);
-                break;
-            case LOWERCASE:
-                shiftState = ShiftState.UPPERCASE_ONCE;
-                mainKeyboardView.shift(true);
-                break;
-        }
-    }
-
     private void sendDownKeyEvent(int keyEventCode, int flags) {
         inputConnection.sendKeyEvent(
                 new KeyEvent(
@@ -331,5 +251,15 @@ public class CircleKeyboardApplication extends InputMethodService {
                         flags
                 )
         );
+    }
+
+    public ShiftState getShiftState() {
+        return this.shiftState;
+    }
+
+    public void setShiftState(ShiftState shiftState) {
+        this.shiftState = shiftState;
+        boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
+        mainKeyboardView.shift(shiftEnabled);
     }
 }
