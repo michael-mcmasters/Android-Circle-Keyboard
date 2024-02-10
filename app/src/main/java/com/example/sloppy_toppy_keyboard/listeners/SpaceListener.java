@@ -23,7 +23,7 @@ public class SpaceListener {
         return (view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                circleKeyboardApplication.commitText(" ");
+                circleKeyboardApplication.write(" ");
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does

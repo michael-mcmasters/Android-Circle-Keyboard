@@ -15,6 +15,14 @@ public class InputConnectionUtil {
         this.inputConnection = inputConnection;
     }
 
+    public int getCursorPosition() {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        if (extractedText != null && extractedText.selectionStart >= 0) {
+            return extractedText.selectionStart;
+        }
+        return -1;
+    }
+
     // Loops backwards from the final cursor position, finds the first space, and returns the index before that
     public int getCtrlLeftCursorPosition() {
         CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
@@ -52,14 +60,6 @@ public class InputConnectionUtil {
             leftText.append(allText.charAt(i));
         }
         return leftText;
-    }
-
-    public int getCursorPosition() {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
-        if (extractedText != null && extractedText.selectionStart >= 0) {
-            return extractedText.selectionStart;
-        }
-        return -1;
     }
 
     public int getInputtedTextSize() {

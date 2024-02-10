@@ -56,9 +56,9 @@ public class ShiftListener {
      */
     public void handleDoubleTap() {
         if (circleKeyboardApplication.getShiftState() == UPPERCASE_ALWAYS) {
-            circleKeyboardApplication.setShiftFromButton(LOWERCASE);
+            circleKeyboardApplication.toggleShiftViaButton(LOWERCASE);
         } else {
-            circleKeyboardApplication.setShiftFromButton(UPPERCASE_ALWAYS);
+            circleKeyboardApplication.toggleShiftViaButton(UPPERCASE_ALWAYS);
         }
     }
 
@@ -66,10 +66,10 @@ public class ShiftListener {
         switch (circleKeyboardApplication.getShiftState()) {
             case UPPERCASE_ALWAYS:
             case UPPERCASE_ONCE:
-                circleKeyboardApplication.setShiftFromButton(LOWERCASE);
+                circleKeyboardApplication.toggleShiftViaButton(LOWERCASE);
                 break;
             case LOWERCASE:
-                circleKeyboardApplication.setShiftFromButton(UPPERCASE_ONCE);
+                circleKeyboardApplication.toggleShiftViaButton(UPPERCASE_ONCE);
                 break;
         }
     }

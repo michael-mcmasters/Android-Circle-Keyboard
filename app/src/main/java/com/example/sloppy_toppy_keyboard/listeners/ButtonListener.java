@@ -1,10 +1,5 @@
 package com.example.sloppy_toppy_keyboard.listeners;
 
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT_WORD;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT_WORD;
-
 import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -16,7 +11,6 @@ import android.view.View;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
-import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
 import com.example.sloppy_toppy_keyboard.model.Vector2;
@@ -190,26 +184,26 @@ public class ButtonListener {
         double yDistance = Math.abs(startPosition.y - endPosition.y);
 
         if (slidOutAndInForFarLetter) {
-            circleKeyboardApplication.commitText(selectedOutAndInLetter);
+            circleKeyboardApplication.write(selectedOutAndInLetter);
         }
         else {
             // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
                     // left
-                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
 
                 } else {
                     // right
-                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
                 }
             } else {
                 if (endPosition.y < startPosition.y) {
                     // up
-                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
                 } else {
                     // down
-                    circleKeyboardApplication.commitText(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
                 }
             }
         }

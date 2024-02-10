@@ -137,7 +137,7 @@ public class MainKeyboardView extends ConstraintLayout {
                         || circleKeyboardApplication.getInputConnectionUtil().textIsHighlighted();
 
                 if (!performendModAction) {
-                    circleKeyboardApplication.commitText(" ");
+                    circleKeyboardApplication.write(" ");
                 }
 
                 modButtonHeld = false;
@@ -169,22 +169,22 @@ public class MainKeyboardView extends ConstraintLayout {
 
     public void performLongpressAction(String longPressAction) {
         if (longPressAction.equals(CURSOR_HOME)) {
-            circleKeyboardApplication.moveCursorWithHomeButton(highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaHomeButton(highlightCursorStartPosition);
         } else if (longPressAction.equals(CURSOR_END)) {
-            circleKeyboardApplication.moveCursorWithEndButton(highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaEndButton(highlightCursorStartPosition);
         }
 
     }
 
     public void performTapAction(String tapAction) {
         if (tapAction.equals(CURSOR_LEFT)) {
-            circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
         } else if (tapAction.equals(CURSOR_RIGHT)) {
-            circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
         } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
-            circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
         } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
-            circleKeyboardApplication.moveCursorWithArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
         }
     }
 

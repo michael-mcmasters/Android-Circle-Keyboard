@@ -218,7 +218,7 @@ public class CircleOnPressListener {
                 circleKeyboardApplication.backspace();
                 break;
             default:
-                circleKeyboardApplication.commitText(selectedLetter);
+                circleKeyboardApplication.write(selectedLetter);
                 break;
         }
     }

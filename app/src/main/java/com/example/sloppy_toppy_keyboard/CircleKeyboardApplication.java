@@ -1,13 +1,10 @@
 package com.example.sloppy_toppy_keyboard;
 
 import android.inputmethodservice.InputMethodService;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
@@ -67,18 +64,14 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void commitText(String s) {
+    public void write(String s) {
         if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
             s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
                     ? Character.toUpperCase(s.charAt(0))
                     : Character.toLowerCase(s.charAt(0)));
         }
         inputConnection.commitText(s, 1);
-        setShiftFromCursorPosition();
-    }
-
-    public void enter() {
-        inputConnectionUtil.sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
+        toggleShiftViaCursorPosition();
     }
 
     public void backspace() {
@@ -88,41 +81,16 @@ public class CircleKeyboardApplication extends InputMethodService {
         } else {
             inputConnection.commitText("", 0);
         }
-        setShiftFromCursorPosition();
+        toggleShiftViaCursorPosition();
     }
 
-    /**
-     * Determines if shift should be enabled based on where the cursor is in the text. (e.g. capitalize when at the beginning of a sentence.)
-     * Should be called when inputting a char, deleting a char, or moving the cursor
-     */
-    private void setShiftFromCursorPosition() {
-        // If shift is set to always capitalizing letters, then no need to do anything. Just keep capitalizing them.
-        if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
-            return;
-        }
-
-        if (inputConnectionUtil.isNewSentence()) {
-            shiftState = ShiftState.UPPERCASE_ONCE;
-            mainKeyboardView.capitalizeLettersOnKeyboard(true);
-        } else {
-            shiftState = ShiftState.LOWERCASE;
-            mainKeyboardView.capitalizeLettersOnKeyboard(false);
-        }
-    }
-
-    /**
-     * Called from the shift button
-     * @param shiftState
-     */
-    public void setShiftFromButton(ShiftState shiftState) {
-        this.shiftState = shiftState;
-        boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
-        mainKeyboardView.capitalizeLettersOnKeyboard(shiftEnabled);
+    public void enter() {
+        inputConnectionUtil.sendDownAndUpKeyEvent(KeyEvent.KEYCODE_ENTER, 0);
     }
 
     // Moves the cursor left/right.
     // If highlightCursorStartPosition has a value, highlights text from its position to the cursor's position.
-    public void moveCursorWithArrowButton(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
+    public void moveCursorViaArrowButton(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
         int inputtedTextLength = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
         int currentCursorPosition = inputConnectionUtil.getCursorPosition();
 
@@ -140,12 +108,12 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void moveCursorWithHomeButton(int highlightCursorStartPosition) {
+    public void moveCursorViaHomeButton(int highlightCursorStartPosition) {
         int newCursorPosition = 0;
         setCursorPosition(newCursorPosition, highlightCursorStartPosition);
     }
 
-    public void moveCursorWithEndButton(int highlightCursorStartPosition) {
+    public void moveCursorViaEndButton(int highlightCursorStartPosition) {
         int newCursorPosition = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
         setCursorPosition(newCursorPosition, highlightCursorStartPosition);
     }
@@ -157,8 +125,39 @@ public class CircleKeyboardApplication extends InputMethodService {
     private void setCursorPosition(int firstCursorPosition, int highlightCursorStartPosition) {
         int secondCursorPosition = highlightCursorStartPosition == -1 ? firstCursorPosition : highlightCursorStartPosition;
         inputConnection.setSelection(firstCursorPosition, secondCursorPosition);
-        setShiftFromCursorPosition();
+        toggleShiftViaCursorPosition();
     }
+
+    /**
+     * Called from the shift button
+     * @param shiftState
+     */
+    public void toggleShiftViaButton(ShiftState shiftState) {
+        this.shiftState = shiftState;
+        boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
+        mainKeyboardView.capitalizeLettersOnKeyboard(shiftEnabled);
+    }
+
+    /**
+     * Determines if shift should be enabled based on where the cursor is in the text. (e.g. capitalize when at the beginning of a sentence.)
+     * Should be called when inputting a char, deleting a char, or moving the cursor
+     */
+    private void toggleShiftViaCursorPosition() {
+        // If shift is set to always capitalizing letters, then no need to do anything. Just keep capitalizing them.
+        if (shiftState == ShiftState.UPPERCASE_ALWAYS) {
+            return;
+        }
+
+        if (inputConnectionUtil.isNewSentence()) {
+            shiftState = ShiftState.UPPERCASE_ONCE;
+            mainKeyboardView.capitalizeLettersOnKeyboard(true);
+        } else {
+            shiftState = ShiftState.LOWERCASE;
+            mainKeyboardView.capitalizeLettersOnKeyboard(false);
+        }
+    }
+
+
 
     public ShiftState getShiftState() {
         return this.shiftState;
@@ -167,4 +166,5 @@ public class CircleKeyboardApplication extends InputMethodService {
     public InputConnectionUtil getInputConnectionUtil() {
         return this.inputConnectionUtil;
     }
+
 }
