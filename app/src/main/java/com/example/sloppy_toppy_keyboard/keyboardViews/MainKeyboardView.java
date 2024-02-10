@@ -161,7 +161,7 @@ public class MainKeyboardView extends ConstraintLayout {
             if (child instanceof TextView && ((TextView) child).getText() != "") {
                 String character = keyMap.getPropertyValueByIndex(keyMap, propertyIndex);
                 if (character.equals(" ")) {
-                    character = "(sp)";
+                    character = "sp";
                 }
                 ((TextView) child).setText(character);
                 propertyIndex++;

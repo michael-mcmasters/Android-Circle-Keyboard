@@ -76,7 +76,7 @@ public class InputConnectionUtil {
         CharSequence charSequence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition);
 
         // If there is no text, this is the beginning of a sentence
-        if (charSequence.length() == 0) {
+        if (charSequence == null || charSequence.length() == 0) {
             return true;
         }
 
