@@ -5,7 +5,6 @@ import static com.example.sloppy_toppy_keyboard.enums.ShiftState.UPPERCASE_ALWAY
 import static com.example.sloppy_toppy_keyboard.enums.ShiftState.UPPERCASE_ONCE;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -31,7 +30,6 @@ public class ShiftListener {
         this.upperCase = true;
         firstTapTimestamp = -1;
         doubleTapTimeWindow = 700;
-        mainKeyboardView.shift(upperCase);
     }
 
     public View.OnTouchListener getButtonCallback() {
@@ -58,9 +56,9 @@ public class ShiftListener {
      */
     public void handleDoubleTap() {
         if (circleKeyboardApplication.getShiftState() == UPPERCASE_ALWAYS) {
-            circleKeyboardApplication.setShiftState(LOWERCASE);
+            circleKeyboardApplication.setShiftFromButton(LOWERCASE);
         } else {
-            circleKeyboardApplication.setShiftState(UPPERCASE_ALWAYS);
+            circleKeyboardApplication.setShiftFromButton(UPPERCASE_ALWAYS);
         }
     }
 
@@ -68,10 +66,10 @@ public class ShiftListener {
         switch (circleKeyboardApplication.getShiftState()) {
             case UPPERCASE_ALWAYS:
             case UPPERCASE_ONCE:
-                circleKeyboardApplication.setShiftState(LOWERCASE);
+                circleKeyboardApplication.setShiftFromButton(LOWERCASE);
                 break;
             case LOWERCASE:
-                circleKeyboardApplication.setShiftState(UPPERCASE_ONCE);
+                circleKeyboardApplication.setShiftFromButton(UPPERCASE_ONCE);
                 break;
         }
     }

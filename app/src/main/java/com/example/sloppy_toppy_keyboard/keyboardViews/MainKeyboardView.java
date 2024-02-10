@@ -31,7 +31,6 @@ import com.example.sloppy_toppy_keyboard.listeners.BackspaceListener;
 import com.example.sloppy_toppy_keyboard.listeners.ButtonListener;
 import com.example.sloppy_toppy_keyboard.listeners.EnterListener;
 import com.example.sloppy_toppy_keyboard.listeners.NumListener;
-import com.example.sloppy_toppy_keyboard.listeners.SpaceListener;
 import com.example.sloppy_toppy_keyboard.old.CircleOnPressListener;
 
 import java.io.IOException;
@@ -189,7 +188,7 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
-    public void shift(boolean upperCase) {
+    public void capitalizeLettersOnKeyboard(boolean upperCase) {
         Log.d("", "Circle Shift");
 
         // Capitalize actual letters
