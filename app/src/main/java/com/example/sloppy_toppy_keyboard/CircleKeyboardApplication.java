@@ -200,10 +200,7 @@ public class CircleKeyboardApplication extends InputMethodService {
             return;
         }
 
-        int cursorPosition = getCursorPosition();
-        boolean beginningOfSentence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition).length() == 0;    // TODO: Need to check if period appears before cursor. Not just check if at position 0.
-
-        if (beginningOfSentence) {
+        if (isNewSentence()) {
             shiftState = ShiftState.UPPERCASE_ONCE;
             mainKeyboardView.capitalizeLettersOnKeyboard(true);
         } else {
@@ -220,6 +217,28 @@ public class CircleKeyboardApplication extends InputMethodService {
         this.shiftState = shiftState;
         boolean shiftEnabled = shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS;
         mainKeyboardView.capitalizeLettersOnKeyboard(shiftEnabled);
+    }
+
+    private boolean isNewSentence() {
+        int cursorPosition = getCursorPosition();
+        CharSequence charSequence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition);
+
+        // If there is no text, this is the beginning of a sentence
+        if (charSequence.length() == 0) {
+            return true;
+        }
+
+        // Loop from cursor -> backwards. If find period, is a new sentence. If find letter, is not a new sentence.
+        for (int i = cursorPosition - 1; i >= 0; i--) {
+            if (charSequence.charAt(i) == '.') {
+                return true;
+            }
+            else if (Character.isLetter(charSequence.charAt(i))) {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private void sendDownKeyEvent(int keyEventCode, int flags) {
