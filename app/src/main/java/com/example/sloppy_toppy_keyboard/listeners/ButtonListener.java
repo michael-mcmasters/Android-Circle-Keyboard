@@ -67,7 +67,8 @@ public class ButtonListener {
             if (!longPressed && System.currentTimeMillis() - startTime > longPressTime) {
                 longPressed = true;
 //                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
-                mainKeyboardView.performLongpressAction(buttonKeyBindings.getLongPress().getFunctional());
+//                mainKeyboardView.performLongpressAction(buttonKeyBindings.getLongPress().getFunctional());
+                circleKeyboardApplication.write(buttonKeyBindings.getLongPress().getFunctional());
             }
 
 
@@ -163,7 +164,8 @@ public class ButtonListener {
         boolean selectedFarLetter = false;      // not sure if I need this or not
 
         if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-            mainKeyboardView.performTapAction(buttonKeyBindings.getTap().getFunctional());
+//            mainKeyboardView.performTapAction(buttonKeyBindings.getTap().getFunctional());
+            circleKeyboardApplication.write(buttonKeyBindings.getTap().getFunctional());
 
 //            String tapAction = keyMap.getTap();
 //            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting

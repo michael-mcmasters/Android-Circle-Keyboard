@@ -143,27 +143,6 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
-    public void performLongpressAction(String longPressAction) {
-        if (longPressAction.equals(CURSOR_HOME)) {
-            circleKeyboardApplication.moveCursorViaHomeButton(circleKeyboardApplication.getHighlightCursorStartPosition());
-        } else if (longPressAction.equals(CURSOR_END)) {
-            circleKeyboardApplication.moveCursorViaEndButton(circleKeyboardApplication.getHighlightCursorStartPosition());
-        }
-
-    }
-
-    public void performTapAction(String tapAction) {
-        if (tapAction.equals(CURSOR_LEFT)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, false, circleKeyboardApplication.getHighlightCursorStartPosition());
-        } else if (tapAction.equals(CURSOR_RIGHT)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, false, circleKeyboardApplication.getHighlightCursorStartPosition());
-        } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, true, circleKeyboardApplication.getHighlightCursorStartPosition());
-        } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, true, circleKeyboardApplication.getHighlightCursorStartPosition());
-        }
-    }
-
     /**
      * Sets the appearance of letters on the keyboard. If swiping on them actually inputs a capital letter or not is determined by another class.
      * @param upperCase
