@@ -12,7 +12,7 @@ import androidx.core.view.MotionEventCompat;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
-import com.example.sloppy_toppy_keyboard.model.KeyMap;
+import com.example.sloppy_toppy_keyboard.model.ButtonKeyBindings;
 import com.example.sloppy_toppy_keyboard.model.Vector2;
 
 public class ButtonListener {
@@ -22,7 +22,7 @@ public class ButtonListener {
     private Context context;
     private CircleKeyboardApplication circleKeyboardApplication;
     private MainKeyboardView mainKeyboardView;
-    private KeyMap keyMap;
+    private ButtonKeyBindings buttonKeyBindings;
 
     private Vector2 startPosition;
     private Vector2 endPosition;
@@ -43,11 +43,11 @@ public class ButtonListener {
     private int longPressTime;
 
 
-    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView, KeyMap keyMap) {
+    public ButtonListener(Context context, CircleKeyboardApplication circleKeyboardApplication, MainKeyboardView mainKeyboardView, ButtonKeyBindings buttonKeyBindings) {
         this.context = context;
         this.circleKeyboardApplication = circleKeyboardApplication;
         this.mainKeyboardView = mainKeyboardView;
-        this.keyMap = keyMap;
+        this.buttonKeyBindings = buttonKeyBindings;
         this.longPressTime = 700;
     }
 
@@ -67,7 +67,7 @@ public class ButtonListener {
             if (!longPressed && System.currentTimeMillis() - startTime > longPressTime) {
                 longPressed = true;
 //                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
-                mainKeyboardView.performLongpressAction(keyMap.getLongPress().getFunctional());
+                mainKeyboardView.performLongpressAction(buttonKeyBindings.getLongPress().getFunctional());
             }
 
 
@@ -105,15 +105,15 @@ public class ButtonListener {
             // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
-                    selectedOutAndInLetter = keyMap.getFarLeft().getFunctional();
+                    selectedOutAndInLetter = buttonKeyBindings.getFarLeft().getFunctional();
                 } else {
-                    selectedOutAndInLetter = keyMap.getFarRight().getFunctional();
+                    selectedOutAndInLetter = buttonKeyBindings.getFarRight().getFunctional();
                 }
             } else {
                 if (endPosition.y < startPosition.y) {
-                    selectedOutAndInLetter = keyMap.getFarUp().getFunctional();
+                    selectedOutAndInLetter = buttonKeyBindings.getFarUp().getFunctional();
                 } else {
-                    selectedOutAndInLetter = keyMap.getFarDown().getFunctional();
+                    selectedOutAndInLetter = buttonKeyBindings.getFarDown().getFunctional();
                 }
             }
         }
@@ -163,7 +163,7 @@ public class ButtonListener {
         boolean selectedFarLetter = false;      // not sure if I need this or not
 
         if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-            mainKeyboardView.performTapAction(keyMap.getTap().getFunctional());
+            mainKeyboardView.performTapAction(buttonKeyBindings.getTap().getFunctional());
 
 //            String tapAction = keyMap.getTap();
 //            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
@@ -192,19 +192,19 @@ public class ButtonListener {
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
                     // left
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getLeft().getFunctional() : keyMap.getFarLeft().getFunctional());
+                    circleKeyboardApplication.write(!selectedFarLetter ? buttonKeyBindings.getLeft().getFunctional() : buttonKeyBindings.getFarLeft().getFunctional());
 
                 } else {
                     // right
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getRight().getFunctional() : keyMap.getFarRight().getFunctional());
+                    circleKeyboardApplication.write(!selectedFarLetter ? buttonKeyBindings.getRight().getFunctional() : buttonKeyBindings.getFarRight().getFunctional());
                 }
             } else {
                 if (endPosition.y < startPosition.y) {
                     // up
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getUp().getFunctional() : keyMap.getFarUp().getFunctional());
+                    circleKeyboardApplication.write(!selectedFarLetter ? buttonKeyBindings.getUp().getFunctional() : buttonKeyBindings.getFarUp().getFunctional());
                 } else {
                     // down
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getDown().getFunctional() : keyMap.getFarDown().getFunctional());
+                    circleKeyboardApplication.write(!selectedFarLetter ? buttonKeyBindings.getDown().getFunctional() : buttonKeyBindings.getFarDown().getFunctional());
                 }
             }
         }

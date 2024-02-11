@@ -19,9 +19,9 @@ import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.R;
 import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
-import com.example.sloppy_toppy_keyboard.model.KeyBindings;
-import com.example.sloppy_toppy_keyboard.model.KeyMap;
-import com.example.sloppy_toppy_keyboard.model.KeyProperties;
+import com.example.sloppy_toppy_keyboard.model.KeyBindingsYaml;
+import com.example.sloppy_toppy_keyboard.model.ButtonKeyBindings;
+import com.example.sloppy_toppy_keyboard.model.Key;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -71,32 +71,32 @@ public class MainKeyboardView extends ConstraintLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.key_layout, this);
 
-        KeyBindings keyBindings = getKeyMapFromConfigFile(R.raw.key_bindings);
-        setLettersVisually(keyBindings);
-        setLettersFunctionally(keyBindings);
+        KeyBindingsYaml keyBindingsYaml = getKeyMapFromConfigFile(R.raw.key_bindings);
+        setLettersVisually(keyBindingsYaml);
+        setLettersFunctionally(keyBindingsYaml);
     }
 
     // Sets what the user sees on the keyboard
-    private void setLettersVisually(KeyBindings keyBindings) {
-        setButtonsLettersVisually(findViewById(R.id.topLeftButtonLayout), keyBindings.getTopLeft());
-        setButtonsLettersVisually(findViewById(R.id.topRightButtonLayout), keyBindings.getTopRight());
-        setButtonsLettersVisually(findViewById(R.id.bottomLeftButtonLayout), keyBindings.getBottomLeft());
-        setButtonsLettersVisually(findViewById(R.id.bottomRightButtonLayout), keyBindings.getBottomRight());
+    private void setLettersVisually(KeyBindingsYaml keyBindingsYaml) {
+        setButtonsLettersVisually(findViewById(R.id.topLeftButtonLayout), keyBindingsYaml.getTopLeftButtonKeyMap());
+        setButtonsLettersVisually(findViewById(R.id.topRightButtonLayout), keyBindingsYaml.getTopRightButtonKeyMap());
+        setButtonsLettersVisually(findViewById(R.id.bottomLeftButtonLayout), keyBindingsYaml.getBottomLeftButtonKeyMap());
+        setButtonsLettersVisually(findViewById(R.id.bottomRightButtonLayout), keyBindingsYaml.getBottomRightButtonKeyMap());
     }
 
     // Sets the touch gestures of the keyboard
-    private void setLettersFunctionally(KeyBindings keyBindings) {
+    private void setLettersFunctionally(KeyBindingsYaml keyBindingsYaml) {
         findViewById(R.id.topLeftButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindings.getTopLeft()).getButtonCallback()
+            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getTopLeftButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.topRightButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindings.getTopRight()).getButtonCallback()
+            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getTopRightButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.bottomLeftButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindings.getBottomLeft()).getButtonCallback()
+            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getBottomLeftButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.bottomRightButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindings.getBottomRight()).getButtonCallback()
+            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getBottomRightButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.backspaceButton).setOnTouchListener(
             new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
@@ -114,11 +114,11 @@ public class MainKeyboardView extends ConstraintLayout {
                 previousInputtedTextSize = circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize();
                 highlightCursorStartPosition = circleKeyboardApplication.getInputConnectionUtil().getCursorPosition();
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                boolean performendModAction = highlightCursorStartPosition != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
+                boolean userPerformedModActionWhileHoldingSpace = highlightCursorStartPosition != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
                         || circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize() != previousInputtedTextSize
                         || circleKeyboardApplication.getInputConnectionUtil().textIsHighlighted();
 
-                if (!performendModAction) {
+                if (!userPerformedModActionWhileHoldingSpace) {
                     circleKeyboardApplication.write(" ");
                 }
 
@@ -134,13 +134,13 @@ public class MainKeyboardView extends ConstraintLayout {
         );
     }
 
-    private void setButtonsLettersVisually(ViewGroup viewGroup, KeyMap keyMap) {
+    private void setButtonsLettersVisually(ViewGroup viewGroup, ButtonKeyBindings buttonKeyBindings) {
         int propertyIndex = 0;  // used to switch up, left, down, right, farUp, farLeft, farDown, farRight
 
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
             View child = viewGroup.getChildAt(index);
             if (child instanceof TextView && ((TextView) child).getText() != "") {
-                KeyProperties keyPropertes = keyMap.getPropertyByIndex(keyMap, propertyIndex);
+                Key keyPropertes = buttonKeyBindings.getPropertyByIndex(propertyIndex);
                 String character = keyPropertes.getVisual();
                 ((TextView) child).setText(character);
                 propertyIndex++;
@@ -241,7 +241,7 @@ public class MainKeyboardView extends ConstraintLayout {
 //        }
     }
 
-    private KeyBindings getKeyMapFromConfigFile(int fileName) {
+    private KeyBindingsYaml getKeyMapFromConfigFile(int fileName) {
         try {
             return parseConfigFile(fileName);
         } catch (Exception e) {
@@ -250,12 +250,12 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
-    private KeyBindings parseConfigFile(int fileName) throws IOException {
+    private KeyBindingsYaml parseConfigFile(int fileName) throws IOException {
         InputStream inputStream = null;
         try {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             inputStream = getResources().openRawResource(fileName);
-            return mapper.readValue(inputStream, KeyBindings.class);
+            return mapper.readValue(inputStream, KeyBindingsYaml.class);
         } catch (IOException e) {
             Log.e(TAG, "Error reading file");
         } finally {

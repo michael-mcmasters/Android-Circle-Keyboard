@@ -1,3 +1,6 @@
+# "visual" is how the key appears on the keyboard
+# "functional" is what is actually inputted when "typing" that action
+
 topLeft:
   up:
     visual: W
