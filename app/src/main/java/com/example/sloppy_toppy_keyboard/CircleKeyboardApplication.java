@@ -1,12 +1,12 @@
 package com.example.sloppy_toppy_keyboard;
 
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.BACKSPACE;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_END;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_HOME;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_LEFT;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_LEFT_WORD;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_RIGHT;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_RIGHT_WORD;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.BACKSPACE;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_END;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_HOME;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_LEFT;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_LEFT_WORD;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_RIGHT;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_RIGHT_WORD;
 
 import android.inputmethodservice.InputMethodService;
 import android.text.TextUtils;
@@ -21,7 +21,6 @@ import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.enums.ShiftState;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
-import com.example.sloppy_toppy_keyboard.model.Key;
 
 public class CircleKeyboardApplication extends InputMethodService {
 
