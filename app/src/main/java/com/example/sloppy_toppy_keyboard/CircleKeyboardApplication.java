@@ -29,6 +29,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     private InputConnection inputConnection;
     private ShiftState shiftState;
+    private int highlightCursorStartPosition;
 
     /**
      * *** Method lifecycle ***
@@ -82,6 +83,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     private void resetValues() {
+        highlightCursorStartPosition = -1;
         toggleShiftViaCursorPosition();
     }
 
@@ -236,6 +238,14 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     public ShiftState getShiftState() {
         return this.shiftState;
+    }
+
+    public int getHighlightCursorStartPosition() {
+        return this.highlightCursorStartPosition;
+    }
+
+    public void setHighlightCursorStartPosition(int value) {
+        this.highlightCursorStartPosition = value;
     }
 
 }

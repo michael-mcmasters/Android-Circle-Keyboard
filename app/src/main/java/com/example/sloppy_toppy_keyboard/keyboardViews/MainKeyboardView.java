@@ -45,7 +45,7 @@ public class MainKeyboardView extends ConstraintLayout {
     private String rightCircleState;
 
     private Boolean modButtonHeld;
-    private Integer highlightCursorStartPosition;
+//    private Integer highlightCursorStartPosition;
     private int previousInputtedTextSize;
 
 
@@ -60,7 +60,7 @@ public class MainKeyboardView extends ConstraintLayout {
         rightCircleState = "ACTION_UP";
 
         modButtonHeld = false;
-        highlightCursorStartPosition = -1;
+//        highlightCursorStartPosition = -1;
         previousInputtedTextSize = -1;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -107,9 +107,9 @@ public class MainKeyboardView extends ConstraintLayout {
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 modButtonHeld = true;
                 previousInputtedTextSize = circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize();
-                highlightCursorStartPosition = circleKeyboardApplication.getInputConnectionUtil().getCursorPosition();
+                circleKeyboardApplication.setHighlightCursorStartPosition(circleKeyboardApplication.getInputConnectionUtil().getCursorPosition());
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                boolean userPerformedModActionWhileHoldingSpace = highlightCursorStartPosition != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
+                boolean userPerformedModActionWhileHoldingSpace = circleKeyboardApplication.getHighlightCursorStartPosition() != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
                         || circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize() != previousInputtedTextSize
                         || circleKeyboardApplication.getInputConnectionUtil().textIsHighlighted();
 
@@ -118,7 +118,7 @@ public class MainKeyboardView extends ConstraintLayout {
                 }
 
                 modButtonHeld = false;
-                highlightCursorStartPosition = -1;
+                circleKeyboardApplication.setHighlightCursorStartPosition(-1);
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
@@ -145,22 +145,22 @@ public class MainKeyboardView extends ConstraintLayout {
 
     public void performLongpressAction(String longPressAction) {
         if (longPressAction.equals(CURSOR_HOME)) {
-            circleKeyboardApplication.moveCursorViaHomeButton(highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaHomeButton(circleKeyboardApplication.getHighlightCursorStartPosition());
         } else if (longPressAction.equals(CURSOR_END)) {
-            circleKeyboardApplication.moveCursorViaEndButton(highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaEndButton(circleKeyboardApplication.getHighlightCursorStartPosition());
         }
 
     }
 
     public void performTapAction(String tapAction) {
         if (tapAction.equals(CURSOR_LEFT)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, false, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, false, circleKeyboardApplication.getHighlightCursorStartPosition());
         } else if (tapAction.equals(CURSOR_RIGHT)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, false, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, false, circleKeyboardApplication.getHighlightCursorStartPosition());
         } else if (tapAction.equals(CURSOR_LEFT_WORD)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, true, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.LEFT, true, circleKeyboardApplication.getHighlightCursorStartPosition());
         } else if (tapAction.equals(CURSOR_RIGHT_WORD)) {
-            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, true, highlightCursorStartPosition);
+            circleKeyboardApplication.moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, true, circleKeyboardApplication.getHighlightCursorStartPosition());
         }
     }
 
