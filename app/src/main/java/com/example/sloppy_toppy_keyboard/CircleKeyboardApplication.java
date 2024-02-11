@@ -25,19 +25,27 @@ public class CircleKeyboardApplication extends InputMethodService {
     private InputConnection inputConnection;
     private ShiftState shiftState;
 
+    /**
+     * *** Method lifecycle ***
+     *
+     * First time opening keyboard
+     * 1. onInitializeInterface
+     * 2. onBindInput
+     * 3. onStartInput
+     * 4. onCreateInputView
+     *
+     * Collapsing keyboard
+     * 1. onBindInput
+     * 2. onStartInput
+     *
+     * Opening keyboard again
+     * 1. onBindInput
+     * 2. onStartInput
+     */
 
     @Override
-    public View onCreateInputView() {
-        this.mainKeyboardView = new MainKeyboardView(this, this);
-        this.charactersKeyboardView = new CharactersKeyboardView(this, this);
-        this.inputConnectionUtil = new InputConnectionUtil(this);
-        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
-        return mainKeyboardView;
-    }
-
-    @Override
-    public void onStartInput(EditorInfo attribute, boolean restarting) {
-        super.onStartInput(attribute, restarting);
+    public void onInitializeInterface() {
+        super.onInitializeInterface();
         inputConnection = getCurrentInputConnection();
     }
 
@@ -47,11 +55,19 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     @Override
-    public void onInitializeInterface() {
-        super.onInitializeInterface();
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
+        super.onStartInput(attribute, restarting);
         inputConnection = getCurrentInputConnection();
     }
 
+    @Override
+    public View onCreateInputView() {
+        this.mainKeyboardView = new MainKeyboardView(this, this);
+        this.charactersKeyboardView = new CharactersKeyboardView(this, this);
+        this.inputConnectionUtil = new InputConnectionUtil(this);
+        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
+        return mainKeyboardView;
+    }
 
     public void changeKeyboardView(KeyboardView keyboardView) {
         switch (keyboardView) {
