@@ -1,5 +1,9 @@
 package com.example.sloppy_toppy_keyboard;
 
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.BACKSPACE;
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_END;
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_HOME;
+
 import android.inputmethodservice.InputMethodService;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -13,6 +17,7 @@ import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.enums.ShiftState;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
+import com.example.sloppy_toppy_keyboard.model.Key;
 
 public class CircleKeyboardApplication extends InputMethodService {
 
@@ -91,7 +96,25 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
+//    public void write(String s) {
+//        // Is a letter
+//        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+//            s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
+//                    ? Character.toUpperCase(s.charAt(0))
+//                    : Character.toLowerCase(s.charAt(0)));
+//        }
+//        inputConnection.commitText(s, 1);
+//        toggleShiftViaCursorPosition();
+//    }
+
     public void write(String s) {
+        // Is an action
+        if (s.length() > 1) {
+            performInputAction(s);
+            return;
+        }
+
+        // Is a letter
         if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
             s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
                     ? Character.toUpperCase(s.charAt(0))
@@ -100,6 +123,24 @@ public class CircleKeyboardApplication extends InputMethodService {
         inputConnection.commitText(s, 1);
         toggleShiftViaCursorPosition();
     }
+
+    private void performInputAction(String s) {
+        switch (s) {
+            case BACKSPACE:
+                backspace();
+                break;
+        }
+    }
+
+//    public void write(String s) {
+//        if (s.length() == 1 && Character.isLetter(s.charAt(0))) {
+//            s = String.valueOf((shiftState == ShiftState.UPPERCASE_ONCE || shiftState == ShiftState.UPPERCASE_ALWAYS)
+//                    ? Character.toUpperCase(s.charAt(0))
+//                    : Character.toLowerCase(s.charAt(0)));
+//        }
+//        inputConnection.commitText(s, 1);
+//        toggleShiftViaCursorPosition();
+//    }
 
     public void backspace() {
         CharSequence sel = inputConnection.getSelectedText(0);

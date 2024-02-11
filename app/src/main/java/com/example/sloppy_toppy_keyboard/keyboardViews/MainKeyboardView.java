@@ -1,11 +1,6 @@
 package com.example.sloppy_toppy_keyboard.keyboardViews;
 
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_END;
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.CURSOR_HOME;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_LEFT_WORD;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT;
-import static com.example.sloppy_toppy_keyboard.constants.TapActionConstants.CURSOR_RIGHT_WORD;
+import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.*;
 
 import android.content.Context;
 import android.util.Log;

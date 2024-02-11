@@ -27,7 +27,7 @@ topLeft:
     visual: K
     functional: K
   tap:
-    visual: cursorLeft
+    visual: ""
     functional: cursorLeft
   longPress:
     visual: ""
@@ -47,8 +47,8 @@ topRight:
     visual: U
     functional: U
   farUp:
-    visual: ""
-    functional: ""
+    visual: T
+    functional: T
   farLeft:
     visual: J
     functional: J
@@ -59,7 +59,7 @@ topRight:
     visual: B
     functional: B
   tap:
-    visual: cursorRight
+    visual: ""
     functional: cursorRight
   longPress:
     visual: ""
@@ -70,8 +70,8 @@ bottomLeft:
     visual: P
     functional: P
   left:
-    visual: T
-    functional: T
+    visual: bk
+    functional: backspace
   down:
     visual: L
     functional: L
@@ -91,10 +91,10 @@ bottomLeft:
     visual: Z
     functional: Z
   tap:
-    visual: cursorLeftWord
+    visual: ""
     functional: cursorLeftWord
   longPress:
-    visual: cursorHome
+    visual: ""
     functional: cursorHome
 
 bottomRight:
@@ -123,9 +123,9 @@ bottomRight:
     visual: "?"
     functional: "?"
   tap:
-    visual: cursorRightWord
+    visual: ""
     functional: cursorRightWord
   longPress:
-    visual: cursorEnd
+    visual: ""
     functional: cursorEnd
 
