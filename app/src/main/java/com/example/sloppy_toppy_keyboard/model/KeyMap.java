@@ -2,42 +2,26 @@ package com.example.sloppy_toppy_keyboard.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-// Allows Jackson ObjectMapper to set private fields (if any)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class KeyMap {
 
-    public String left;
-    public String up;
-    public String right;
-    public String down;
+    public KeyProperties left;
+    public KeyProperties up;
+    public KeyProperties right;
+    public KeyProperties down;
 
-    private String farLeft;
-    private String farUp;
-    private String farRight;
-    private String farDown;
+    private KeyProperties farLeft;
+    private KeyProperties farUp;
+    private KeyProperties farRight;
+    private KeyProperties farDown;
 
-    private String tap;
-    private String longPress;
+    private KeyProperties tap;
+    private KeyProperties longPress;
 
-
-    public KeyMap() {
-
-    }
-
-    public KeyMap(String left, String up, String right, String down, String farLeft, String farUp, String farRight, String farDown) {
-        this.left = left;
-        this.up = up;
-        this.right = right;
-        this.down = down;
-        this.farLeft = farLeft;
-        this.farUp = farUp;
-        this.farRight = farRight;
-        this.farDown = farDown;
-    }
 
     // Used to set TextView values dynamically from config file.
     // The numbers must match the order of the letters in the XML layout.
-    public String getPropertyValueByIndex(KeyMap keymap, int propertyIndex) {
+    public KeyProperties getPropertyByIndex(KeyMap keymap, int propertyIndex) {
         switch (propertyIndex) {
             case 0:
                 return keymap.getUp();
@@ -59,43 +43,43 @@ public class KeyMap {
         throw new RuntimeException("Unknown number for property");
     }
 
-    public String getLeft() {
+    public KeyProperties getLeft() {
         return left;
     }
 
-    public String getUp() {
+    public KeyProperties getUp() {
         return up;
     }
 
-    public String getRight() {
+    public KeyProperties getRight() {
         return right;
     }
 
-    public String getDown() {
+    public KeyProperties getDown() {
         return down;
     }
 
-    public String getFarLeft() {
+    public KeyProperties getFarLeft() {
         return farLeft;
     }
 
-    public String getFarUp() {
+    public KeyProperties getFarUp() {
         return farUp;
     }
 
-    public String getFarRight() {
+    public KeyProperties getFarRight() {
         return farRight;
     }
 
-    public String getFarDown() {
+    public KeyProperties getFarDown() {
         return farDown;
     }
 
-    public String getTap() {
+    public KeyProperties getTap() {
         return tap;
     }
 
-    public String getLongPress() {
+    public KeyProperties getLongPress() {
         return longPress;
     }
 }

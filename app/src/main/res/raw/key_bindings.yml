@@ -1,48 +1,128 @@
 topLeft:
-  up: W
-  left: A
-  down: S
-  right: D
-  farUp: F
-  farLeft: G
-  farDown: V
-  farRight: K
-  tap: cursorLeft
-  longPress: ""
+  up:
+    visual: W
+    functional: W
+  left:
+    visual: A
+    functional: A
+  down:
+    visual: S
+    functional: S
+  right:
+    visual: D
+    functional: D
+  farUp:
+    visual: F
+    functional: F
+  farLeft:
+    visual: G
+    functional: G
+  farDown:
+    visual: V
+    functional: V
+  farRight:
+    visual: K
+    functional: K
+  tap:
+    visual: cursorLeft
+    functional: cursorLeft
+  longPress:
+    visual: ""
+    functional: ""
 
 topRight:
-  up: E
-  left: I
-  down: O
-  right: U
-  farUp: ""
-  farLeft: J
-  farDown: "M"
-  farRight: B
-  tap: cursorRight
-  longPress: ""
+  up:
+    visual: E
+    functional: E
+  left:
+    visual: I
+    functional: I
+  down:
+    visual: O
+    functional: O
+  right:
+    visual: U
+    functional: U
+  farUp:
+    visual: ""
+    functional: ""
+  farLeft:
+    visual: J
+    functional: J
+  farDown:
+    visual: "M"
+    functional: "M"
+  farRight:
+    visual: B
+    functional: B
+  tap:
+    visual: cursorRight
+    functional: cursorRight
+  longPress:
+    visual: ""
+    functional: ""
 
 bottomLeft:
-  up: P
-  left: T
-  down: L
-  right: R
-  farUp: Q
-  farLeft: X
-  farDown: Y
-  farRight: Z
-  tap: cursorLeftWord
-  longPress: cursorHome
+  up:
+    visual: P
+    functional: P
+  left:
+    visual: T
+    functional: T
+  down:
+    visual: L
+    functional: L
+  right:
+    visual: R
+    functional: R
+  farUp:
+    visual: Q
+    functional: Q
+  farLeft:
+    visual: X
+    functional: X
+  farDown:
+    visual: Y
+    functional: Y
+  farRight:
+    visual: Z
+    functional: Z
+  tap:
+    visual: cursorLeftWord
+    functional: cursorLeftWord
+  longPress:
+    visual: cursorHome
+    functional: cursorHome
 
 bottomRight:
-  up: C
-  left: H
-  down: N
-  right: " "
-  farUp: "!"
-  farLeft: ","
-  farDown: "."
-  farRight: "?"
-  tap: cursorRightWord
-  longPress: cursorEnd
+  up:
+    visual: C
+    functional: C
+  left:
+    visual: H
+    functional: H
+  down:
+    visual: N
+    functional: N
+  right:
+    visual: sp
+    functional: " "
+  farUp:
+    visual: "!"
+    functional: "!"
+  farLeft:
+    visual: ","
+    functional: ","
+  farDown:
+    visual: "."
+    functional: "."
+  farRight:
+    visual: "?"
+    functional: "?"
+  tap:
+    visual: cursorRightWord
+    functional: cursorRightWord
+  longPress:
+    visual: cursorEnd
+    functional: cursorEnd
 

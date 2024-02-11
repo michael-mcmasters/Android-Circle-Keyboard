@@ -21,6 +21,7 @@ import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.example.sloppy_toppy_keyboard.model.KeyBindings;
 import com.example.sloppy_toppy_keyboard.model.KeyMap;
+import com.example.sloppy_toppy_keyboard.model.KeyProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -103,28 +104,9 @@ public class MainKeyboardView extends ConstraintLayout {
         findViewById(R.id.shiftButton).setOnTouchListener(
             new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
         );
-
-//        findViewById(R.id.modButton).setOnTouchListener((view, motionEvent) -> {
-//            Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
-//            if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-//                modButtonHeld = true;
-//                highlightCursorStartPosition = circleKeyboardApplication.getCursorPosition();
-//            }
-//            else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-//                modButtonHeld = false;
-//                highlightCursorStartPosition = -1;
-//            }
-//            view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
-//            return true;
-//        });
         findViewById(R.id.numButton).setOnTouchListener(
             new NumListener(context, circleKeyboardApplication).getButtonCallback()
         );
-//        findViewById(R.id.spaceButton).setOnTouchListener(
-//            new SpaceListener(context, circleKeyboardApplication).getButtonCallback()
-//        );
-
-        // Space key as mod button
         findViewById(R.id.spaceButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
@@ -147,7 +129,6 @@ public class MainKeyboardView extends ConstraintLayout {
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         });
-
         findViewById(R.id.enterButton).setOnTouchListener(
             new EnterListener(context, circleKeyboardApplication).getButtonCallback()
         );
@@ -159,10 +140,8 @@ public class MainKeyboardView extends ConstraintLayout {
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
             View child = viewGroup.getChildAt(index);
             if (child instanceof TextView && ((TextView) child).getText() != "") {
-                String character = keyMap.getPropertyValueByIndex(keyMap, propertyIndex);
-                if (character.equals(" ")) {
-                    character = "sp";
-                }
+                KeyProperties keyPropertes = keyMap.getPropertyByIndex(keyMap, propertyIndex);
+                String character = keyPropertes.getVisual();
                 ((TextView) child).setText(character);
                 propertyIndex++;
             }
@@ -190,54 +169,57 @@ public class MainKeyboardView extends ConstraintLayout {
         }
     }
 
+    /**
+     * Sets the appearance of letters on the keyboard. If swiping on them actually inputs a capital letter or not is determined by another class.
+     * @param upperCase
+     */
     public void capitalizeLettersOnKeyboard(boolean upperCase) {
-        Log.d("", "Circle Shift");
-
-        // Capitalize visual letters
-        toggleUpperCase(findViewById(R.id.key1), upperCase);
-        toggleUpperCase(findViewById(R.id.key2), upperCase);
-        toggleUpperCase(findViewById(R.id.key3), upperCase);
-        toggleUpperCase(findViewById(R.id.key4), upperCase);
-        toggleUpperCase(findViewById(R.id.key5), upperCase);
-        toggleUpperCase(findViewById(R.id.key6), upperCase);
-        toggleUpperCase(findViewById(R.id.key7), upperCase);
-        toggleUpperCase(findViewById(R.id.key8), upperCase);
-        toggleUpperCase(findViewById(R.id.key9), upperCase);
-        toggleUpperCase(findViewById(R.id.key10), upperCase);
-        toggleUpperCase(findViewById(R.id.key11), upperCase);
-        toggleUpperCase(findViewById(R.id.key12), upperCase);
-        toggleUpperCase(findViewById(R.id.key13), upperCase);
-        toggleUpperCase(findViewById(R.id.key14), upperCase);
-        toggleUpperCase(findViewById(R.id.key15), upperCase);
-        toggleUpperCase(findViewById(R.id.key16), upperCase);
-        toggleUpperCase(findViewById(R.id.key17), upperCase);
-        toggleUpperCase(findViewById(R.id.key18), upperCase);
-        toggleUpperCase(findViewById(R.id.key19), upperCase);
-        toggleUpperCase(findViewById(R.id.key20), upperCase);
-        toggleUpperCase(findViewById(R.id.key21), upperCase);
-        toggleUpperCase(findViewById(R.id.key22), upperCase);
-        toggleUpperCase(findViewById(R.id.key23), upperCase);
-        toggleUpperCase(findViewById(R.id.key24), upperCase);
-        toggleUpperCase(findViewById(R.id.key25), upperCase);
-        toggleUpperCase(findViewById(R.id.key26), upperCase);
-        toggleUpperCase(findViewById(R.id.key27), upperCase);
-        toggleUpperCase(findViewById(R.id.key28), upperCase);
-        toggleUpperCase(findViewById(R.id.key29), upperCase);
-        toggleUpperCase(findViewById(R.id.key30), upperCase);
-        toggleUpperCase(findViewById(R.id.key31), upperCase);
-        toggleUpperCase(findViewById(R.id.key32), upperCase);
+        setUpperCase(findViewById(R.id.key1), upperCase);
+        setUpperCase(findViewById(R.id.key2), upperCase);
+        setUpperCase(findViewById(R.id.key3), upperCase);
+        setUpperCase(findViewById(R.id.key4), upperCase);
+        setUpperCase(findViewById(R.id.key5), upperCase);
+        setUpperCase(findViewById(R.id.key6), upperCase);
+        setUpperCase(findViewById(R.id.key7), upperCase);
+        setUpperCase(findViewById(R.id.key8), upperCase);
+        setUpperCase(findViewById(R.id.key9), upperCase);
+        setUpperCase(findViewById(R.id.key10), upperCase);
+        setUpperCase(findViewById(R.id.key11), upperCase);
+        setUpperCase(findViewById(R.id.key12), upperCase);
+        setUpperCase(findViewById(R.id.key13), upperCase);
+        setUpperCase(findViewById(R.id.key14), upperCase);
+        setUpperCase(findViewById(R.id.key15), upperCase);
+        setUpperCase(findViewById(R.id.key16), upperCase);
+        setUpperCase(findViewById(R.id.key17), upperCase);
+        setUpperCase(findViewById(R.id.key18), upperCase);
+        setUpperCase(findViewById(R.id.key19), upperCase);
+        setUpperCase(findViewById(R.id.key20), upperCase);
+        setUpperCase(findViewById(R.id.key21), upperCase);
+        setUpperCase(findViewById(R.id.key22), upperCase);
+        setUpperCase(findViewById(R.id.key23), upperCase);
+        setUpperCase(findViewById(R.id.key24), upperCase);
+        setUpperCase(findViewById(R.id.key25), upperCase);
+        setUpperCase(findViewById(R.id.key26), upperCase);
+        setUpperCase(findViewById(R.id.key27), upperCase);
+        setUpperCase(findViewById(R.id.key28), upperCase);
+        setUpperCase(findViewById(R.id.key29), upperCase);
+        setUpperCase(findViewById(R.id.key30), upperCase);
+        setUpperCase(findViewById(R.id.key31), upperCase);
+        setUpperCase(findViewById(R.id.key32), upperCase);
     }
 
-    private void toggleUpperCase(View view, boolean upperCase) {
+    private void setUpperCase(View view, boolean upperCase) {
         try {
             if (!(view instanceof TextView)) return;
 
             TextView textView = (TextView) view;
-            if (textView.getText() == null || textView.getText().equals("")) return;
+            boolean isNotLetter = textView.getText() == null || textView.getText().equals("") || textView.getText().length() > 1;
+            if (isNotLetter) {
+                return;
+            }
 
             char c = textView.getText().charAt(0);
             if (Character.isLetter(c)) {
-//                char cc = Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c);
                 char cc = upperCase ? Character.toUpperCase(c) : Character.toLowerCase(c);
                 textView.setText(Character.toString(cc));
             }

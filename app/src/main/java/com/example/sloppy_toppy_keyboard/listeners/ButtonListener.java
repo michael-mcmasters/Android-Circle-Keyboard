@@ -66,7 +66,8 @@ public class ButtonListener {
             // if millisecond time ended, and distance is not changed, then longpress true
             if (!longPressed && System.currentTimeMillis() - startTime > longPressTime) {
                 longPressed = true;
-                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
+//                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
+                mainKeyboardView.performLongpressAction(keyMap.getLongPress().getFunctional());
             }
 
 
@@ -104,15 +105,15 @@ public class ButtonListener {
             // Determine if trail was longer left/right or up/down to determine which letter to prioritize. (Useful if moving diagonally.)
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
-                    selectedOutAndInLetter = keyMap.getFarLeft();
+                    selectedOutAndInLetter = keyMap.getFarLeft().getFunctional();
                 } else {
-                    selectedOutAndInLetter = keyMap.getFarRight();
+                    selectedOutAndInLetter = keyMap.getFarRight().getFunctional();
                 }
             } else {
                 if (endPosition.y < startPosition.y) {
-                    selectedOutAndInLetter = keyMap.getFarUp();
+                    selectedOutAndInLetter = keyMap.getFarUp().getFunctional();
                 } else {
-                    selectedOutAndInLetter = keyMap.getFarDown();
+                    selectedOutAndInLetter = keyMap.getFarDown().getFunctional();
                 }
             }
         }
@@ -162,7 +163,7 @@ public class ButtonListener {
         boolean selectedFarLetter = false;      // not sure if I need this or not
 
         if (getTouchDistanceFromStartPoint(view, motionEvent) < 10) {
-            mainKeyboardView.performTapAction(keyMap.getTap());
+            mainKeyboardView.performTapAction(keyMap.getTap().getFunctional());
 
 //            String tapAction = keyMap.getTap();
 //            int highlightCursorStartPosition = -1; // Set this when mod key is held down to highlight text. -1 means not highlighting
@@ -191,19 +192,19 @@ public class ButtonListener {
             if (xDistance > yDistance) {
                 if (endPosition.x < startPosition.x) {
                     // left
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getLeft() : keyMap.getFarLeft());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getLeft().getFunctional() : keyMap.getFarLeft().getFunctional());
 
                 } else {
                     // right
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getRight() : keyMap.getFarRight());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getRight().getFunctional() : keyMap.getFarRight().getFunctional());
                 }
             } else {
                 if (endPosition.y < startPosition.y) {
                     // up
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getUp() : keyMap.getFarUp());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getUp().getFunctional() : keyMap.getFarUp().getFunctional());
                 } else {
                     // down
-                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getDown() : keyMap.getFarDown());
+                    circleKeyboardApplication.write(!selectedFarLetter ? keyMap.getDown().getFunctional() : keyMap.getFarDown().getFunctional());
                 }
             }
         }

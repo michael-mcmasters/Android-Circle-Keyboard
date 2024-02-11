@@ -30,7 +30,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     public View onCreateInputView() {
         this.mainKeyboardView = new MainKeyboardView(this, this);
         this.charactersKeyboardView = new CharactersKeyboardView(this, this);
-        this.inputConnectionUtil = new InputConnectionUtil(inputConnection);
+        this.inputConnectionUtil = new InputConnectionUtil(this);
         inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
         return mainKeyboardView;
     }
@@ -158,13 +158,16 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
 
-
-    public ShiftState getShiftState() {
-        return this.shiftState;
+    public InputConnection getInputConnection() {
+        return this.inputConnection;
     }
 
     public InputConnectionUtil getInputConnectionUtil() {
         return this.inputConnectionUtil;
+    }
+
+    public ShiftState getShiftState() {
+        return this.shiftState;
     }
 
 }

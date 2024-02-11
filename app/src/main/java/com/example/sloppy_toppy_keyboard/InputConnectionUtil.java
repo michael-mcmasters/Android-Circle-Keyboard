@@ -8,15 +8,15 @@ import android.view.inputmethod.InputConnection;
 
 public class InputConnectionUtil {
 
-    private InputConnection inputConnection;
+    private CircleKeyboardApplication app;
 
 
-    public InputConnectionUtil(InputConnection inputConnection) {
-        this.inputConnection = inputConnection;
+    public InputConnectionUtil(CircleKeyboardApplication app) {
+        this.app = app;
     }
 
     public int getCursorPosition() {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        ExtractedText extractedText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
         if (extractedText != null && extractedText.selectionStart >= 0) {
             return extractedText.selectionStart;
         }
@@ -39,7 +39,7 @@ public class InputConnectionUtil {
     // Loops forwards starting at the cursor position, finds the first space, and returns the index before it
     public int getCtrlRightCursorPosition() {
         int cursorPosition = getCursorPosition();
-        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        CharSequence allText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0).text;
 
         for (int i = cursorPosition; i < allText.length(); i++) {
             if (i >= 1 && allText.charAt(i) == ' ') {
@@ -54,7 +54,7 @@ public class InputConnectionUtil {
     // Returns all text up until the final cursor. (You'll have 2 cursors if highlighting text.)
     // This method is needed because inputConnection.getTextBeforeCursor() only returns text before the *first* cursor.
     public CharSequence getTextLeftOfFinalCursor() {
-        CharSequence allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        CharSequence allText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0).text;
         StringBuilder leftText = new StringBuilder();
         for (int i = 0; i < getCursorPosition(); i++) {     // getCursorPosition returns final cursor's position
             leftText.append(allText.charAt(i));
@@ -63,17 +63,17 @@ public class InputConnectionUtil {
     }
 
     public int getInputtedTextSize() {
-        return inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
+        return app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0).text.length();
     }
 
     public boolean textIsHighlighted() {
-        ExtractedText allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        ExtractedText allText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
         return allText.selectionStart != allText.selectionEnd;
     }
 
     public boolean isNewSentence() {
         int cursorPosition = getCursorPosition();
-        CharSequence charSequence = inputConnection.getTextBeforeCursor(cursorPosition, cursorPosition);
+        CharSequence charSequence = app.getInputConnection().getTextBeforeCursor(cursorPosition, cursorPosition);
 
         // If there is no text, this is the beginning of a sentence
         if (charSequence == null || charSequence.length() == 0) {
@@ -99,7 +99,7 @@ public class InputConnectionUtil {
     }
 
     public void sendDownKeyEvent(int keyEventCode, int flags) {
-        inputConnection.sendKeyEvent(
+        app.getInputConnection().sendKeyEvent(
                 new KeyEvent(
                         SystemClock.uptimeMillis(),
                         SystemClock.uptimeMillis(),
@@ -112,7 +112,7 @@ public class InputConnectionUtil {
     }
 
     public void sendUpKeyEvent(int keyEventCode, int flags) {
-        inputConnection.sendKeyEvent(
+        app.getInputConnection().sendKeyEvent(
                 new KeyEvent(
                         SystemClock.uptimeMillis(),
                         SystemClock.uptimeMillis(),
