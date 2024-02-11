@@ -52,6 +52,11 @@ public class CircleKeyboardApplication extends InputMethodService {
     @Override
     public void onBindInput() {
         inputConnection = getCurrentInputConnection();
+
+        // If null, it's the first time keyboard is opened. If not null, keyboard was collapsed and re-opened so need to reset values
+        if (mainKeyboardView != null) {
+            resetValues();
+        }
     }
 
     @Override
@@ -60,13 +65,19 @@ public class CircleKeyboardApplication extends InputMethodService {
         inputConnection = getCurrentInputConnection();
     }
 
+    // Set initial values here
     @Override
     public View onCreateInputView() {
         this.mainKeyboardView = new MainKeyboardView(this, this);
         this.charactersKeyboardView = new CharactersKeyboardView(this, this);
         this.inputConnectionUtil = new InputConnectionUtil(this);
-        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
+        resetValues();
+//        inputConnection.commitText("fdjksl fjdks iowe xnm", 0);
         return mainKeyboardView;
+    }
+
+    private void resetValues() {
+        toggleShiftViaCursorPosition();
     }
 
     public void changeKeyboardView(KeyboardView keyboardView) {
