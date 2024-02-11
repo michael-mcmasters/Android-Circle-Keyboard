@@ -2,6 +2,9 @@ package com.example.sloppy_toppy_keyboard.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ButtonKeyBindings {
 
@@ -21,26 +24,19 @@ public class ButtonKeyBindings {
 
     // Used to set TextView values dynamically from config file.
     // The numbers must match the order of the letters in the XML layout.
-    public Key getPropertyByIndex(int propertyIndex) {
-        switch (propertyIndex) {
-            case 0:
-                return this.up;
-            case 1:
-                return this.left;
-            case 2:
-                return this.down;
-            case 3:
-                return this.right;
-            case 4:
-                return this.farUp;
-            case 5:
-                return this.farLeft;
-            case 6:
-                return this.farDown;
-            case 7:
-                return this.farRight;
-        }
-        throw new RuntimeException("Unknown number for property");
+    public Key getPropertyByIndex(int index) {
+        Map<Integer, Key> properties = new HashMap<>();
+
+        properties.put(0, this.up);
+        properties.put(1, this.left);
+        properties.put(2, this.down);
+        properties.put(3, this.right);
+        properties.put(4, this.farUp);
+        properties.put(5, this.farLeft);
+        properties.put(6, this.farDown);
+        properties.put(7, this.farRight);
+
+        return properties.get(index);
     }
 
     public Key getLeft() {
