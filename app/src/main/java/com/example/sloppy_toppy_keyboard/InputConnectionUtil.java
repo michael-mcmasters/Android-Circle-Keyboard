@@ -1,6 +1,7 @@
 package com.example.sloppy_toppy_keyboard;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -15,6 +16,7 @@ public class InputConnectionUtil {
         this.app = app;
     }
 
+    // Note: If you are highlighting text, this may return the position of the right-most cursor
     public int getCursorPosition() {
         ExtractedText extractedText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
         if (extractedText != null && extractedText.selectionStart >= 0) {
@@ -81,7 +83,7 @@ public class InputConnectionUtil {
         }
 
         // Loop from cursor -> backwards. If find period, is a new sentence. If find letter, is not a new sentence.
-        for (int i = cursorPosition - 1; i >= 0; i--) {
+        for (int i = charSequence.length() - 1; i >= 0; i--) {
             if (charSequence.charAt(i) == '.') {
                 return true;
             }

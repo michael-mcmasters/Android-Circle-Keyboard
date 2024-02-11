@@ -1,7 +1,5 @@
 package com.example.sloppy_toppy_keyboard.keyboardViews;
 
-import static com.example.sloppy_toppy_keyboard.constants.LongPressActionConstants.*;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.sloppy_toppy_keyboard.CircleKeyboardApplication;
 import com.example.sloppy_toppy_keyboard.R;
-import com.example.sloppy_toppy_keyboard.enums.KeyboardArrowDirection;
 import com.example.sloppy_toppy_keyboard.listeners.ShiftListener;
 import com.example.sloppy_toppy_keyboard.model.KeyBindingsYaml;
 import com.example.sloppy_toppy_keyboard.model.ButtonKeyBindings;
@@ -37,7 +34,7 @@ public class MainKeyboardView extends ConstraintLayout {
     private static final String TAG = "MainKeyboardView";
 
     private Context context;
-    private CircleKeyboardApplication circleKeyboardApplication;
+    private CircleKeyboardApplication keyboardApp;
     private CircleOnPressListener leftCircleOnPressListener;
     private CircleOnPressListener rightCircleOnPressListener;
 
@@ -49,12 +46,12 @@ public class MainKeyboardView extends ConstraintLayout {
     private int previousInputtedTextSize;
 
 
-    public MainKeyboardView(Context context, CircleKeyboardApplication circleKeyboardApplication) {
+    public MainKeyboardView(Context context, CircleKeyboardApplication keyboardApp) {
         super(context);
         this.context = context;
-        this.circleKeyboardApplication = circleKeyboardApplication;
-        leftCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, this, true);
-        rightCircleOnPressListener = new CircleOnPressListener(context, circleKeyboardApplication, this, false);
+        this.keyboardApp = keyboardApp;
+        leftCircleOnPressListener = new CircleOnPressListener(context, keyboardApp, this, true);
+        rightCircleOnPressListener = new CircleOnPressListener(context, keyboardApp, this, false);
 
         leftCircleState = "ACTION_UP";
         rightCircleState = "ACTION_UP";
@@ -82,50 +79,50 @@ public class MainKeyboardView extends ConstraintLayout {
     // Sets the touch gestures of the keyboard
     private void setLettersFunctionally(KeyBindingsYaml keyBindingsYaml) {
         findViewById(R.id.topLeftButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getTopLeftButtonKeyMap()).getButtonCallback()
+            new ButtonListener(context, keyboardApp, this, keyBindingsYaml.getTopLeftButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.topRightButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getTopRightButtonKeyMap()).getButtonCallback()
+            new ButtonListener(context, keyboardApp, this, keyBindingsYaml.getTopRightButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.bottomLeftButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getBottomLeftButtonKeyMap()).getButtonCallback()
+            new ButtonListener(context, keyboardApp, this, keyBindingsYaml.getBottomLeftButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.bottomRightButton).setOnTouchListener(
-            new ButtonListener(context, circleKeyboardApplication, this, keyBindingsYaml.getBottomRightButtonKeyMap()).getButtonCallback()
+            new ButtonListener(context, keyboardApp, this, keyBindingsYaml.getBottomRightButtonKeyMap()).getButtonCallback()
         );
         findViewById(R.id.backspaceButton).setOnTouchListener(
-            new BackspaceListener(context, circleKeyboardApplication).getButtonCallback()
+            new BackspaceListener(context, keyboardApp).getButtonCallback()
         );
         findViewById(R.id.shiftButton).setOnTouchListener(
-            new ShiftListener(context, circleKeyboardApplication, this).getButtonCallback()
+            new ShiftListener(context, keyboardApp, this).getButtonCallback()
         );
         findViewById(R.id.numButton).setOnTouchListener(
-            new NumListener(context, circleKeyboardApplication).getButtonCallback()
+            new NumListener(context, keyboardApp).getButtonCallback()
         );
         findViewById(R.id.spaceButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
                 modButtonHeld = true;
-                previousInputtedTextSize = circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize();
-                circleKeyboardApplication.setHighlightCursorStartPosition(circleKeyboardApplication.getInputConnectionUtil().getCursorPosition());
+                previousInputtedTextSize = keyboardApp.getInputConnectionUtil().getInputtedTextSize();
+                keyboardApp.setHighlightCursorStartPosition(keyboardApp.getInputConnectionUtil().getCursorPosition());
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
-                boolean userPerformedModActionWhileHoldingSpace = circleKeyboardApplication.getHighlightCursorStartPosition() != circleKeyboardApplication.getInputConnectionUtil().getCursorPosition()
-                        || circleKeyboardApplication.getInputConnectionUtil().getInputtedTextSize() != previousInputtedTextSize
-                        || circleKeyboardApplication.getInputConnectionUtil().textIsHighlighted();
+                boolean userPerformedModActionWhileHoldingSpace = keyboardApp.getHighlightCursorStartPosition() != keyboardApp.getInputConnectionUtil().getCursorPosition()
+                        || keyboardApp.getInputConnectionUtil().getInputtedTextSize() != previousInputtedTextSize
+                        || keyboardApp.getInputConnectionUtil().textIsHighlighted();
 
                 if (!userPerformedModActionWhileHoldingSpace) {
-                    circleKeyboardApplication.write(" ");
+                    keyboardApp.write(" ");
                 }
 
                 modButtonHeld = false;
-                circleKeyboardApplication.setHighlightCursorStartPosition(-1);
+                keyboardApp.setHighlightCursorStartPosition(-1);
             }
 
             view.performClick();    // intellij gets mad if I don't add this. Not sure what it does
             return true;
         });
         findViewById(R.id.enterButton).setOnTouchListener(
-            new EnterListener(context, circleKeyboardApplication).getButtonCallback()
+            new EnterListener(context, keyboardApp).getButtonCallback()
         );
     }
 
