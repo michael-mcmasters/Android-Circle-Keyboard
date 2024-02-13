@@ -21,6 +21,7 @@ import com.example.sloppy_toppy_keyboard.enums.KeyboardView;
 import com.example.sloppy_toppy_keyboard.enums.ShiftState;
 import com.example.sloppy_toppy_keyboard.keyboardViews.CharactersKeyboardView;
 import com.example.sloppy_toppy_keyboard.keyboardViews.MainKeyboardView;
+import com.example.sloppy_toppy_keyboard.model.Key;
 
 public class CircleKeyboardApplication extends InputMethodService {
 
@@ -101,10 +102,18 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void write(String s) {
+    public void space() {
+        write(" ");
+    }
+
+    public void write(Key key) {
+        write(key.getFunctional());
+    }
+
+    private void write(String s) {
         // Is an action
         if (s.length() > 1) {
-            performInputAction(s);
+            performAction(s);
             return;
         }
 
@@ -118,7 +127,7 @@ public class CircleKeyboardApplication extends InputMethodService {
         toggleShiftViaCursorPosition();
     }
 
-    private void performInputAction(String action) {
+    private void performAction(String action) {
         switch (action) {
             case BACKSPACE:
                 backspace();

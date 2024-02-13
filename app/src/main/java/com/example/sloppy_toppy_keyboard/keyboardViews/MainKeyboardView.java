@@ -111,7 +111,7 @@ public class MainKeyboardView extends ConstraintLayout {
                         || keyboardApp.getInputConnectionUtil().textIsHighlighted();
 
                 if (!userPerformedModActionWhileHoldingSpace) {
-                    keyboardApp.write(" ");
+                    keyboardApp.space();
                 }
 
                 modButtonHeld = false;
