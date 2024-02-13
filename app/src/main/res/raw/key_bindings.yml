@@ -46,7 +46,7 @@ topLeft:
     visual: ""
     functional: cursorLeft
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorLeft
   longPress:
     visual: ""
     functional: ""
@@ -98,7 +98,7 @@ topRight:
     visual: ""
     functional: cursorRight
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorRight
   longPress:
     visual: ""
     functional: ""
@@ -150,12 +150,12 @@ bottomLeft:
     visual: ""
     functional: cursorLeftWord
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorLeftWord
   longPress:
     visual: ""
     functional: cursorHome
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorHome
 
 bottomRight:
   up:
@@ -202,16 +202,16 @@ bottomRight:
     visual: ""
     functional: cursorRightWord
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorRightWord
   longPress:
     visual: ""
     functional: cursorEnd
     modVisual: ""
-    modFunctional: ""
+    modFunctional: cursorEnd
 
 base:
   space:
     visual: space
     functional: " "
-    modVisual: ""
-    modFunctional: ""
+    modVisual: space
+    modFunctional: " "

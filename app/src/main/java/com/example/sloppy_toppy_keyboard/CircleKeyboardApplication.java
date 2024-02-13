@@ -105,10 +105,7 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     public void write(Key key) {
-        String userInput;
-        String s = key.getFunctional();
-
-//        String s = key.getFunctional();
+        String s = (modButtonHeld) ? key.getModFunctional() : key.getFunctional();
 
         // Is an action
         if (s.length() > 1) {
