@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
@@ -165,8 +166,13 @@ public class CircleKeyboardApplication extends InputMethodService {
     public void moveCursorViaArrowButton(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
         boolean wasHighlightingButIsntAnymore = inputConnectionUtil.textIsHighlighted() && highlightCursorStartPosition == -1;
         if (wasHighlightingButIsntAnymore) {
-            // Remove the highlighting and keep cursor where it's at
-            setCursorPosition(inputConnectionUtil.getCursorPosition(), -1);
+            // Removes the highlighting and moves the cursor to where highlighting began/end
+            ExtractedText allText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+            if (keyboardArrowDirection == KeyboardArrowDirection.LEFT) {
+                setCursorPosition(Math.min(allText.selectionStart, allText.selectionEnd), -1);
+            } else {
+                setCursorPosition(Math.max(allText.selectionStart, allText.selectionEnd), -1);
+            }
             return;
         }
 
