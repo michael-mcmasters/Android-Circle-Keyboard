@@ -26,28 +26,52 @@ public class InputConnectionUtil {
     }
 
     // Loops backwards from the final cursor position, finds the first space, and returns the index before that
-    public int getCtrlLeftCursorPosition() {
-        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
-        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
-            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
-                return i + 1;
-            } else if (i == 0) {
-                return 0;
+//    public int getCtrlLeftCursorPosition() {
+//        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
+//        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+//            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
+//                return i + 1;
+//            } else if (i == 0) {
+//                return 0;
+//            }
+//        }
+//        return -1;
+//    }
+
+    // Loops forwards starting at the cursor position, finds first space to identify the end of the current word, finds second non-space character to returns that index (to put cursor before it)
+    public int getCtrlRightCursorPosition() {
+        int cursorPosition = getCursorPosition();
+        CharSequence allText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0).text;
+
+        boolean foundEndOfCurrentWord = false;
+        for (int i = cursorPosition; i < allText.length(); i++) {
+            char currentLetter = allText.charAt(i);
+
+            if (!foundEndOfCurrentWord && currentLetter == ' ') {
+                foundEndOfCurrentWord = true;
+            } else if (foundEndOfCurrentWord && currentLetter != ' ') {
+                return i;
+            } else if (i == allText.length() - 1) {
+                return allText.length();
             }
         }
         return -1;
     }
 
-    // Loops forwards starting at the cursor position, finds the first space, and returns the index before it
-    public int getCtrlRightCursorPosition() {
-        int cursorPosition = getCursorPosition();
-        CharSequence allText = app.getInputConnection().getExtractedText(new ExtractedTextRequest(), 0).text;
+    // Loops backwards from the right-most cursor position, finds first space to identify the beginning of the current word, finds second non-space character to identify the end of the next word
+    public int getCtrlLeftCursorPosition() {
+        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
 
-        for (int i = cursorPosition; i < allText.length(); i++) {
-            if (i >= 1 && allText.charAt(i) == ' ') {
+        boolean foundBeginningOfCurrentWord = false;
+        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+            if (i <= 0) return 0;
+
+            char currentLetter = textLeftOfCursor.charAt(i);
+
+            if (!foundBeginningOfCurrentWord && currentLetter == ' ') {
+                foundBeginningOfCurrentWord = true;
+            } else if (foundBeginningOfCurrentWord && currentLetter != ' ') {
                 return i + 1;
-            } else if (i == allText.length() - 1) {
-                return allText.length();
             }
         }
         return -1;

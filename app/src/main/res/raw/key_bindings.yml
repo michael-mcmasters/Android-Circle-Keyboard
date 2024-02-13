@@ -1,6 +1,10 @@
 # "visual" is how the key appears on the keyboard
 # "functional" is what is actually inputted when "typing" that action
 
+# TODO
+# When highlighting text, and move cursor left, don't move left. Just keep it where beginning of text was higlighted
+# when highlighting text, and at end of input, move cursor left still
+
 topLeft:
   up:
     visual: W
