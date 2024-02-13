@@ -64,7 +64,7 @@ public class ButtonListener {
             }
 
             // if millisecond time ended, and distance is not changed, then longpress true
-            if (!longPressed && System.currentTimeMillis() - startTime > longPressTime) {
+            if (!longPressed && (System.currentTimeMillis() - startTime > longPressTime) && getTouchDistanceFromStartPoint(view, motionEvent) == 0) {
                 longPressed = true;
 //                mainKeyboardView.performLongpressAction(keyMap.getLongPress());
 //                mainKeyboardView.performLongpressAction(buttonKeyBindings.getLongPress().getFunctional());
