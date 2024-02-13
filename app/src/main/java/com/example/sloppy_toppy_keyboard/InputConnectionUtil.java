@@ -25,19 +25,6 @@ public class InputConnectionUtil {
         return -1;
     }
 
-    // Loops backwards from the final cursor position, finds the first space, and returns the index before that
-//    public int getCtrlLeftCursorPosition() {
-//        CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
-//        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
-//            if (i + 1 < textLeftOfCursor.length() && textLeftOfCursor.charAt(i) == ' ') {
-//                return i + 1;
-//            } else if (i == 0) {
-//                return 0;
-//            }
-//        }
-//        return -1;
-//    }
-
     // Loops forwards starting at the cursor position, finds first space to identify the end of the current word, finds second non-space character to returns that index (to put cursor before it)
     public int getCtrlRightCursorPosition() {
         int cursorPosition = getCursorPosition();
@@ -58,22 +45,39 @@ public class InputConnectionUtil {
         return -1;
     }
 
-    // Loops backwards from the right-most cursor position, finds first space to identify the beginning of the current word, finds second non-space character to identify the end of the next word
+    // Loops backwards
     public int getCtrlLeftCursorPosition() {
         CharSequence textLeftOfCursor = getTextLeftOfFinalCursor();
 
-        boolean foundBeginningOfCurrentWord = false;
-        for (int i = textLeftOfCursor.length() - 1; i >= 0; i--) {
-            if (i <= 0) return 0;
+        int i = textLeftOfCursor.length() - 1;
+        boolean cursorIsInWord = (i >= 1) && textLeftOfCursor.charAt(i) != ' ';
 
-            char currentLetter = textLeftOfCursor.charAt(i);
+        if (cursorIsInWord) {
+            // Left of cursor is a word, go to beginning of current word
+            for (i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+                if (i <= 0) return 0;
 
-            if (!foundBeginningOfCurrentWord && currentLetter == ' ') {
-                foundBeginningOfCurrentWord = true;
-            } else if (foundBeginningOfCurrentWord && currentLetter != ' ') {
-                return i + 1;
+                char currentLetter = textLeftOfCursor.charAt(i);
+                if (currentLetter == ' ') {
+                    return i + 1;
+                }
             }
         }
+        else {
+            // Left of cursor is a space, go to the beginning of previous word
+            boolean foundEndOfLeftWord = false;
+            for (i = textLeftOfCursor.length() - 1; i >= 0; i--) {
+                if (i <= 0) return 0;
+
+                char currentLetter = textLeftOfCursor.charAt(i);
+                if (!foundEndOfLeftWord && currentLetter != ' ') {
+                    foundEndOfLeftWord = true;
+                } else if (foundEndOfLeftWord && currentLetter == ' ') {
+                    return i + 1;
+                }
+            }
+        }
+
         return -1;
     }
 
