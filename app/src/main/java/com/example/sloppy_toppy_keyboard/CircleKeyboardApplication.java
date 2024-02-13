@@ -171,6 +171,9 @@ public class CircleKeyboardApplication extends InputMethodService {
 
         if (ctrlHeld) {
             int newCursorPosition = keyboardArrowDirection == KeyboardArrowDirection.LEFT ? inputConnectionUtil.getCtrlLeftCursorPosition() : inputConnectionUtil.getCtrlRightCursorPosition();
+            if (newCursorPosition < 0 || newCursorPosition > inputtedTextLength) {
+                newCursorPosition = currentCursorPosition;
+            }
             setCursorPosition(newCursorPosition, highlightCursorStartPosition);
         }
         else {
