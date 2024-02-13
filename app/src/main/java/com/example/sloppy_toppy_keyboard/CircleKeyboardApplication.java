@@ -161,8 +161,15 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     // Moves the cursor left/right.
-    // If highlightCursorStartPosition has a value, highlights text from its position to the cursor's position.
+    // If highlightCursorStartPosition is not -1, its position to the cursor's new position will be highlighted
     public void moveCursorViaArrowButton(KeyboardArrowDirection keyboardArrowDirection, boolean ctrlHeld, int highlightCursorStartPosition) {
+        boolean wasHighlightingButIsntAnymore = inputConnectionUtil.textIsHighlighted() && highlightCursorStartPosition == -1;
+        if (wasHighlightingButIsntAnymore) {
+            // Remove the highlighting and keep cursor where it's at
+            setCursorPosition(inputConnectionUtil.getCursorPosition(), -1);
+            return;
+        }
+
         int inputtedTextLength = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text.length();
         int currentCursorPosition = inputConnectionUtil.getCursorPosition();
 
