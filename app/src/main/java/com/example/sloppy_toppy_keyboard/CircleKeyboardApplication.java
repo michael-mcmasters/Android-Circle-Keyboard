@@ -102,15 +102,9 @@ public class CircleKeyboardApplication extends InputMethodService {
         }
     }
 
-    public void space() {
-        write(" ");
-    }
-
     public void write(Key key) {
-        write(key.getFunctional());
-    }
+        String s = key.getFunctional();
 
-    private void write(String s) {
         // Is an action
         if (s.length() > 1) {
             performAction(s);

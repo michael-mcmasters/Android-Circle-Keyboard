@@ -9,6 +9,7 @@ public class KeyBindingsYaml {
     private ButtonKeyBindings topRight;
     private ButtonKeyBindings bottomLeft;
     private ButtonKeyBindings bottomRight;
+    private Base base;
 
     public ButtonKeyBindings getTopLeftButtonKeyMap() {
         return topLeft;
@@ -25,4 +26,9 @@ public class KeyBindingsYaml {
     public ButtonKeyBindings getBottomRightButtonKeyMap() {
         return bottomRight;
     }
+
+    public Base getBaseKeyMap() {
+        return base;
+    }
+
 }
