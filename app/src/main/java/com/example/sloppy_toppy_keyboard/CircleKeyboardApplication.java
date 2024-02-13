@@ -1,12 +1,6 @@
 package com.example.sloppy_toppy_keyboard;
 
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.BACKSPACE;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_END;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_HOME;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_LEFT;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_LEFT_WORD;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_RIGHT;
-import static com.example.sloppy_toppy_keyboard.constants.InputActions.CURSOR_RIGHT_WORD;
+import static com.example.sloppy_toppy_keyboard.constants.InputActions.*;
 
 import android.inputmethodservice.InputMethodService;
 import android.text.TextUtils;
@@ -146,6 +140,9 @@ public class CircleKeyboardApplication extends InputMethodService {
             case CURSOR_RIGHT_WORD:
                 moveCursorViaArrowButton(KeyboardArrowDirection.RIGHT, true, getHighlightCursorStartPosition());
                 break;
+            case SELECT_ALL:
+                setCursorPosition(0, inputConnectionUtil.getInputtedTextSize());
+                break;
         }
     }
 
@@ -234,7 +231,6 @@ public class CircleKeyboardApplication extends InputMethodService {
             mainKeyboardView.capitalizeLettersOnKeyboard(false);
         }
     }
-
 
     public InputConnection getInputConnection() {
         return this.inputConnection;

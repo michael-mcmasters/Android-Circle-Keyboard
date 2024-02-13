@@ -9,8 +9,8 @@ topLeft:
   up:
     visual: W
     functional: W
-    modVisual: selectAll
-    modFunctional: ""
+    modVisual: ""
+    modFunctional: selectAll
   left:
     visual: A
     functional: A
