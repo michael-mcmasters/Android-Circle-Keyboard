@@ -5,131 +5,213 @@ topLeft:
   up:
     visual: W
     functional: W
+    modVisual: selectAll
+    modFunctional: ""
   left:
     visual: A
     functional: A
+    modVisual: ""
+    modFunctional: ""
   down:
     visual: S
     functional: S
+    modVisual: ""
+    modFunctional: ""
   right:
     visual: D
     functional: D
+    modVisual: ""
+    modFunctional: ""
   farUp:
     visual: F
     functional: F
+    modVisual: ""
+    modFunctional: ""
   farLeft:
     visual: G
     functional: G
+    modVisual: ""
+    modFunctional: ""
   farDown:
     visual: V
     functional: V
+    modVisual: ""
+    modFunctional: ""
   farRight:
     visual: K
     functional: K
+    modVisual: ""
+    modFunctional: ""
   tap:
     visual: ""
     functional: cursorLeft
+    modVisual: ""
+    modFunctional: ""
   longPress:
     visual: ""
     functional: ""
+    modVisual: ""
+    modFunctional: ""
 
 topRight:
   up:
     visual: E
     functional: E
+    modVisual: ""
+    modFunctional: ""
   left:
     visual: I
     functional: I
+    modVisual: ""
+    modFunctional: ""
   down:
     visual: O
     functional: O
+    modVisual: ""
+    modFunctional: ""
   right:
     visual: U
     functional: U
+    modVisual: ""
+    modFunctional: ""
   farUp:
     visual: T
     functional: T
+    modVisual: ""
+    modFunctional: ""
   farLeft:
     visual: J
     functional: J
+    modVisual: ""
+    modFunctional: ""
   farDown:
     visual: "M"
     functional: "M"
+    modVisual: ""
+    modFunctional: ""
   farRight:
     visual: B
     functional: B
+    modVisual: ""
+    modFunctional: ""
   tap:
     visual: ""
     functional: cursorRight
+    modVisual: ""
+    modFunctional: ""
   longPress:
     visual: ""
     functional: ""
+    modVisual: ""
+    modFunctional: ""
 
 bottomLeft:
   up:
     visual: P
     functional: P
+    modVisual: ""
+    modFunctional: ""
   left:
     visual: bk
     functional: backspace
+    modVisual: ""
+    modFunctional: ""
   down:
     visual: L
     functional: L
+    modVisual: ""
+    modFunctional: ""
   right:
     visual: R
     functional: R
+    modVisual: ""
+    modFunctional: ""
   farUp:
     visual: Q
     functional: Q
+    modVisual: ""
+    modFunctional: ""
   farLeft:
     visual: X
     functional: X
+    modVisual: ""
+    modFunctional: ""
   farDown:
     visual: Y
     functional: Y
+    modVisual: ""
+    modFunctional: ""
   farRight:
     visual: Z
     functional: Z
+    modVisual: ""
+    modFunctional: ""
   tap:
     visual: ""
     functional: cursorLeftWord
+    modVisual: ""
+    modFunctional: ""
   longPress:
     visual: ""
     functional: cursorHome
+    modVisual: ""
+    modFunctional: ""
 
 bottomRight:
   up:
     visual: C
     functional: C
+    modVisual: ""
+    modFunctional: ""
   left:
     visual: H
     functional: H
+    modVisual: ""
+    modFunctional: ""
   down:
     visual: N
     functional: N
+    modVisual: ""
+    modFunctional: ""
   right:
     visual: sp
     functional: " "
+    modVisual: ""
+    modFunctional: ""
   farUp:
     visual: "!"
     functional: "!"
+    modVisual: ""
+    modFunctional: ""
   farLeft:
     visual: ","
     functional: ","
+    modVisual: ""
+    modFunctional: ""
   farDown:
     visual: "."
     functional: "."
+    modVisual: ""
+    modFunctional: ""
   farRight:
     visual: "?"
     functional: "?"
+    modVisual: ""
+    modFunctional: ""
   tap:
     visual: ""
     functional: cursorRightWord
+    modVisual: ""
+    modFunctional: ""
   longPress:
     visual: ""
     functional: cursorEnd
+    modVisual: ""
+    modFunctional: ""
 
 base:
   space:
     visual: space
     functional: " "
+    modVisual: ""
+    modFunctional: ""

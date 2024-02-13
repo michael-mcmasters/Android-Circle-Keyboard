@@ -41,7 +41,7 @@ public class MainKeyboardView extends ConstraintLayout {
     private String leftCircleState;
     private String rightCircleState;
 
-    private Boolean modButtonHeld;
+//    private Boolean modButtonHeld;
 //    private Integer highlightCursorStartPosition;
     private int previousInputtedTextSize;
 
@@ -56,7 +56,7 @@ public class MainKeyboardView extends ConstraintLayout {
         leftCircleState = "ACTION_UP";
         rightCircleState = "ACTION_UP";
 
-        modButtonHeld = false;
+        keyboardApp.setModButtonHeld(false);
 //        highlightCursorStartPosition = -1;
         previousInputtedTextSize = -1;
 
@@ -102,7 +102,7 @@ public class MainKeyboardView extends ConstraintLayout {
         findViewById(R.id.spaceButton).setOnTouchListener((view, motionEvent) -> {
             Integer fingerAction = MotionEventCompat.getActionMasked(motionEvent);
             if (fingerAction.equals(MotionEvent.ACTION_DOWN)) {
-                modButtonHeld = true;
+                keyboardApp.setModButtonHeld(true);
                 previousInputtedTextSize = keyboardApp.getInputConnectionUtil().getInputtedTextSize();
                 keyboardApp.setHighlightCursorStartPosition(keyboardApp.getInputConnectionUtil().getCursorPosition());
             } else if (fingerAction.equals(MotionEvent.ACTION_UP)) {
@@ -114,7 +114,7 @@ public class MainKeyboardView extends ConstraintLayout {
                     keyboardApp.write(keyBindingsYaml.getBaseKeyMap().getSpace());
                 }
 
-                modButtonHeld = false;
+                keyboardApp.setModButtonHeld(false);
                 keyboardApp.setHighlightCursorStartPosition(-1);
             }
 

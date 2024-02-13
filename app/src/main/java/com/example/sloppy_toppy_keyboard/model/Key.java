@@ -7,6 +7,8 @@ public class Key {
 
     private String visual;              // how the key appears on the keyboard
     private String functional;          // what is actually inputted when "typing" this Key
+    private String modVisual;
+    private String modFunctional;
 
 
     public String getVisual() {
@@ -15,5 +17,13 @@ public class Key {
 
     public String getFunctional() {
         return functional;
+    }
+
+    public String getModVisual() {
+        return modVisual;
+    }
+
+    public String getModFunctional() {
+        return modFunctional;
     }
 }

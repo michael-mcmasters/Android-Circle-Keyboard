@@ -33,6 +33,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     private InputConnection inputConnection;
     private ShiftState shiftState;
+    private boolean modButtonHeld;
     private int highlightCursorStartPosition;
 
     /**
@@ -88,6 +89,7 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     private void resetValues() {
         highlightCursorStartPosition = -1;
+        modButtonHeld = false;
         toggleShiftViaCursorPosition();
     }
 
@@ -103,7 +105,10 @@ public class CircleKeyboardApplication extends InputMethodService {
     }
 
     public void write(Key key) {
+        String userInput;
         String s = key.getFunctional();
+
+//        String s = key.getFunctional();
 
         // Is an action
         if (s.length() > 1) {
@@ -249,6 +254,10 @@ public class CircleKeyboardApplication extends InputMethodService {
 
     public void setHighlightCursorStartPosition(int value) {
         this.highlightCursorStartPosition = value;
+    }
+
+    public void setModButtonHeld(boolean value) {
+        this.modButtonHeld = value;
     }
 
 }
